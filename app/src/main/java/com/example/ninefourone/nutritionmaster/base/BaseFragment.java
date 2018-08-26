@@ -50,6 +50,7 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initView(Bundle state);
 
 
+
     @Override
     public void onResume() {
         super.onResume();

@@ -65,7 +65,29 @@
 
                     </LinearLayout>
                 </android.support.v7.widget.Toolbar>
+
+                <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/sliding_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/colorPrimary"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:tl_indicator_corner_radius="1dp"
+                    app:tl_indicator_height="2dp"
+                    app:tl_indicator_width="40dp"
+                    app:tl_tab_space_equal="true">
+
+                </com.flyco.tablayout.SlidingTabLayout>
             </android.support.design.widget.AppBarLayout>
+
+            <com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>
 

@@ -3,8 +3,12 @@ package com.example.ninefourone.nutritionmaster.modules;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
+import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
@@ -18,6 +22,10 @@ public class MainActivity extends BaseActivity {
     FlowingDrawer mDrawer;
     @BindView(R.id.navigation_layout)
     LinearLayout navigationLayout;
+    @BindView(R.id.view_pager)
+    NoScrollViewPager viewPager;
+    @BindView(R.id.sliding_tab_layout)
+    SlidingTabLayout slidingTabLayout;
 
 
     @Override
@@ -41,6 +49,20 @@ public class MainActivity extends BaseActivity {
 //                Logger.i("openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
+        initViewPager();
+    }
+
+    /**
+     * 初始化ViewPager
+     */
+    private void initViewPager() {
+        HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), this);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(homePagerAdapter);
+//        viewPager.setPageTransformer(true, new RotateUpTransformer());
+        slidingTabLayout.setViewPager(viewPager);
+        viewPager.setCurrentItem(1);
+
     }
 
     @Override

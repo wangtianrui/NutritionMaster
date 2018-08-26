@@ -43,4 +43,8 @@ dependencies {
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     //cardview
     compile 'com.android.support:cardview-v7:26.1.0'
+    //tablayout
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
+    //viewpager transforms
+//    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
 }
