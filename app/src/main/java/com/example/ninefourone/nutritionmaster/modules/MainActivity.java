@@ -4,6 +4,16 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
+import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
+import com.ToxicBakery.viewpager.transforms.FlipHorizontalTransformer;
+import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
+import com.ToxicBakery.viewpager.transforms.StackTransformer;
+import com.ToxicBakery.viewpager.transforms.TabletTransformer;
+import com.ToxicBakery.viewpager.transforms.ZoomInTransformer;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
@@ -59,7 +69,10 @@ public class MainActivity extends BaseActivity {
         HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), this);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(homePagerAdapter);
-//        viewPager.setPageTransformer(true, new RotateUpTransformer());
+        //CubeInTransformer 内旋
+        //FlipHorizontalTransformer 像翻书一样
+        //AccordionTransformer  风琴 拉压
+        viewPager.setPageTransformer(true, new CubeOutTransformer());
         slidingTabLayout.setViewPager(viewPager);
         viewPager.setCurrentItem(1);
 
