@@ -1,4 +1,4 @@
-package com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.page2;
+package com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.bodyinformation;
 
 import android.os.Bundle;
 
@@ -12,7 +12,7 @@ import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 public class BodyInformationFragment extends BaseFragment {
     @Override
     public int getLayoutResId() {
-        return R.layout.page_2;
+        return R.layout.body_information_fragment;
     }
 
     @Override

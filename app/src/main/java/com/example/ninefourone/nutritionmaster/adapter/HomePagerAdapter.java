@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.page1.Page1;
-import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.page2.BodyInformationFragment;
+import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.bodyinformation.BodyInformationFragment;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.page3.Page3;
 
 
