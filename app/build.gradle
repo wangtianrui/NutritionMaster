@@ -48,5 +48,7 @@ dependencies {
     //viewpager transforms
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     //个人信息的那个条条
-//    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    //wave
+    compile 'com.gelitenight.waveview:waveview:1.0.0'
 }
