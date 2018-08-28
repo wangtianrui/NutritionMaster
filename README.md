@@ -45,6 +45,7 @@
 
 * 图像识别食物,获取卡路里: https://cloud.baidu.com/product/imagerecognition/fine_grained
 * **nutrition facts** from food : https://www.kaggle.com/openfoodfacts/world-food-facts#en.openfoodfacts.org.products.tsv
+  * https://world.openfoodfacts.org/ 数据集官网
   * 456赞,目前为止发现的最高的相关数据集
 * nutrition facts for **McDonald’s** : https://www.kaggle.com/mcdonalds/nutrition-facts
   * Calories, fat, and sugar for every cheeseburger, fries, and milkshake on menu
