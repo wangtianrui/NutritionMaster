@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
-    app:edMenuBackground="@color/colorPrimary"
+    app:edMenuBackground="#FFF"
     app:edMenuSize="230dp"
     app:edPosition="1">
 
@@ -102,15 +102,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="sidjisd" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="hahahah" />
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/drawer_user_avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/test_avatar" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="ScorpioMiku"
+                        android:textColor="#FFF" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
     </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
