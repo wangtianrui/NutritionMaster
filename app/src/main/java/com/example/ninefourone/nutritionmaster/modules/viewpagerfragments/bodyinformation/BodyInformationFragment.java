@@ -46,7 +46,7 @@ public class BodyInformationFragment extends BaseFragment {
     private static final int REFRESH_STEP_WHAT = 0;
 
     //循环取当前时刻的步数中间的间隔时间
-    private long TIME_INTERVAL_REFRESH = 1000;
+    private long TIME_INTERVAL_REFRESH = 500;
 
     private Handler mDelayHandler = new Handler(new TodayStepCounterCall());
 
