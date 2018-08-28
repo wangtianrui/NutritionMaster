@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="com.example.ninefourone.nutritionmaster.NutritionMaster"
+        android:name=".NutritionMaster"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -33,6 +33,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".step.StepStarter"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

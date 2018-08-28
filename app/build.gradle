@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
@@ -51,4 +51,5 @@ dependencies {
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     //wave
     compile 'com.gelitenight.waveview:waveview:1.0.0'
+    implementation project(':todaystepcounterlib')
 }

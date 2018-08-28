@@ -1,19 +1,16 @@
 package com.example.ninefourone.nutritionmaster.modules;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.widget.LinearLayout;
 
 
-import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
-import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
-import com.ToxicBakery.viewpager.transforms.FlipHorizontalTransformer;
-import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
-import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
-import com.ToxicBakery.viewpager.transforms.StackTransformer;
-import com.ToxicBakery.viewpager.transforms.TabletTransformer;
-import com.ToxicBakery.viewpager.transforms.ZoomInTransformer;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
@@ -21,6 +18,9 @@ import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+import com.today.step.lib.ISportStepInterface;
+import com.today.step.lib.TodayStepManager;
+import com.today.step.lib.TodayStepService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,7 +75,6 @@ public class MainActivity extends BaseActivity {
         viewPager.setPageTransformer(true, new CubeOutTransformer());
         slidingTabLayout.setViewPager(viewPager);
         viewPager.setCurrentItem(1);
-
     }
 
     @Override
@@ -102,4 +101,6 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked() {
         mDrawer.openMenu();
     }
+
+
 }

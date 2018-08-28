@@ -1,6 +1,8 @@
 package com.example.ninefourone.nutritionmaster;
 
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -12,6 +14,7 @@ import com.orhanobut.logger.Logger;
 
 public class NutritionMaster extends Application {
     public static NutritionMaster mInstance;
+    private int appCount = 0;
 
     @Override
     public void onCreate() {
@@ -25,10 +28,55 @@ public class NutritionMaster extends Application {
      */
     private void init() {
         Logger.addLogAdapter(new AndroidLogAdapter());
-        Logger.d("Logger初始化成功");
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                appCount++;
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                appCount--;
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
     }
 
     public static NutritionMaster getInstance() {
         return mInstance;
     }
+
+    /**
+     * app是否在前台
+     *
+     * @return true前台，false后台
+     */
+    public boolean isForeground() {
+        return appCount > 0;
+    }
+
 }
