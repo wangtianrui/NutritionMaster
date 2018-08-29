@@ -1,26 +1,20 @@
 package com.example.ninefourone.nutritionmaster.modules;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
+import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
-import com.today.step.lib.ISportStepInterface;
-import com.today.step.lib.TodayStepManager;
-import com.today.step.lib.TodayStepService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +30,8 @@ public class MainActivity extends BaseActivity {
     NoScrollViewPager viewPager;
     @BindView(R.id.sliding_tab_layout)
     SlidingTabLayout slidingTabLayout;
+    @BindView(R.id.bar_cover)
+    FrameLayout barCover;
 
 
     @Override
@@ -47,10 +43,13 @@ public class MainActivity extends BaseActivity {
     public void initViews(Bundle savedInstanceState) {
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onDrawerStateChange(int oldState, int newState) {
                 if (newState == ElasticDrawer.STATE_CLOSED) {
-//                    Logger.i("Drawer STATE_CLOSED");
+                    barCover.setVisibility(View.INVISIBLE);
+                } else {
+                    barCover.setVisibility(View.VISIBLE);
                 }
             }
 
