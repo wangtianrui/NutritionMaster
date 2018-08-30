@@ -238,6 +238,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:clipChildren="false">
+
+                        <me.panpf.swsv.SpiderWebScoreView
+                            android:id="@+id/spiderWeb_mainActivity"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            app:scoreColor="@color/colorPrimary"
+                            app:scoreStrokeColor="@color/colorPrimary"/>
+
+                        <me.panpf.swsv.CircularLayout
+                            android:id="@+id/layout_mainActivity_circular"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:clipChildren="false" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="40dp"

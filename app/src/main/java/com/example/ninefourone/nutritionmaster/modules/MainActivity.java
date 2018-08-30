@@ -1,12 +1,12 @@
 package com.example.ninefourone.nutritionmaster.modules;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.cb.ratingbar.CBRatingBar;
@@ -15,12 +15,15 @@ import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.github.siyamed.shapeimageview.CircularImageView;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.panpf.swsv.CircularLayout;
+import me.panpf.swsv.SpiderWebScoreView;
 
 public class MainActivity extends BaseActivity {
 
@@ -36,6 +39,14 @@ public class MainActivity extends BaseActivity {
     FrameLayout barCover;
     @BindView(R.id.cb_rating_bar)
     CBRatingBar cbRatingBar;
+    @BindView(R.id.toolbar_user_avatar)
+    CircularImageView toolbarUserAvatar;
+    @BindView(R.id.drawer_user_avatar)
+    CircularImageView drawerUserAvatar;
+    @BindView(R.id.spiderWeb_mainActivity)
+    SpiderWebScoreView spiderWebMainActivity;
+    @BindView(R.id.layout_mainActivity_circular)
+    CircularLayout layoutMainActivityCircular;
 
 
     @Override
@@ -62,7 +73,7 @@ public class MainActivity extends BaseActivity {
 //                Logger.i("openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
-
+        initSpiderView();
         initViewPager();
     }
 
@@ -104,6 +115,23 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.navigation_layout)
     public void onViewClicked() {
         mDrawer.openMenu();
+    }
+
+
+    /**
+     * 初始化蛛网图
+     */
+    private void initSpiderView() {
+        float[] scores = {9.1f, 5.5f, 7.7f, 8.9f, 4.6f};
+        String[] flags = {"糖分", "淡水", "蛋白质", "维生素", "矿物质"};
+        spiderWebMainActivity.setScores(10f, scores);
+        layoutMainActivityCircular.removeAllViews();
+        for (String flag : flags) {
+            TextView scoreTextView = (TextView) LayoutInflater.from(getBaseContext()).inflate(R.layout.score,
+                    layoutMainActivityCircular, false);
+            scoreTextView.setText(flag);
+            layoutMainActivityCircular.addView(scoreTextView);
+        }
     }
 
 

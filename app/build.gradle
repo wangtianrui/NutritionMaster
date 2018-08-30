@@ -55,4 +55,8 @@ dependencies {
     implementation project(':todaystepcounterlib')
     //打分ui
     compile 'com.github.CB-ysx:CBRatingBar:3.0.1'
+    //蛛网
+    implementation 'me.panpf:spider-web-score-view:1.0.1'
+    //折线
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }

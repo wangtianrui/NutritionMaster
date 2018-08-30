@@ -36,17 +36,12 @@ import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class BodyInformationFragment extends BaseFragment {
 
-    @BindView(R.id.progress_1)
-    RoundCornerProgressBar progress1;
+
     Unbinder unbinder;
     @BindView(R.id.step_text_view)
     TextView stepTextView;
     @BindView(R.id.waveLoadingView)
     WaveLoadingView waveLoadingView;
-    @BindView(R.id.button_10)
-    Button button10;
-    @BindView(R.id.button_80)
-    Button button80;
 
     private int stepCount = 0;
     private static final int REFRESH_STEP_WHAT = 0;
@@ -66,14 +61,7 @@ public class BodyInformationFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle state) {
-        progress1.setProgressColor(Color.parseColor("#ed3b27"));
-        progress1.setProgressBackgroundColor(Color.parseColor("#808080"));
-        progress1.setMax(70);
-        progress1.setProgress(15);
-
-
         initStepCounter();
-//        Logger.d(((MainActivity)getActivity()).getStepCount());
     }
 
 
@@ -128,18 +116,6 @@ public class BodyInformationFragment extends BaseFragment {
      */
     private void updateStepCount() {
         stepTextView.setText(stepCount + "步");
-    }
-
-    @OnClick({R.id.button_10, R.id.button_80})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.button_10:
-                waveLoadingView.setProgressValue(10);
-                break;
-            case R.id.button_80:
-                waveLoadingView.setProgressValue(80);
-                break;
-        }
     }
 
 
