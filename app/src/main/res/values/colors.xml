@@ -10,6 +10,10 @@
 
 
     <color name="bar_open">#045ca1</color>
+    <color name="place_holder">#b3b3b3</color>
+    <color name="color_bar_background">#e6e5e5</color>
+    <color name="color_bar_deeper">#52ec2f</color>
+    <color name="color_bar_self">#9ac3f9</color>
 
 
 

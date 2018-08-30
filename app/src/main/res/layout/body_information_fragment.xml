@@ -16,15 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-    <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
-        android:id="@+id/progress_2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        app:rcBackgroundColor="#ece9e9"
-        app:rcBackgroundPadding="5dp"
-        app:rcIconPadding="5dp"
-        app:rcIconSize="50dp"
-        app:rcRadius="10dp" />
 
     <TextView
         android:layout_width="match_parent"

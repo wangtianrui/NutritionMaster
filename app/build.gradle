@@ -53,4 +53,6 @@ dependencies {
     implementation 'me.itangqi.waveloadingview:library:0.3.5'
     //计步
     implementation project(':todaystepcounterlib')
+    //打分ui
+    compile 'com.github.CB-ysx:CBRatingBar:3.0.1'
 }

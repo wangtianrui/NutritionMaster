@@ -1,17 +1,19 @@
 package com.example.ninefourone.nutritionmaster.modules;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.cb.ratingbar.CBRatingBar;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
-import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
@@ -32,6 +34,8 @@ public class MainActivity extends BaseActivity {
     SlidingTabLayout slidingTabLayout;
     @BindView(R.id.bar_cover)
     FrameLayout barCover;
+    @BindView(R.id.cb_rating_bar)
+    CBRatingBar cbRatingBar;
 
 
     @Override
@@ -58,6 +62,7 @@ public class MainActivity extends BaseActivity {
 //                Logger.i("openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
+
         initViewPager();
     }
 

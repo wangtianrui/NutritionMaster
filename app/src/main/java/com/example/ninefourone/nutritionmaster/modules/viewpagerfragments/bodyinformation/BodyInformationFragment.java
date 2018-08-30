@@ -38,8 +38,6 @@ public class BodyInformationFragment extends BaseFragment {
 
     @BindView(R.id.progress_1)
     RoundCornerProgressBar progress1;
-    @BindView(R.id.progress_2)
-    IconRoundCornerProgressBar progress2;
     Unbinder unbinder;
     @BindView(R.id.step_text_view)
     TextView stepTextView;
@@ -72,13 +70,6 @@ public class BodyInformationFragment extends BaseFragment {
         progress1.setProgressBackgroundColor(Color.parseColor("#808080"));
         progress1.setMax(70);
         progress1.setProgress(15);
-
-        progress2.setProgressColor(Color.parseColor("#56d2c2"));
-        progress2.setProgressBackgroundColor(Color.parseColor("#757575"));
-        progress2.setIconBackgroundColor(Color.parseColor("#38c0ae"));
-        progress2.setMax(550);
-        progress2.setProgress(147);
-        progress2.setIconImageResource(R.drawable.test_avatar);
 
 
         initStepCounter();
