@@ -10,10 +10,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
@@ -26,7 +26,9 @@ import com.today.step.lib.TodayStepService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.itangqi.waveloadingview.WaveLoadingView;
 
 /**
  * Created by ScorpioMiku on 2018/8/26.
@@ -41,6 +43,12 @@ public class BodyInformationFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.step_text_view)
     TextView stepTextView;
+    @BindView(R.id.waveLoadingView)
+    WaveLoadingView waveLoadingView;
+    @BindView(R.id.button_10)
+    Button button10;
+    @BindView(R.id.button_80)
+    Button button80;
 
     private int stepCount = 0;
     private static final int REFRESH_STEP_WHAT = 0;
@@ -129,6 +137,18 @@ public class BodyInformationFragment extends BaseFragment {
      */
     private void updateStepCount() {
         stepTextView.setText(stepCount + "步");
+    }
+
+    @OnClick({R.id.button_10, R.id.button_80})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.button_10:
+                waveLoadingView.setProgressValue(10);
+                break;
+            case R.id.button_80:
+                waveLoadingView.setProgressValue(80);
+                break;
+        }
     }
 
 

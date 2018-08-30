@@ -50,6 +50,7 @@ dependencies {
     //个人信息的那个条条
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     //wave
-    compile 'com.gelitenight.waveview:waveview:1.0.0'
+    implementation 'me.itangqi.waveloadingview:library:0.3.5'
+    //计步
     implementation project(':todaystepcounterlib')
 }

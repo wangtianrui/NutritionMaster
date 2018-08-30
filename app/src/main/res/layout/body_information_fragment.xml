@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -15,7 +14,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="50dp" />
 
     <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
         android:id="@+id/progress_2"
@@ -29,13 +28,49 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="30dp" />
 
+    <me.itangqi.waveloadingview.WaveLoadingView
+        android:id="@+id/waveLoadingView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:wlv_borderColor="@color/colorAccent"
+        app:wlv_borderWidth="3dp"
+        app:wlv_progressValue="40"
+        app:wlv_round_rectangle="true"
+        app:wlv_shapeType="circle"
+        app:wlv_titleCenter="卡路里值"
+        app:wlv_titleCenterColor="@android:color/white"
+        app:wlv_titleCenterSize="24sp"
+        app:wlv_titleCenterStrokeColor="@android:color/holo_blue_dark"
+        app:wlv_titleCenterStrokeWidth="3dp"
+        app:wlv_triangle_direction="north"
+        app:wlv_waveAmplitude="70"
+        app:wlv_waveColor="@color/colorAccent" />
 
     <TextView
         android:id="@+id/step_text_view"
-        android:textColor="#FFF"
         android:layout_width="200dp"
-        android:layout_height="50dp" />
+        android:layout_height="30dp"
+        android:textColor="#4d4a4a" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_10"
+            android:layout_width="80dp"
+            android:text="10"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/button_80"
+            android:layout_width="80dp"
+            android:text="80"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </LinearLayout>
