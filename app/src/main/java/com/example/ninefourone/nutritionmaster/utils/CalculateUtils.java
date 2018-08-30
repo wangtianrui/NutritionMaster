@@ -13,12 +13,33 @@ public class CalculateUtils {
      * @return
      */
     public static float BMI(float height, float weight) {
-        height = height / 100;
+        if (height > 10) {
+            height = height / 100;
+        }
         return weight / (height * height);
     }
 
     /**
+     * 通过身高获得健康的体重
+     *
+     * @param height
+     * @return
+     */
+    public static float[] standardH2W(float height) {
+        if (height > 10) {
+            height = height / 100;
+        }
+        float min;
+        float max;
+        min = (float) 18.5 * height * height;
+        max = (float) 14 * height * height;
+        float[] re = {min, max};
+        return re;
+    }
+
+    /**
      * 根据BMI得到体质情况
+     *
      * @param BMI
      * @return
      */
