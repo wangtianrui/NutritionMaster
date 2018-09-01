@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#FF03A9F4</color>
-    <color name="colorPrimaryDark">#ff0171c9</color>
+    <color name="colorPrimary">#25d43c</color>
+    <color name="colorPrimaryDark">#17a346</color>
     <color name="colorAccent">#FF00E5FF</color>
     <color name="colorControlNormal">#FF78909C</color>
     <color name="colorControlActivated">#FF03A9F4</color>
     <color name="colorSwitchThumbNormal">#FF78909C</color>
 
 
-    <color name="bar_open">#045ca1</color>
+    <color name="bar_open">#17a346</color>
     <color name="place_holder">#b3b3b3</color>
     <color name="color_bar_background">#e6e5e5</color>
     <color name="color_bar_deeper">#52ec2f</color>

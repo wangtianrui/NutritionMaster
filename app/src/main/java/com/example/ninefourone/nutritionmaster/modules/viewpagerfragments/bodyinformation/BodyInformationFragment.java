@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -13,20 +12,21 @@ import android.os.RemoteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
+import com.example.ninefourone.nutritionmaster.utils.ChartDrawer;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
 import com.today.step.lib.ISportStepInterface;
 import com.today.step.lib.TodayStepManager;
 import com.today.step.lib.TodayStepService;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.itangqi.waveloadingview.WaveLoadingView;
 
@@ -42,6 +42,10 @@ public class BodyInformationFragment extends BaseFragment {
     TextView stepTextView;
     @BindView(R.id.waveLoadingView)
     WaveLoadingView waveLoadingView;
+    @BindView(R.id.weight_line_chart)
+    LineChart weightLineChart;
+    @BindView(R.id.step_line_chart)
+    LineChart stepLineChart;
 
     private int stepCount = 0;
     private static final int REFRESH_STEP_WHAT = 0;
@@ -62,6 +66,7 @@ public class BodyInformationFragment extends BaseFragment {
     @Override
     public void initView(Bundle state) {
         initStepCounter();
+        initChart();
     }
 
 
@@ -115,7 +120,7 @@ public class BodyInformationFragment extends BaseFragment {
      * 改变记步UI中的数字
      */
     private void updateStepCount() {
-        stepTextView.setText(stepCount + "步");
+        stepTextView.setText(stepCount + "");
     }
 
 
@@ -147,6 +152,26 @@ public class BodyInformationFragment extends BaseFragment {
             }
             return false;
         }
+    }
+
+
+    /**
+     * 初始化表格
+     */
+    private void initChart() {
+        ArrayList<Entry> weightPointValues = new ArrayList<>();
+        for (int i = 1; i < 15; i++) {
+            int y = (int) (Math.random() * 20);
+            weightPointValues.add(new Entry(i, y));
+        }
+        ChartDrawer.initSingleLineChart(weightLineChart, weightPointValues, "体重");
+
+        ArrayList<Entry> stepPointValues = new ArrayList<>();
+        for (int i = 1; i < 15; i++) {
+            int y = (int) (Math.random() * 20);
+            stepPointValues.add(new Entry(i, y));
+        }
+        ChartDrawer.initSingleLineChart(stepLineChart, stepPointValues, "步数");
     }
 
 }
