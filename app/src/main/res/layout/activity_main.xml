@@ -44,44 +44,89 @@
                         android:orientation="vertical">
 
                         <android.support.v7.widget.Toolbar
+                            android:id="@+id/tool_bar"
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
                             app:contentInsetStart="0dp"
                             app:layout_scrollFlags="scroll|enterAlways"
                             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                            <LinearLayout
-                                android:id="@+id/navigation_layout"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-
-                                <ImageView
-
+                                <LinearLayout
+                                    android:id="@+id/navigation_layout"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_drawer_home" />
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
 
-                                <com.github.siyamed.shapeimageview.CircularImageView
-                                    android:id="@+id/toolbar_user_avatar"
-                                    android:layout_width="34dp"
-                                    android:layout_height="31dp"
-                                    android:layout_marginEnd="3dp"
-                                    android:layout_marginStart="15dp"
-                                    android:src="@drawable/test_avatar" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:maxLines="1"
-                                    android:text="营养大师"
-                                    android:textColor="#FFFF"
-                                    android:textSize="15sp" />
+                                    <ImageView
 
-                            </LinearLayout>
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_drawer_home" />
+
+                                    <com.github.siyamed.shapeimageview.CircularImageView
+                                        android:id="@+id/toolbar_user_avatar"
+                                        android:layout_width="34dp"
+                                        android:layout_height="31dp"
+                                        android:layout_marginEnd="3dp"
+                                        android:layout_marginStart="15dp"
+                                        android:src="@drawable/test_avatar" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:maxLines="1"
+                                        android:text="营养大师"
+                                        android:textColor="#FFFF"
+                                        android:textSize="15sp" />
+
+                                </LinearLayout>
+
+                                <!--<LinearLayout-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="match_parent"-->
+                                    <!--android:layout_alignParentRight="true"-->
+                                    <!--android:gravity="center_vertical"-->
+                                    <!--android:orientation="horizontal">-->
+
+                                    <!--<ImageView-->
+                                        <!--android:id="@+id/exchange_button"-->
+                                        <!--android:layout_width="@dimen/icon_size"-->
+                                        <!--android:layout_height="@dimen/icon_size"-->
+                                        <!--android:src="@drawable/ic_exchange" />-->
+
+                                    <!--<TextView-->
+                                        <!--android:layout_width="20dp"-->
+                                        <!--android:layout_height="match_parent" />-->
+
+                                    <!--<ImageView-->
+                                        <!--android:id="@+id/record_button"-->
+                                        <!--android:layout_width="22dp"-->
+                                        <!--android:layout_height="22dp"-->
+                                        <!--android:src="@drawable/ic_record" />-->
+
+                                    <!--<TextView-->
+                                        <!--android:layout_width="20dp"-->
+                                        <!--android:layout_height="match_parent" />-->
+
+                                    <!--<ImageView-->
+                                        <!--android:id="@+id/search_button"-->
+                                        <!--android:layout_width="18dp"-->
+                                        <!--android:layout_height="18dp"-->
+                                        <!--android:src="@drawable/ic_search" />-->
+
+                                    <!--<TextView-->
+                                        <!--android:layout_width="25dp"-->
+                                        <!--android:layout_height="match_parent" />-->
+
+                                <!--</LinearLayout>-->
+                            </RelativeLayout>
                         </android.support.v7.widget.Toolbar>
 
 
@@ -109,6 +154,11 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </android.support.design.widget.CoordinatorLayout>
+
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
     <!--menu-->
@@ -249,7 +299,7 @@
                             android:layout_height="100dp"
                             android:layout_gravity="center"
                             app:scoreColor="@color/colorPrimary"
-                            app:scoreStrokeColor="@color/colorPrimary"/>
+                            app:scoreStrokeColor="@color/colorPrimary" />
 
                         <me.panpf.swsv.CircularLayout
                             android:id="@+id/layout_mainActivity_circular"
@@ -521,10 +571,8 @@
 
                     </RelativeLayout>
 
-
                 </LinearLayout>
             </ScrollView>
-
 
         </LinearLayout>
 

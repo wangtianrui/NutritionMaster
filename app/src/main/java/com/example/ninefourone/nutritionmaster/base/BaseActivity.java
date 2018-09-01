@@ -23,6 +23,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         initToolBar();
     }
 
+
+
     /**
      * 设置布局layout
      *

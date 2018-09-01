@@ -59,4 +59,6 @@ dependencies {
     implementation 'me.panpf:spider-web-score-view:1.0.1'
     //折线
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //searchview
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
 }

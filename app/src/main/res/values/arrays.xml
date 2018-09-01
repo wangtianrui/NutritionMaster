@@ -2,7 +2,7 @@
 <resources>
     <string-array name="sections">
         <item>page1</item>
-        <item>page2</item>
+        <item>今日信息</item>
         <item>page3</item>
     </string-array>
 </resources>

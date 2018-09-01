@@ -104,8 +104,8 @@
 
                         <me.itangqi.waveloadingview.WaveLoadingView
                             android:id="@+id/waveLoadingView"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             app:wlv_borderColor="#ff5b20"
                             app:wlv_borderWidth="3dp"
                             app:wlv_progressValue="40"
@@ -213,7 +213,7 @@
 
                         <com.github.mikephil.charting.charts.LineChart
                             android:id="@+id/weight_line_chart"
-                            android:layout_width="match_parent"
+                            android:layout_width="150dp"
                             android:layout_height="@dimen/infor_chart_height">
 
                         </com.github.mikephil.charting.charts.LineChart>
@@ -313,7 +313,7 @@
 
                         <com.github.mikephil.charting.charts.LineChart
                             android:id="@+id/step_line_chart"
-                            android:layout_width="match_parent"
+                            android:layout_width="150dp"
                             android:layout_height="@dimen/infor_chart_height">
 
                         </com.github.mikephil.charting.charts.LineChart>
