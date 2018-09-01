@@ -61,4 +61,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //searchview
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    //floatbuttom
+    compile 'com.nightonke:boommenu:2.1.1'
 }

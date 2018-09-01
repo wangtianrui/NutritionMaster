@@ -25,6 +25,8 @@ import com.github.siyamed.shapeimageview.CircularImageView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomMenuButton;
 import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
@@ -61,6 +63,8 @@ public class MainActivity extends BaseActivity {
     MaterialSearchView searchView;
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
+    @BindView(R.id.boom_menu_button)
+    BoomMenuButton boomMenuButton;
 
 
     @Override
@@ -90,6 +94,7 @@ public class MainActivity extends BaseActivity {
         initSpiderView();
         initViewPager();
         initSearchView();
+        initBMB();
     }
 
     /**
@@ -199,6 +204,19 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+    }
+
+    /**
+     * 初始化悬浮按钮
+     */
+    private void initBMB() {
+        for (int i = 0; i < boomMenuButton.getPiecePlaceEnum().pieceNumber(); i++) {
+            HamButton.Builder builder = new HamButton.Builder()
+                    .normalImageRes(R.drawable.ic_bmi)
+                    .normalTextRes(R.string.app_name)
+                    .subNormalTextRes(R.string.self_information);
+            boomMenuButton.addBuilder(builder);
+        }
     }
 
 }

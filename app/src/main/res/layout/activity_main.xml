@@ -11,7 +11,7 @@
     app:edMenuSize="230dp"
     app:edPosition="1">
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -89,41 +89,41 @@
                                 </LinearLayout>
 
                                 <!--<LinearLayout-->
-                                    <!--android:layout_width="wrap_content"-->
-                                    <!--android:layout_height="match_parent"-->
-                                    <!--android:layout_alignParentRight="true"-->
-                                    <!--android:gravity="center_vertical"-->
-                                    <!--android:orientation="horizontal">-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_alignParentRight="true"-->
+                                <!--android:gravity="center_vertical"-->
+                                <!--android:orientation="horizontal">-->
 
-                                    <!--<ImageView-->
-                                        <!--android:id="@+id/exchange_button"-->
-                                        <!--android:layout_width="@dimen/icon_size"-->
-                                        <!--android:layout_height="@dimen/icon_size"-->
-                                        <!--android:src="@drawable/ic_exchange" />-->
+                                <!--<ImageView-->
+                                <!--android:id="@+id/exchange_button"-->
+                                <!--android:layout_width="@dimen/icon_size"-->
+                                <!--android:layout_height="@dimen/icon_size"-->
+                                <!--android:src="@drawable/ic_exchange" />-->
 
-                                    <!--<TextView-->
-                                        <!--android:layout_width="20dp"-->
-                                        <!--android:layout_height="match_parent" />-->
+                                <!--<TextView-->
+                                <!--android:layout_width="20dp"-->
+                                <!--android:layout_height="match_parent" />-->
 
-                                    <!--<ImageView-->
-                                        <!--android:id="@+id/record_button"-->
-                                        <!--android:layout_width="22dp"-->
-                                        <!--android:layout_height="22dp"-->
-                                        <!--android:src="@drawable/ic_record" />-->
+                                <!--<ImageView-->
+                                <!--android:id="@+id/record_button"-->
+                                <!--android:layout_width="22dp"-->
+                                <!--android:layout_height="22dp"-->
+                                <!--android:src="@drawable/ic_record" />-->
 
-                                    <!--<TextView-->
-                                        <!--android:layout_width="20dp"-->
-                                        <!--android:layout_height="match_parent" />-->
+                                <!--<TextView-->
+                                <!--android:layout_width="20dp"-->
+                                <!--android:layout_height="match_parent" />-->
 
-                                    <!--<ImageView-->
-                                        <!--android:id="@+id/search_button"-->
-                                        <!--android:layout_width="18dp"-->
-                                        <!--android:layout_height="18dp"-->
-                                        <!--android:src="@drawable/ic_search" />-->
+                                <!--<ImageView-->
+                                <!--android:id="@+id/search_button"-->
+                                <!--android:layout_width="18dp"-->
+                                <!--android:layout_height="18dp"-->
+                                <!--android:src="@drawable/ic_search" />-->
 
-                                    <!--<TextView-->
-                                        <!--android:layout_width="25dp"-->
-                                        <!--android:layout_height="match_parent" />-->
+                                <!--<TextView-->
+                                <!--android:layout_width="25dp"-->
+                                <!--android:layout_height="match_parent" />-->
 
                                 <!--</LinearLayout>-->
                             </RelativeLayout>
@@ -159,7 +159,17 @@
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </FrameLayout>
+
+        <com.nightonke.boommenu.BoomMenuButton
+            android:id="@+id/boom_menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:bmb_buttonEnum="ham"
+            app:bmb_buttonPlaceEnum="buttonPlace_ham_4"
+            app:bmb_piecePlaceEnum="piecePlace_ham_4" />
+    </RelativeLayout>
 
     <!--menu-->
     <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
