@@ -1,11 +1,16 @@
 package com.example.ninefourone.nutritionmaster.adapter;
 
+import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,13 +28,16 @@ public class CardHolder extends RecyclerView.ViewHolder {
     TextView tvSign;
 
 
-
     public CardHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(String text) {
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void bindView(int picId, String text, Context context) {
         tvName.setText(text);
+        ivPhoto.setImageDrawable(context.getDrawable(picId));
     }
+
+
 }

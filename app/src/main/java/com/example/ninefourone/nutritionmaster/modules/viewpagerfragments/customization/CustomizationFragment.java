@@ -14,6 +14,7 @@ import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.cardconfig.CardConfig;
 import com.example.ninefourone.nutritionmaster.cardconfig.CardItemTouchCallBack;
 import com.example.ninefourone.nutritionmaster.cardconfig.SwipeCardLayoutManager;
+import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 
 import java.util.ArrayList;
 
@@ -68,8 +69,8 @@ public class CustomizationFragment extends BaseFragment {
     @Override
     protected void loadData() {
         super.loadData();
-        for (int i = 0; i < 10; i++) {
-            mDataList.add(i + "个");
+        for (int i = 1; i <= 7; i++) {
+            mDataList.add("周" + ConstantUtils.arab2Chinese(i) + "美食普");
         }
     }
 

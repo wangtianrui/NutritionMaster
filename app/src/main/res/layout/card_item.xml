@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="420dp"
+    android:layout_gravity="center"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="10dp"
@@ -16,16 +17,17 @@
             android:id="@+id/iv_photo"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:background="@drawable/foods" />
+             />
 
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_photo"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="Rachel"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -33,11 +35,12 @@
 
         <TextView
             android:id="@+id/tv_sign"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_name"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="其他"
             android:textSize="10sp" />
 

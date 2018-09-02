@@ -1,6 +1,8 @@
 package com.example.ninefourone.nutritionmaster.adapter;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,16 @@ import java.util.ArrayList;
 public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     private Context context;
     private ArrayList<String> mList;
+    private int[] picList = new int[]{
+            R.drawable.monday,
+            R.drawable.tuesday,
+            R.drawable.wednesday,
+            R.drawable.thursday,
+            R.drawable.friday,
+            R.drawable.saturday,
+            R.drawable.sunday
+    };
+
 
     public CardAdapter(Context context, ArrayList<String> mList) {
         this.context = context;
@@ -32,9 +44,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
         return cardHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(CardHolder holder, int position) {
-        holder.bindView(mList.get(position));
+        holder.bindView(picList[position], mList.get(position), context);
     }
 
     @Override
