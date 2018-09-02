@@ -63,4 +63,7 @@ dependencies {
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     //floatbuttom
     compile 'com.nightonke:boommenu:2.1.1'
+    //recycler and card
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
 }

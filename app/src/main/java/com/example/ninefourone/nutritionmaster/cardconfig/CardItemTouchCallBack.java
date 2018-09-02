@@ -1,27 +1,30 @@
-package com.fu.tantancard;
+package com.example.ninefourone.nutritionmaster.cardconfig;
 
 import android.graphics.Canvas;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
+import com.example.ninefourone.nutritionmaster.adapter.CardAdapter;
+import com.example.ninefourone.nutritionmaster.adapter.CardHolder;
+
 import java.util.List;
 
 /**
- * Created by Fu.
- * QQ:908323236
- * 2017/11/10 11:27
+ * Created by ScorpioMiku on 2018/9/2.
  */
 
 public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
 
     private static final String TAG = "CardItemTouchCallBack";
     private RecyclerView mRecyclerView;
-    private MainActivity.CardAdapter mAdapter;
+    private CardAdapter mAdapter;
     private List mDatas;
 
-    public CardItemTouchCallBack(RecyclerView recyclerView, MainActivity.CardAdapter adapter, List datas) {
+    public CardItemTouchCallBack(RecyclerView recyclerView, CardAdapter adapter, List datas) {
         this.mRecyclerView = recyclerView;
         this.mAdapter = adapter;
         this.mDatas = datas;
@@ -93,11 +96,11 @@ public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
         switch (direction) {
             case 4:
                 Log.d(TAG, "onSwiped: 左边滑出");
-                mAdapter.addDelCount();
+                mAdapter.swipe2left();
                 break;
             case 8:
                 Log.d(TAG, "onSwiped: 右边滑出");
-                mAdapter.addLoveCount();
+                mAdapter.swipe2Right();
                 break;
         }
         //移除这条数据
@@ -111,10 +114,8 @@ public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
         mAdapter.notifyDataSetChanged();
         //复位
         viewHolder.itemView.setRotation(0);
-        if (viewHolder instanceof MainActivity.CardAdapter.CardViewHolder) {
-            MainActivity.CardAdapter.CardViewHolder holder = (MainActivity.CardAdapter.CardViewHolder) viewHolder;
-            holder.iv_love.setAlpha(0f);
-            holder.iv_del.setAlpha(0f);
+        if (viewHolder instanceof CardHolder) {
+            CardHolder holder = (CardHolder) viewHolder;
         }
     }
 
@@ -130,6 +131,7 @@ public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
      * @param actionState
      * @param isCurrentlyActive
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                             float dX, float dY, int actionState, boolean isCurrentlyActive) {
@@ -175,17 +177,17 @@ public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
                 //第一层左右滑动的时候稍微有点旋转
                 childView.setRotation(xFraction * 15);  //这里最多旋转15度
 
-                if (viewHolder instanceof MainActivity.CardAdapter.CardViewHolder) {
-                    MainActivity.CardAdapter.CardViewHolder holder = (MainActivity.CardAdapter.CardViewHolder) viewHolder;
+                if (viewHolder instanceof CardHolder) {
+                    CardHolder holder = (CardHolder) viewHolder;
                     if (dX > 0) {
                         //右滑,显示爱心
-                        holder.iv_love.setAlpha(xFraction);
+//                        holder.iv_love.setAlpha(xFraction);
                     } else if (dX < 0) {
                         //左滑,显示叉,注意这里xFraction为负数，所以要取反
-                        holder.iv_del.setAlpha(-xFraction);
+//                        holder.iv_del.setAlpha(-xFraction);
                     } else {
-                        holder.iv_love.setAlpha(0f);
-                        holder.iv_del.setAlpha(0f);
+//                        holder.iv_love.setAlpha(0f);
+//                        holder.iv_del.setAlpha(0f);
                     }
                 }
             }
@@ -194,10 +196,10 @@ public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
 
     @Override
     public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {
-        Log.i(TAG, "getSwipeThreshold: ");
-        if (isUpOrDown(viewHolder.itemView)) { //如果是向上或者向下滑动
-            return Float.MAX_VALUE; //就返回阈值为很大
-        }
+//        Log.i(TAG, "getSwipeThreshold: ");
+//        if (isUpOrDown(viewHolder.itemView)) { //如果是向上或者向下滑动
+//            return Float.MAX_VALUE; //就返回阈值为很大
+//        }
         return super.getSwipeThreshold(viewHolder);
     }
 

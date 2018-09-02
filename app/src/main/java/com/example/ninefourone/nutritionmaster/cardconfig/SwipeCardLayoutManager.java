@@ -1,4 +1,4 @@
-package com.example.ninefourone.nutritionmaster.layoutmanager;
+package com.example.ninefourone.nutritionmaster.cardconfig;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -61,9 +61,9 @@ public class SwipeCardLayoutManager extends RecyclerView.LayoutManager {
             //高度空隙
             int heightSpace = getHeight() - getDecoratedMeasuredHeight(view);
             //给子view布局,这里居中了
-            layoutDecoratedWithMargins(view, widthSpace / 2, 200,
+            layoutDecoratedWithMargins(view, widthSpace / 2, 0,
                     widthSpace / 2 + getDecoratedMeasuredWidth(view),
-                    getDecoratedMeasuredHeight(view) + 200);
+                    getDecoratedMeasuredHeight(view) + 0);
 
             /**
              * 下面要调整每一层itemview的的大小及Y轴和Z轴的偏移

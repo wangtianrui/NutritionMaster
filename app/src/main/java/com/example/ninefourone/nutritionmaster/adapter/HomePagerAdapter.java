@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.ninefourone.nutritionmaster.R;
-import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.page1.Page1;
+import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationFragment;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.bodyinformation.BodyInformationFragment;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.page3.Page3;
 
@@ -30,7 +30,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
         if (fragments[position] == null) {
             switch (position) {
                 case 0:
-                    fragments[position] = Page1.getInstance();
+                    fragments[position] = CustomizationFragment.getInstance();
                     break;
                 case 1:
                     fragments[position] = BodyInformationFragment.getInstance();

@@ -1,4 +1,4 @@
-package com.example.ninefourone.nutritionmaster.layoutmanager;
+package com.example.ninefourone.nutritionmaster.cardconfig;
 
 import android.content.Context;
 import android.util.TypedValue;
