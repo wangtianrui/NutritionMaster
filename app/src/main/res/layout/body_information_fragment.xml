@@ -104,8 +104,8 @@
 
                         <me.itangqi.waveloadingview.WaveLoadingView
                             android:id="@+id/waveLoadingView"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
                             app:wlv_borderColor="#ff5b20"
                             app:wlv_borderWidth="3dp"
                             app:wlv_progressValue="40"

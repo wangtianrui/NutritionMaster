@@ -167,8 +167,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             app:bmb_buttonEnum="ham"
-            app:bmb_buttonPlaceEnum="buttonPlace_ham_4"
-            app:bmb_piecePlaceEnum="piecePlace_ham_4" />
+            app:bmb_buttonPlaceEnum="buttonPlace_ham_2"
+            app:bmb_piecePlaceEnum="piecePlace_ham_2" />
     </RelativeLayout>
 
     <!--menu-->

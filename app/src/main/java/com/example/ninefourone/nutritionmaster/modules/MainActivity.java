@@ -210,13 +210,16 @@ public class MainActivity extends BaseActivity {
      * 初始化悬浮按钮
      */
     private void initBMB() {
-        for (int i = 0; i < boomMenuButton.getPiecePlaceEnum().pieceNumber(); i++) {
-            HamButton.Builder builder = new HamButton.Builder()
-                    .normalImageRes(R.drawable.ic_bmi)
-                    .normalTextRes(R.string.app_name)
-                    .subNormalTextRes(R.string.self_information);
-            boomMenuButton.addBuilder(builder);
-        }
+
+        HamButton.Builder builder = new HamButton.Builder()
+                .normalImageRes(R.drawable.food_material)
+                .normalTextRes(R.string.food_meterial_title);
+        boomMenuButton.addBuilder(builder);
+        HamButton.Builder builder2 = new HamButton.Builder()
+                .normalImageRes(R.drawable.foods)
+                .normalTextRes(R.string.food_title);
+        boomMenuButton.addBuilder(builder2);
+
     }
 
 }
