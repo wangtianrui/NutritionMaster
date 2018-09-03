@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.bean.DailyCard;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -19,19 +20,10 @@ import java.util.ArrayList;
 
 public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     private Context context;
-    private ArrayList<String> mList;
-    private int[] picList = new int[]{
-            R.drawable.monday,
-            R.drawable.tuesday,
-            R.drawable.wednesday,
-            R.drawable.thursday,
-            R.drawable.friday,
-            R.drawable.saturday,
-            R.drawable.sunday
-    };
+    private ArrayList<DailyCard> mList;
 
 
-    public CardAdapter(Context context, ArrayList<String> mList) {
+    public CardAdapter(Context context, ArrayList<DailyCard> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -47,7 +39,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(CardHolder holder, int position) {
-        holder.bindView(picList[position], mList.get(position), context);
+        holder.bindView(mList.get(position).getPictureId(), mList.get(position).getTitle(), context);
     }
 
     @Override

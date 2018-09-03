@@ -37,6 +37,7 @@ public class CardHolder extends RecyclerView.ViewHolder {
     public void bindView(int picId, String text, Context context) {
         tvName.setText(text);
         ivPhoto.setImageDrawable(context.getDrawable(picId));
+
     }
 
 

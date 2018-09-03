@@ -11,6 +11,7 @@ import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.CardAdapter;
 import com.example.ninefourone.nutritionmaster.adapter.CardHolder;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
+import com.example.ninefourone.nutritionmaster.bean.DailyCard;
 import com.example.ninefourone.nutritionmaster.cardconfig.CardConfig;
 import com.example.ninefourone.nutritionmaster.cardconfig.CardItemTouchCallBack;
 import com.example.ninefourone.nutritionmaster.cardconfig.SwipeCardLayoutManager;
@@ -34,7 +35,18 @@ public class CustomizationFragment extends BaseFragment {
 
     private CardAdapter cardAdapter;
     private CardHolder cardHolder;
-    private ArrayList<String> mDataList = new ArrayList<>();
+    private ArrayList<DailyCard> mDataList = new ArrayList<>();
+
+    private int[] picList = new int[]{
+            R.drawable.monday,
+            R.drawable.tuesday,
+            R.drawable.wednesday,
+            R.drawable.thursday,
+            R.drawable.friday,
+            R.drawable.saturday,
+            R.drawable.sunday
+    };
+
 
     @Override
     public int getLayoutResId() {
@@ -70,7 +82,13 @@ public class CustomizationFragment extends BaseFragment {
     protected void loadData() {
         super.loadData();
         for (int i = 1; i <= 7; i++) {
-            mDataList.add("周" + ConstantUtils.arab2Chinese(i) + "美食普");
+//            mDataList.add("周" + ConstantUtils.arab2Chinese(i) + "美食普");
+            DailyCard dailyCard = new DailyCard(
+                    "周" + ConstantUtils.arab2Chinese(i) + "美食普",
+                    "这里放描述",
+                    picList[i - 1]
+            );
+            mDataList.add(dailyCard);
         }
     }
 
@@ -89,6 +107,5 @@ public class CustomizationFragment extends BaseFragment {
         //3.与RecyclerView关联起来
         itemTouchHelper.attachToRecyclerView(cardRecyclerView);
     }
-
 
 }

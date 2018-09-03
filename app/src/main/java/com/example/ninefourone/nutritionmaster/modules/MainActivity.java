@@ -1,8 +1,10 @@
 package com.example.ninefourone.nutritionmaster.modules;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -18,14 +20,17 @@ import com.cb.ratingbar.CBRatingBar;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
+import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
+import com.example.ninefourone.nutritionmaster.utils.PermissionUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.github.siyamed.shapeimageview.CircularImageView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.orhanobut.logger.Logger;
 
@@ -131,6 +136,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         Logger.d("oncreate");
         setSupportActionBar(toolBar);
+        askPermission();
     }
 
     @Override
@@ -210,16 +216,33 @@ public class MainActivity extends BaseActivity {
      * 初始化悬浮按钮
      */
     private void initBMB() {
-
         HamButton.Builder builder = new HamButton.Builder()
                 .normalImageRes(R.drawable.food_material)
-                .normalTextRes(R.string.food_meterial_title);
+                .normalTextRes(R.string.food_meterial_title)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        Intent cameraIntent = new Intent(MainActivity.this, FoodMaterialCamera.class);
+                        startActivity(cameraIntent);
+                    }
+                });
         boomMenuButton.addBuilder(builder);
         HamButton.Builder builder2 = new HamButton.Builder()
                 .normalImageRes(R.drawable.foods)
                 .normalTextRes(R.string.food_title);
         boomMenuButton.addBuilder(builder2);
-
     }
 
+    /**
+     * 请求权限
+     */
+    private void askPermission() {
+        PermissionUtils.requestCameraPermission(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MessageUtils.MakeToast("权限赋予成功");
+    }
 }
