@@ -18,7 +18,9 @@
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
@@ -300,23 +302,30 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="wrap_content"
                         android:clipChildren="false">
 
-                        <me.panpf.swsv.SpiderWebScoreView
-                            android:id="@+id/spiderWeb_mainActivity"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            app:scoreColor="@color/colorPrimary"
-                            app:scoreStrokeColor="@color/colorPrimary" />
+                        <!--<me.panpf.swsv.SpiderWebScoreView-->
+                        <!--android:id="@+id/spiderWeb_mainActivity"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--app:scoreColor="@color/colorPrimary"-->
+                        <!--app:scoreStrokeColor="@color/colorPrimary" />-->
 
-                        <me.panpf.swsv.CircularLayout
-                            android:id="@+id/layout_mainActivity_circular"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            android:clipChildren="false" />
+                        <!--<me.panpf.swsv.CircularLayout-->
+                        <!--android:id="@+id/layout_mainActivity_circular"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:clipChildren="false" />-->
+                        <com.github.mikephil.charting.charts.RadarChart
+                            android:id="@+id/spider_view"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_gravity="center">
+
+                        </com.github.mikephil.charting.charts.RadarChart>
                     </FrameLayout>
 
                     <TextView
