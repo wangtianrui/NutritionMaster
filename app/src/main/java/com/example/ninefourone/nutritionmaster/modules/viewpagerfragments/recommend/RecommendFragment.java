@@ -17,6 +17,8 @@ import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
+import android.view.LayoutInflater;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -74,15 +76,33 @@ public class RecommendFragment extends BaseFragment {
         adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         adapter.isFirstOnly(false);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                recyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.loadMoreComplete();
+//                        Logger.d("开始加载");
+                    }
+                }, 1000);
+            }
+        }, recyclerView);
+        adapter.disableLoadMoreIfNotFullPage();
+        adapter.setEnableLoadMore(true);
+        adapter.setHeaderView(LayoutInflater.from(getContext()).
+                inflate(R.layout.recommend_head, (ViewGroup) recyclerView.getParent(), false));
         recyclerView.setNestedScrollingEnabled(false);
         manager = new GridLayoutManager(getContext(), 2);
+        adapter.setHeaderViewAsFlow(false);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if (adapter.getItemViewType(position) == RecommendFood.TYPE_BIG ||
                         adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
 //                    Logger.d(manager.getSpanCount());
-                    return manager.getSpanCount();
+                    return 2;
                 } else {
                     return 1;
                 }
@@ -97,9 +117,18 @@ public class RecommendFragment extends BaseFragment {
     @Override
     protected void loadData() {
         super.loadData();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 11; i++) {
             RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", indexs[i % 4]);
             datas.add(recommendFood);
         }
+    }
+
+    /**
+     * 判断数据是否加载完了（服务器没了）
+     *
+     * @return
+     */
+    private boolean isDataOverCount() {
+        return false;
     }
 }
