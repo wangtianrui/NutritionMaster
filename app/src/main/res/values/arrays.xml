@@ -3,6 +3,6 @@
     <string-array name="sections">
         <item>一周定制</item>
         <item>今日信息</item>
-        <item>page3</item>
+        <item>推荐菜谱</item>
     </string-array>
 </resources>

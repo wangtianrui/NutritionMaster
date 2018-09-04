@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.RecommendAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,8 @@ public class RecommendFragment extends BaseFragment {
 
     private RecommendAdapter adapter;
     private ArrayList<RecommendFood> datas = new ArrayList<>();
+    private GridLayoutManager manager;
+    private int[] indexs = new int[]{0, 1, 1, 2};
 
     @Override
     public int getLayoutResId() {
@@ -67,8 +71,24 @@ public class RecommendFragment extends BaseFragment {
     @Override
     protected void initRecyclerView() {
         adapter = new RecommendAdapter(datas);
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        adapter.isFirstOnly(false);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setNestedScrollingEnabled(false);
+        manager = new GridLayoutManager(getContext(), 2);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (adapter.getItemViewType(position) == RecommendFood.TYPE_BIG ||
+                        adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
+//                    Logger.d(manager.getSpanCount());
+                    return manager.getSpanCount();
+                } else {
+                    return 1;
+                }
+            }
+        });
+        recyclerView.setLayoutManager(manager);
     }
 
     /**
@@ -78,7 +98,7 @@ public class RecommendFragment extends BaseFragment {
     protected void loadData() {
         super.loadData();
         for (int i = 0; i < 20; i++) {
-            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", i % 3);
+            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", indexs[i % 4]);
             datas.add(recommendFood);
         }
     }

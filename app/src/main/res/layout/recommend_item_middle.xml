@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="170dp"
+    android:layout_width="160dp"
     android:layout_height="@dimen/recommend_item_default_hight"
     android:layout_margin="@dimen/recommend_margin"
     android:layout_weight="1"

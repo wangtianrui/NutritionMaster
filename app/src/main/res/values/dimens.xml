@@ -20,9 +20,9 @@
 
     <dimen name="icon_size">20dp</dimen>
 
-    <dimen name="recommend_item_default_hight">130dp</dimen>
-    <dimen name="recommend_item_big_height">250dp</dimen>
-    <dimen name="recommend_margin">10dp</dimen>
+    <dimen name="recommend_item_default_hight">100dp</dimen>
+    <dimen name="recommend_item_big_height">180dp</dimen>
+    <dimen name="recommend_margin">5dp</dimen>
 
 
 </resources>
