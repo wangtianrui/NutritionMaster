@@ -96,6 +96,7 @@ public class RecommendFragment extends BaseFragment {
         recyclerView.setNestedScrollingEnabled(false);
         manager = new GridLayoutManager(getContext(), 2);
         adapter.setHeaderViewAsFlow(false);
+
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
