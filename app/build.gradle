@@ -66,4 +66,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26.1.0'
     //混合式recyclerview
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    //翻页view
+    compile 'com.github.czy1121:turncardlistview:1.0.0'
+
 }

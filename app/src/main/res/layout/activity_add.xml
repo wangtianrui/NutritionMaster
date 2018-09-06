@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_content"
+    android:layout_width="match_parent"
+    android:background="#334397"
+    android:layout_height="match_parent"
+    tools:context="com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity">
+
+
+    <com.github.czy1121.view.TurnCardListView
+        android:id="@+id/card_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.github.czy1121.view.TurnCardListView>
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_back_button" />
+</RelativeLayout>
