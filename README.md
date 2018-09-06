@@ -1,6 +1,8 @@
 ## 营养大师
 
-一款基于数据分析的智能饮食推荐APP
+一款基于数据分析的智能饮食推荐APP  
+
+仓库地址: https://github.com/wangtianrui/NutritionMaster
 
 ### 需求
 
