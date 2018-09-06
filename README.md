@@ -43,8 +43,11 @@
 
 ### 数据集和api
 
+**赵励志收集的资料**
+
 * 图像识别食物,获取卡路里: https://cloud.baidu.com/product/imagerecognition/fine_grained
 * **nutrition facts** from food : https://www.kaggle.com/openfoodfacts/world-food-facts#en.openfoodfacts.org.products.tsv
+  * https://world.openfoodfacts.org/ 数据集官网
   * 456赞,目前为止发现的最高的相关数据集
 * nutrition facts for **McDonald’s** : https://www.kaggle.com/mcdonalds/nutrition-facts
   * Calories, fat, and sugar for every cheeseburger, fries, and milkshake on menu
@@ -53,18 +56,7 @@
   * 糖尿病 时间-血糖含量关系数据 : https://archive.ics.uci.edu/ml/datasets/diabetes
   * GPA和饮食习惯的关系 : https://www.kaggle.com/borapajo/food-choices
 
-### 应用逻辑
-
-贴流程图
-
-### 任务分配
-
-| 姓名   | 任务                |
-| ---- | ----------------- |
-| 蒋昱葳  | 1. 网络爬虫收集相关信息和数据集 |
-| 王天锐  |                   |
-| 秦楚霁  |                   |
-| 赵励志  |                   |
+**王天锐收集的资料**
 
 0、9种体质   //暂定
 1、根据用户的体质来进行推荐菜谱与制定营养计划     ----  两种模式：9体模式和普通健身模式
@@ -81,6 +73,8 @@
 
 
 
+### 需求分析
+
 * 登陆、注册
 * 输入基本信息信息（身高、体重、性别、年龄）
   * 额外信息（工作、周均运动时间、睡眠段、九体、病史）
@@ -95,8 +89,11 @@
 * 做菜环节加入识菜帮所有功能，并加入详细食材信息卡路里等
 * 针对特殊人群，混到推荐里推送有利于健康的**方法**信息（敷黄瓜方法）
 * 特殊病人群体每日相关东西的摄取量的一个限定区间显示
+* ocr体检单信息录入
 
+* **针对照片中菜的数量分析吃了多少菜,包含多少卡路里**
 
+**技术难点**
 
 1、服务器
 
@@ -107,4 +104,23 @@
 4、推荐
 
 
+
+### 数据库设计
+
+![](http://ww1.sinaimg.cn/large/0077h8xtly1fuz0a6yb4gj30z10hl1kx.jpg)
+
+**加下划线为主码,加粗为外码,默认not null**
+
+* 菜谱(<u>str菜名</u>,  **str体质_名称**(对应最优菜谱的效果) ,int卡路里,date制作时间,str口味,str工艺,str做法,str图片url)
+* 菜谱\_做菜_食材 ( <u>**str菜谱-菜名**</u>,**<u>str食材-名称**</u>,int用量)
+* 食材( <u>str名称</u>)
+* 体质(<u>str体质名称</u>,str体质特点,str运动调理方式)
+* 食材\_效果_体质(<u> **str食材-名称**</u>,<u> **str体质-名称**</u>,int效果(1有利于,0不利于))
+* 体质性状(<u>str性状名称</u>)
+* 体质\_身体状态_体质性状( <u> **str体质-名称**</u>, <u> **str体质性状-性状名称**</u>)
+* 菜谱功能和分类( <u>str分类名称</u>)
+* 菜谱\_菜谱效果_菜谱功能和分类( <u> **str菜谱-菜名**</u>, <u> **str菜谱功能和分类-分类名称**</u>)
+* 用户( <u>str用户名</u>,str密码, **nullable str 体质-名称**,nullable str特殊职业,)
+* 特殊职业( <u>str职业名称</u>)
+* 菜谱功能分类_可治愈的职业\_特殊职业( <u> **特殊职业-str职业名称**</u>, <u> **菜谱功能和分类-str分类名称**</u>)
 

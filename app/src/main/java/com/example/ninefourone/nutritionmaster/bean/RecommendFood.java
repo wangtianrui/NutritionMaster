@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger;
 
 public class RecommendFood implements MultiItemEntity {
 
+    //三种view
     public static final int TYPE_BIG = 0;
     public static final int TYPE_MIDDLE = 1;
     public static final int TYPE_DETAIL = 2;
