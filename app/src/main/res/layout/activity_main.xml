@@ -11,74 +11,141 @@
     app:edMenuSize="230dp"
     app:edPosition="1">
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.Toolbar
+                <FrameLayout
+
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    app:contentInsetStart="0dp"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/bar_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:background="@color/bar_open"
+                        android:visibility="gone">
+
+                    </FrameLayout>
 
                     <LinearLayout
-                        android:id="@+id/navigation_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.Toolbar
+                            android:id="@+id/tool_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            app:contentInsetStart="0dp"
+                            app:layout_scrollFlags="scroll|enterAlways"
+                            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:id="@+id/navigation_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
 
 
-                        <ImageView
+                                    <ImageView
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_drawer_home" />
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_drawer_home" />
 
-                        <com.github.siyamed.shapeimageview.CircularImageView
-                            android:id="@+id/toolbar_user_avatar"
-                            android:layout_width="34dp"
-                            android:layout_height="31dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginStart="15dp"
-                            android:src="@drawable/test_avatar" />
+                                    <com.github.siyamed.shapeimageview.CircularImageView
+                                        android:id="@+id/toolbar_user_avatar"
+                                        android:layout_width="34dp"
+                                        android:layout_height="31dp"
+                                        android:layout_marginEnd="3dp"
+                                        android:layout_marginStart="15dp"
+                                        android:src="@drawable/test_avatar" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:maxLines="1"
-                            android:text="营养大师"
-                            android:textColor="#FFFF"
-                            android:textSize="15sp" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:maxLines="1"
+                                        android:text="营养大师"
+                                        android:textColor="#FFFF"
+                                        android:textSize="15sp" />
 
+                                </LinearLayout>
+
+                                <!--<LinearLayout-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_alignParentRight="true"-->
+                                <!--android:gravity="center_vertical"-->
+                                <!--android:orientation="horizontal">-->
+
+                                <!--<ImageView-->
+                                <!--android:id="@+id/exchange_button"-->
+                                <!--android:layout_width="@dimen/icon_size"-->
+                                <!--android:layout_height="@dimen/icon_size"-->
+                                <!--android:src="@drawable/ic_exchange" />-->
+
+                                <!--<TextView-->
+                                <!--android:layout_width="20dp"-->
+                                <!--android:layout_height="match_parent" />-->
+
+                                <!--<ImageView-->
+                                <!--android:id="@+id/record_button"-->
+                                <!--android:layout_width="22dp"-->
+                                <!--android:layout_height="22dp"-->
+                                <!--android:src="@drawable/ic_record" />-->
+
+                                <!--<TextView-->
+                                <!--android:layout_width="20dp"-->
+                                <!--android:layout_height="match_parent" />-->
+
+                                <!--<ImageView-->
+                                <!--android:id="@+id/search_button"-->
+                                <!--android:layout_width="18dp"-->
+                                <!--android:layout_height="18dp"-->
+                                <!--android:src="@drawable/ic_search" />-->
+
+                                <!--<TextView-->
+                                <!--android:layout_width="25dp"-->
+                                <!--android:layout_height="match_parent" />-->
+
+                                <!--</LinearLayout>-->
+                            </RelativeLayout>
+                        </android.support.v7.widget.Toolbar>
+
+
+                        <com.flyco.tablayout.SlidingTabLayout
+                            android:id="@+id/sliding_tab_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            app:tl_indicator_corner_radius="1dp"
+                            app:tl_indicator_height="2dp"
+                            app:tl_indicator_width="40dp"
+                            app:tl_tab_space_equal="true">
+
+                        </com.flyco.tablayout.SlidingTabLayout>
                     </LinearLayout>
-                </android.support.v7.widget.Toolbar>
-
-                <com.flyco.tablayout.SlidingTabLayout
-                    android:id="@+id/sliding_tab_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@color/colorPrimary"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:tl_indicator_corner_radius="1dp"
-                    app:tl_indicator_height="2dp"
-                    app:tl_indicator_width="40dp"
-                    app:tl_tab_space_equal="true">
-
-                </com.flyco.tablayout.SlidingTabLayout>
+                </FrameLayout>
             </android.support.design.widget.AppBarLayout>
 
             <com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager
@@ -89,7 +156,22 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </android.support.design.widget.CoordinatorLayout>
-    </FrameLayout>
+
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.nightonke.boommenu.BoomMenuButton
+            android:id="@+id/boom_menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:bmb_buttonEnum="ham"
+            app:bmb_buttonPlaceEnum="buttonPlace_ham_2"
+            app:bmb_piecePlaceEnum="piecePlace_ham_2" />
+    </RelativeLayout>
 
     <!--menu-->
     <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
@@ -102,31 +184,415 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.github.siyamed.shapeimageview.CircularImageView
-                    android:id="@+id/drawer_user_avatar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/test_avatar" />
+                android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="110dp"
                         android:layout_height="match_parent"
-                        android:text="ScorpioMiku"
-                        android:textColor="#FFF" />
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.github.siyamed.shapeimageview.CircularImageView
+                            android:id="@+id/drawer_user_avatar"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/test_avatar" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="ScorpioMiku"
+                                android:textColor="#FFF" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha="0.2"
+                        android:src="@drawable/icon_black" />
                 </RelativeLayout>
             </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="65dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_score" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="10dp"
+                                android:text="体质"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="8sp" />
+                        </LinearLayout>
+
+                        <com.cb.ratingbar.CBRatingBar
+                            android:id="@+id/cb_rating_bar"
+                            android:layout_width="150dp"
+                            android:layout_height="36dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="3dp"
+                            app:starCanTouch="true"
+                            app:starCount="5"
+                            app:starCoverDir="left_to_right"
+                            app:starEndColor="#2a00ff"
+                            app:starFillColor="#c6c6c6"
+                            app:starMaxProgress="120"
+                            app:starPathData="@string/pig"
+                            app:starProgress="60"
+                            app:starShowStroke="false"
+                            app:starSize="20dp"
+                            app:starSpace="10dp"
+                            app:starStartColor="#30e2f5"
+                            app:starStrokeWidth="1dp"
+                            app:starUseGradient="true" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false">
+
+                        <!--<me.panpf.swsv.SpiderWebScoreView-->
+                        <!--android:id="@+id/spiderWeb_mainActivity"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--app:scoreColor="@color/colorPrimary"-->
+                        <!--app:scoreStrokeColor="@color/colorPrimary" />-->
+
+                        <!--<me.panpf.swsv.CircularLayout-->
+                        <!--android:id="@+id/layout_mainActivity_circular"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:clipChildren="false" />-->
+                        <com.github.mikephil.charting.charts.RadarChart
+                            android:id="@+id/spider_view"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_gravity="center">
+
+                        </com.github.mikephil.charting.charts.RadarChart>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="65dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_bmi" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="10dp"
+                                    android:text="BMI值"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="8sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@color/color_bar_self" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="8dp"
+                                    android:text="@string/self_information"
+                                    android:textSize="5sp" />
+
+                                <TextView
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@color/color_bar_deeper" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="8dp"
+                                    android:text="@string/standrad_information"
+                                    android:textSize="5sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+                        </LinearLayout>
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:layout_width="145dp"
+                            android:layout_height="36dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="3dp"
+                            app:rcBackgroundColor="@color/color_bar_background"
+                            app:rcBackgroundPadding="5dp"
+                            app:rcMax="100"
+                            app:rcProgress="56.6"
+                            app:rcProgressColor="@color/color_bar_self"
+                            app:rcRadius="10dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgress="74.1"
+                            app:rcSecondaryProgressColor="@color/color_bar_deeper" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="65dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_height" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="10dp"
+                                    android:text="身高"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="8sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@color/color_bar_self" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="8dp"
+                                    android:text="@string/self_information"
+                                    android:textSize="5sp" />
+
+                                <TextView
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@color/color_bar_deeper" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="8dp"
+                                    android:text="@string/standrad_information"
+                                    android:textSize="5sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+                        </LinearLayout>
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:layout_width="145dp"
+                            android:layout_height="36dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="3dp"
+                            app:rcBackgroundColor="@color/color_bar_background"
+                            app:rcBackgroundPadding="5dp"
+                            app:rcMax="100"
+                            app:rcProgress="16.6"
+                            app:rcProgressColor="@color/color_bar_self"
+                            app:rcRadius="10dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgress="32.1"
+                            app:rcSecondaryProgressColor="@color/color_bar_deeper" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="65dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_weight" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="10dp"
+                                    android:text="体重"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="8sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@color/color_bar_self" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="8dp"
+                                    android:text="@string/self_information"
+                                    android:textSize="5sp" />
+
+                                <TextView
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@color/color_bar_deeper" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="8dp"
+                                    android:text="@string/standrad_information"
+                                    android:textSize="5sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+                        </LinearLayout>
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:layout_width="145dp"
+                            android:layout_height="36dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="3dp"
+                            app:rcBackgroundColor="@color/color_bar_background"
+                            app:rcBackgroundPadding="5dp"
+                            app:rcMax="100"
+                            app:rcProgress="32.6"
+                            app:rcProgressColor="@color/color_bar_self"
+                            app:rcRadius="10dp"
+                            app:rcReverse="false"
+                            app:rcSecondaryProgress="56.1"
+                            app:rcSecondaryProgressColor="@color/color_bar_deeper" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
         </LinearLayout>
 
     </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>

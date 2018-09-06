@@ -12,4 +12,13 @@
     <dimen name="bt_height">36dp</dimen>
 
 
+    <dimen name="infor_layout_height">120dp</dimen>
+    <dimen name="infor_image_height">35dp</dimen>
+    <dimen name="infor_chart_height">90dp</dimen>
+    <dimen name="infor_chart_width">200dp</dimen>
+
+
+    <dimen name="icon_size">20dp</dimen>
+
+
 </resources>

@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
@@ -50,5 +50,20 @@ dependencies {
     //个人信息的那个条条
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     //wave
-    compile 'com.gelitenight.waveview:waveview:1.0.0'
+    implementation 'me.itangqi.waveloadingview:library:0.3.5'
+    //计步
+    implementation project(':todaystepcounterlib')
+    //打分ui
+    compile 'com.github.CB-ysx:CBRatingBar:3.0.1'
+//    //蛛网
+//    implementation 'me.panpf:spider-web-score-view:1.0.1'
+    //折线
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //searchview
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    //floatbuttom
+    compile 'com.nightonke:boommenu:2.1.1'
+    //recycler and card
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
 }

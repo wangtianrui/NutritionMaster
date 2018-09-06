@@ -1,20 +1,34 @@
 package com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.bodyinformation;
 
-import android.graphics.Color;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.RemoteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
-import com.gelitenight.waveview.library.WaveView;
+import com.example.ninefourone.nutritionmaster.utils.ChartDrawer;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.today.step.lib.ISportStepInterface;
+import com.today.step.lib.TodayStepManager;
+import com.today.step.lib.TodayStepService;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.itangqi.waveloadingview.WaveLoadingView;
 
 /**
  * Created by ScorpioMiku on 2018/8/26.
@@ -22,13 +36,27 @@ import butterknife.Unbinder;
 
 public class BodyInformationFragment extends BaseFragment {
 
-    @BindView(R.id.progress_1)
-    RoundCornerProgressBar progress1;
-    @BindView(R.id.progress_2)
-    IconRoundCornerProgressBar progress2;
+
     Unbinder unbinder;
-    @BindView(R.id.wave_view)
-    WaveView waveView;
+    @BindView(R.id.step_text_view)
+    TextView stepTextView;
+    @BindView(R.id.waveLoadingView)
+    WaveLoadingView waveLoadingView;
+    @BindView(R.id.weight_line_chart)
+    LineChart weightLineChart;
+    @BindView(R.id.step_line_chart)
+    LineChart stepLineChart;
+
+    private int stepCount = 0;
+    private static final int REFRESH_STEP_WHAT = 0;
+
+    //循环取当前时刻的步数中间的间隔时间
+    private long TIME_INTERVAL_REFRESH = 500;
+
+    private Handler mDelayHandler = new Handler(new TodayStepCounterCall());
+
+    private ISportStepInterface iSportStepInterface;
+
 
     @Override
     public int getLayoutResId() {
@@ -37,31 +65,8 @@ public class BodyInformationFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle state) {
-        progress1.setProgressColor(Color.parseColor("#ed3b27"));
-        progress1.setProgressBackgroundColor(Color.parseColor("#808080"));
-        progress1.setMax(70);
-        progress1.setProgress(15);
-
-        int progressColor1 = progress1.getProgressColor();
-        int backgroundColor1 = progress1.getProgressBackgroundColor();
-        int max1 = (int) progress1.getMax();
-        int progress_1 = (int) progress1.getProgress();
-
-
-        progress2.setProgressColor(Color.parseColor("#56d2c2"));
-        progress2.setProgressBackgroundColor(Color.parseColor("#757575"));
-        progress2.setIconBackgroundColor(Color.parseColor("#38c0ae"));
-        progress2.setMax(550);
-        progress2.setProgress(147);
-        progress2.setIconImageResource(R.drawable.test_avatar);
-
-        int progressColor2 = progress2.getProgressColor();
-        int backgroundColor2 = progress2.getProgressBackgroundColor();
-        int headerColor2 = progress2.getColorIconBackground();
-        int max2 = (int) progress2.getMax();
-        int progress_2 = (int) progress2.getProgress();
-
-        waveView.setShapeType(WaveView.ShapeType.CIRCLE);
+        initStepCounter();
+        initChart();
     }
 
 
@@ -82,4 +87,91 @@ public class BodyInformationFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    /**
+     * 计步器初始化
+     */
+    private void initStepCounter() {
+        TodayStepManager.init(getActivity().getApplication());
+        //开启计步
+        Intent stepCounterStart = new Intent(getActivity(), TodayStepService.class);
+        getActivity().startService(stepCounterStart);
+        getActivity().bindService(stepCounterStart, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                iSportStepInterface = ISportStepInterface.Stub.asInterface(service);
+                try {
+                    stepCount = iSportStepInterface.getCurrentTimeSportStep();
+                    updateStepCount();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                mDelayHandler.sendEmptyMessageDelayed(REFRESH_STEP_WHAT, TIME_INTERVAL_REFRESH);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        }, Context.BIND_AUTO_CREATE);
+    }
+
+    /**
+     * 改变记步UI中的数字
+     */
+    private void updateStepCount() {
+        stepTextView.setText(stepCount + "");
+    }
+
+
+    /**
+     * 定时器，修改UI
+     */
+    class TodayStepCounterCall implements Handler.Callback {
+
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case REFRESH_STEP_WHAT: {
+                    //每隔500毫秒获取一次计步数据刷新UI
+                    if (null != iSportStepInterface) {
+                        int step = 0;
+                        try {
+                            step = iSportStepInterface.getCurrentTimeSportStep();
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                        if (stepCount != step) {
+                            stepCount = step;
+                            updateStepCount();
+                        }
+                    }
+                    mDelayHandler.sendEmptyMessageDelayed(REFRESH_STEP_WHAT, TIME_INTERVAL_REFRESH);
+                    break;
+                }
+            }
+            return false;
+        }
+    }
+
+
+    /**
+     * 初始化表格
+     */
+    private void initChart() {
+        ArrayList<Entry> weightPointValues = new ArrayList<>();
+        for (int i = 1; i < 15; i++) {
+            int y = (int) (Math.random() * 20);
+            weightPointValues.add(new Entry(i, y));
+        }
+        ChartDrawer.initSingleLineChart(weightLineChart, weightPointValues, "体重");
+
+        ArrayList<Entry> stepPointValues = new ArrayList<>();
+        for (int i = 1; i < 15; i++) {
+            int y = (int) (Math.random() * 20);
+            stepPointValues.add(new Entry(i, y));
+        }
+        ChartDrawer.initSingleLineChart(stepLineChart, stepPointValues, "步数");
+    }
+
 }
