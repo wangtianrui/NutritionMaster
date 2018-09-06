@@ -99,12 +99,16 @@ public class RecommendFragment extends BaseFragment {
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (adapter.getItemViewType(position) == RecommendFood.TYPE_BIG ||
-                        adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
-//                    Logger.d(manager.getSpanCount());
+                if (position == 0) {
                     return 2;
                 } else {
-                    return 1;
+                    if (adapter.getItemViewType(position) == RecommendFood.TYPE_BIG ||
+                            adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
+//                    Logger.d(manager.getSpanCount());
+                        return 2;
+                    } else {
+                        return 1;
+                    }
                 }
             }
         });
