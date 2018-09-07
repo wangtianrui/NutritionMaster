@@ -33,14 +33,24 @@
         <Button
             android:id="@+id/choose_first"
             android:layout_width="200dp"
-            android:textSize="13sp"
             android:layout_height="50dp"
-            android:text="是">
+            android:text="是"
+            android:textSize="13sp">
 
         </Button>
 
         <Button
             android:id="@+id/choose_second"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="否"
+            android:textSize="13sp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/choose_third"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.github.czy1121.view.TurnCardListView;
 import com.orhanobut.logger.Logger;
@@ -37,7 +38,14 @@ public class AddActivity extends AppCompatActivity {
     private int[] colors = {0xff3F51B5, 0xff673AB7, 0xff006064, 0xffC51162, 0xffFFEB3B, 0xff795548, 0xff9E9E9E};
     private Button[] firstButtons = new Button[colors.length];
     private Button[] secondButtons = new Button[colors.length];
+    private Button[] thirdButtons = new Button[colors.length];
     private TextView[] titleViews = new TextView[colors.length];
+
+    private Button[][] buttonList = new Button[][]{
+            firstButtons,
+            secondButtons,
+            thirdButtons
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,16 +84,30 @@ public class AddActivity extends AppCompatActivity {
                 child = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_item, parent, false);
                 child.findViewById(R.id.image).setBackgroundColor(colors[position]);
                 titleViews[position] = child.findViewById(R.id.title_view);
+                titleViews[position].setText(ConstantUtils.questionList[position]);
+
                 firstButtons[position] = child.findViewById(R.id.choose_first);
                 firstButtons[position].setBackgroundColor(colors[position] + 30);
+                for (int i = 0; i < ConstantUtils.answerList[position].length; i++) {
+                    firstButtons[position].setText(ConstantUtils.answerList[position][i]);
+                }
+
                 secondButtons[position] = child.findViewById(R.id.choose_second);
                 secondButtons[position].setBackgroundColor(colors[position] + 30);
+                for (int i = 0; i < ConstantUtils.answerList[position].length; i++) {
+                    firstButtons[position].setText(ConstantUtils.answerList[position][i]);
+                }
+
+                thirdButtons[position] = child.findViewById(R.id.choose_third);
+                thirdButtons[position].setBackgroundColor(colors[position] + 30);
+
 
                 firstButtons[position].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         firstButtons[position].setBackgroundColor(colors[position] - 60);
                         secondButtons[position].setBackgroundColor(colors[position] + 30);
+                        thirdButtons[position].setBackgroundColor(colors[position] + 30);
                         cardList.turnTo(position + 1);
                     }
                 });
@@ -93,7 +115,17 @@ public class AddActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         firstButtons[position].setBackgroundColor(colors[position] + 30);
+                        thirdButtons[position].setBackgroundColor(colors[position] + 30);
                         secondButtons[position].setBackgroundColor(colors[position] - 60);
+                        cardList.turnTo(position + 1);
+                    }
+                });
+                thirdButtons[position].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        firstButtons[position].setBackgroundColor(colors[position] + 30);
+                        secondButtons[position].setBackgroundColor(colors[position] + 30);
+                        thirdButtons[position].setBackgroundColor(colors[position] - 60);
                         cardList.turnTo(position + 1);
                     }
                 });
