@@ -30,13 +30,15 @@ public class ConstantUtils {
 
 
     public static String[] questionList = new String[]{
-            "现在去照照镜子吧",
+            "现在先去找个镜子吧" +
+                    "\n下面会用到哦",
             "你舌苔的颜色",
             "舌底经络颜色",
             "口腔整体情况",
             "整体生活精神状况",
             "性格特点",
-            "食物温度偏向"
+            "食物温度偏向",
+            "揭晓结果"
     };
 
     public static String[][] answerList = new String[][]{
@@ -46,6 +48,7 @@ public class ConstantUtils {
             {"口舌干燥", "口黏苔腻", "还算正常"},
             {"沉寂易疲劳", "精力充沛"},
             {"内向", "开朗"},
-            {"烫的", "冷的", "没有特别喜欢的"}
+            {"烫的", "冷的", "没有特别喜欢的"},
+            {"查看"}
     };
 }

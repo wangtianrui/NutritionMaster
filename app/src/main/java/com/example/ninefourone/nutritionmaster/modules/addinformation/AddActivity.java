@@ -21,6 +21,8 @@ import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.github.czy1121.view.TurnCardListView;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,17 +37,15 @@ public class AddActivity extends AppCompatActivity {
     ImageView backButton;
 
 
-    private int[] colors = {0xff3F51B5, 0xff673AB7, 0xff006064, 0xffC51162, 0xffFFEB3B, 0xff795548, 0xff9E9E9E};
-    private Button[] firstButtons = new Button[colors.length];
-    private Button[] secondButtons = new Button[colors.length];
-    private Button[] thirdButtons = new Button[colors.length];
-    private TextView[] titleViews = new TextView[colors.length];
+    //    private int[] colors = {0xff3F51B5, 0xff673AB7, 0xff006064, 0xffC51162, 0xffFFEB3B, 0xff795548, 0xff9E9E9E};
+    private int[] colors = {0xffdef6f9, 0xffd6eeec, 0xffB2EBF2, 0xffB2DFDB, 0xff8ed0ca, 0xff80CBC4, 0xff4DB6AC, 0xff3c948b};
+    private Button[] firstButtons = new Button[ConstantUtils.questionList.length];
+    private Button[] secondButtons = new Button[ConstantUtils.questionList.length];
+    private Button[] thirdButtons = new Button[ConstantUtils.questionList.length];
+    private TextView[] titleViews = new TextView[ConstantUtils.questionList.length];
 
-    private Button[][] buttonList = new Button[][]{
-            firstButtons,
-            secondButtons,
-            thirdButtons
-    };
+    private Button[][] buttonList;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +56,11 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         ButterKnife.bind(this);
+        buttonList = new Button[][]{
+                firstButtons,
+                secondButtons,
+                thirdButtons
+        };
         initAddView();
     }
 
@@ -88,29 +93,34 @@ public class AddActivity extends AppCompatActivity {
 
                 firstButtons[position] = child.findViewById(R.id.choose_first);
                 firstButtons[position].setBackgroundColor(colors[position] + 30);
-                for (int i = 0; i < ConstantUtils.answerList[position].length; i++) {
-                    firstButtons[position].setText(ConstantUtils.answerList[position][i]);
-                }
+
 
                 secondButtons[position] = child.findViewById(R.id.choose_second);
                 secondButtons[position].setBackgroundColor(colors[position] + 30);
-                for (int i = 0; i < ConstantUtils.answerList[position].length; i++) {
-                    firstButtons[position].setText(ConstantUtils.answerList[position][i]);
-                }
+
 
                 thirdButtons[position] = child.findViewById(R.id.choose_third);
                 thirdButtons[position].setBackgroundColor(colors[position] + 30);
 
 
-                firstButtons[position].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        firstButtons[position].setBackgroundColor(colors[position] - 60);
-                        secondButtons[position].setBackgroundColor(colors[position] + 30);
-                        thirdButtons[position].setBackgroundColor(colors[position] + 30);
-                        cardList.turnTo(position + 1);
-                    }
-                });
+                if (position != ConstantUtils.questionList.length - 1) {
+                    firstButtons[position].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            firstButtons[position].setBackgroundColor(colors[position] - 60);
+                            secondButtons[position].setBackgroundColor(colors[position] + 30);
+                            thirdButtons[position].setBackgroundColor(colors[position] + 30);
+                            cardList.turnTo(position + 1);
+                        }
+                    });
+                } else {
+                    firstButtons[position].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MessageUtils.MakeToast("结果");
+                        }
+                    });
+                }
                 secondButtons[position].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -129,6 +139,11 @@ public class AddActivity extends AppCompatActivity {
                         cardList.turnTo(position + 1);
                     }
                 });
+
+                for (int i = 0; i < ConstantUtils.answerList[position].length; i++) {
+                    buttonList[i][position].setText(ConstantUtils.answerList[position][i]);
+                    buttonList[i][position].setVisibility(View.VISIBLE);
+                }
                 return child;
             }
 
@@ -138,16 +153,9 @@ public class AddActivity extends AppCompatActivity {
         cardList.setOnTurnListener(new TurnCardListView.OnTurnListener() {
             @Override
             public void onTurned(int position) {
-                Toast.makeText(AddActivity.this, "position = " + position, Toast.LENGTH_SHORT).show();
                 bottomContent.setBackgroundColor(colors[position] - 60);
             }
         });
-//        cardList.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                cardList.turnTo(1);
-//            }
-//        });
 
 
     }
