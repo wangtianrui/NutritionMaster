@@ -3,6 +3,7 @@ package com.example.ninefourone.nutritionmaster.modules.addinformation;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.github.czy1121.view.TurnCardListView;
-import com.orhanobut.logger.Logger;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +32,8 @@ public class AddActivity extends AppCompatActivity {
     RelativeLayout bottomContent;
     @BindView(R.id.back_button)
     ImageView backButton;
+    @BindView(R.id.result_layout)
+    CardView resultLayout;
 
 
     //    private int[] colors = {0xff3F51B5, 0xff673AB7, 0xff006064, 0xffC51162, 0xffFFEB3B, 0xff795548, 0xff9E9E9E};
@@ -117,7 +116,7 @@ public class AddActivity extends AppCompatActivity {
                     firstButtons[position].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            MessageUtils.MakeToast("结果");
+                            resultLayout.setVisibility(View.VISIBLE);
                         }
                     });
                 }
