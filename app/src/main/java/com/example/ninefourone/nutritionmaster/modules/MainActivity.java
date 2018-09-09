@@ -2,10 +2,12 @@ package com.example.ninefourone.nutritionmaster.modules;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,20 +64,13 @@ public class MainActivity extends BaseActivity {
     NoScrollViewPager viewPager;
     @BindView(R.id.sliding_tab_layout)
     SlidingTabLayout slidingTabLayout;
-    @BindView(R.id.bar_cover)
-    FrameLayout barCover;
     @BindView(R.id.cb_rating_bar)
     CBRatingBar cbRatingBar;
     @BindView(R.id.toolbar_user_avatar)
     CircularImageView toolbarUserAvatar;
     @BindView(R.id.drawer_user_avatar)
     CircularImageView drawerUserAvatar;
-    //    @BindView(R.id.spiderWeb_mainActivity)
-//    SpiderWebScoreView spiderWebMainActivity;
-//    @BindView(R.id.layout_mainActivity_circular)
-//    CircularLayout layoutMainActivityCircular;
-    //    @BindView(R.id.search_button)
-//    ImageView searchButton;
+
     @BindView(R.id.search_view)
     MaterialSearchView searchView;
     @BindView(R.id.tool_bar)
@@ -88,6 +83,8 @@ public class MainActivity extends BaseActivity {
     ImageView addInformationButton;
     @BindView(R.id.information_layout)
     LinearLayout informationLayout;
+    @BindView(R.id.title_layout)
+    AppBarLayout titleLayout;
 
 
     @Override
@@ -99,14 +96,16 @@ public class MainActivity extends BaseActivity {
     public void initViews(Bundle savedInstanceState) {
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @SuppressLint("ResourceAsColor")
             @Override
             public void onDrawerStateChange(int oldState, int newState) {
                 if (newState == ElasticDrawer.STATE_CLOSED) {
-                    barCover.setVisibility(View.INVISIBLE);
+                    titleLayout.setBackgroundColor(getColor(R.color.colorPrimary));
                 } else {
-                    barCover.setVisibility(View.VISIBLE);
+                    titleLayout.setBackgroundColor(getColor(R.color.bar_open));
                 }
+
             }
 
             @Override
@@ -154,6 +153,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         Logger.d("oncreate");
         setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         askPermission();
     }
 
