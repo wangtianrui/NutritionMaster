@@ -34,7 +34,6 @@ public class CustomizationFragment extends BaseFragment {
     Unbinder unbinder;
 
     private CardAdapter cardAdapter;
-    private CardHolder cardHolder;
     private ArrayList<DailyCard> mDataList = new ArrayList<>();
 
     private int[] picList = new int[]{

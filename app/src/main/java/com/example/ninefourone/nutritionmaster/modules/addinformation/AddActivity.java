@@ -117,6 +117,7 @@ public class AddActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             resultLayout.setVisibility(View.VISIBLE);
+                            cardList.setVisibility(View.INVISIBLE);
                         }
                     });
                 }
