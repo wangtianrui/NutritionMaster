@@ -1,11 +1,14 @@
 package com.example.ninefourone.nutritionmaster.adapter;
 
-import android.view.LayoutInflater;
+
+import android.content.Intent;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
+import com.example.ninefourone.nutritionmaster.modules.RecipeActivity.RecipeActivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.List;
 
 public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, BaseViewHolder> {
     private int[] indexs = new int[]{0, 1, 1, 2};
+    private Intent intent;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -47,6 +51,16 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, B
                 helper.setText(R.id.recommend_item_title, "红烧");
                 break;
         }
+        View view = helper.getView(R.id.whole_layout);
+        intent = new Intent(mContext, RecipeActivity.class);
+//        Logger.d(item.getItemType());
+        intent.putExtra("SEND_OBJECT", item);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -56,20 +70,16 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, B
             RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", indexs[i % 4]);
             getData().add(recommendFood);
         }
-//        notifyDataSetChanged();
-//        Logger.d("加载成功");
     }
 
     @Override
     public void loadMoreEnd() {
         super.loadMoreEnd();
-//        Logger.d("数据没了");
     }
 
     @Override
     public void loadMoreFail() {
         super.loadMoreFail();
-//        Logger.d("加载失败");
     }
 
 

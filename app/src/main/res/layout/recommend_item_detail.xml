@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/whole_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/recommend_item_default_hight"
     android:layout_margin="@dimen/recommend_margin"

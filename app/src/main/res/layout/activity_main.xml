@@ -231,8 +231,8 @@
 
                     <ImageView
                         android:id="@+id/add_information_button"
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="25dp"
                         android:layout_marginTop="15dp"

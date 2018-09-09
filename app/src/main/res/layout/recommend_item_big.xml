@@ -8,6 +8,7 @@
     app:cardCornerRadius="20dp">
 
     <LinearLayout
+        android:id="@+id/whole_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

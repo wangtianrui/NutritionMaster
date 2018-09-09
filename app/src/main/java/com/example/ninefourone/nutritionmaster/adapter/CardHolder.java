@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationActivity;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class CardHolder extends RecyclerView.ViewHolder {
     TextView tvSign;
 
     private View itemView;
-
+    private Intent i;
 
     public CardHolder(View itemView) {
         super(itemView);
@@ -39,14 +40,15 @@ public class CardHolder extends RecyclerView.ViewHolder {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void bindView(int picId, String text, final Context context) {
+    public void bindView(int picId, String text, int index, final Context context) {
         tvName.setText(text);
         ivPhoto.setImageDrawable(context.getDrawable(picId));
+        i = new Intent(context, CustomizationActivity.class);
+        i.putExtra("SEND_CODE", text);
+//        Logger.d(text);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, CustomizationActivity.class);
-                i.putExtra("SEND_CODE", getAdapterPosition());
                 context.startActivity(i);
             }
         });

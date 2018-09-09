@@ -21,6 +21,7 @@ import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity;
+import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.PermissionUtils;
@@ -85,6 +86,8 @@ public class MainActivity extends BaseActivity {
     RadarChart spiderView;
     @BindView(R.id.add_information_button)
     ImageView addInformationButton;
+    @BindView(R.id.information_layout)
+    LinearLayout informationLayout;
 
 
     @Override
@@ -319,5 +322,11 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @OnClick(R.id.information_layout)
+    public void onViewClicked() {
+        Intent intent = new Intent(MainActivity.this, InformationActivity.class);
+        startActivity(intent);
     }
 }

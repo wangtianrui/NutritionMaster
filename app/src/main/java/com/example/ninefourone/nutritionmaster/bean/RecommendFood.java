@@ -3,11 +3,13 @@ package com.example.ninefourone.nutritionmaster.bean;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.orhanobut.logger.Logger;
 
+import java.io.Serializable;
+
 /**
  * Created by ScorpioMiku on 2018/9/3.
  */
 
-public class RecommendFood implements MultiItemEntity {
+public class RecommendFood implements MultiItemEntity, Serializable {
 
     //三种view
     public static final int TYPE_BIG = 0;
@@ -18,6 +20,15 @@ public class RecommendFood implements MultiItemEntity {
     private String title;
     private String description;
     private int type;
+    private Menu menu;
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
 
     public RecommendFood(int picture, String title, String description, int type) {
         this.picture = picture;
