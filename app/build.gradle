@@ -68,5 +68,7 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //翻页view
     compile 'com.github.czy1121:turncardlistview:1.0.0'
+    //油表盘
+    compile 'com.github.lzyzsd:circleprogress:1.2.1'
 
 }
