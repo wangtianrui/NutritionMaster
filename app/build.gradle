@@ -40,35 +40,35 @@ dependencies {
     implementation 'com.mxn.soul:flowingdrawer-core:2.0.0'
     implementation 'com.nineoldandroids:library:2.4.0'
     //图片形状库
-    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     //cardview
-    compile 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
     //tablayout
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
     //viewpager transforms
-    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     //个人信息的那个条条
-    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     //wave
     implementation 'me.itangqi.waveloadingview:library:0.3.5'
     //计步
     implementation project(':todaystepcounterlib')
     //打分ui
-    compile 'com.github.CB-ysx:CBRatingBar:3.0.1'
+    implementation 'com.github.CB-ysx:CBRatingBar:3.0.1'
     //折线
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //searchview
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     //floatbuttom
-    compile 'com.nightonke:boommenu:2.1.1'
+    implementation 'com.nightonke:boommenu:2.1.1'
     //recycler and card
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     //混合式recyclerview
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //翻页view
-    compile 'com.github.czy1121:turncardlistview:1.0.0'
+    implementation 'com.github.czy1121:turncardlistview:1.0.0'
     //油表盘
-    compile 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
 }

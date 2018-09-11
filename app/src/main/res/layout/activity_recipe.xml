@@ -72,6 +72,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginLeft="15dp"
                             android:text="营养成分"
+                            android:textColor="#000000"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -107,8 +108,8 @@
                                 android:layout_margin="5dp"
                                 app:arc_bottom_text="测试"
                                 app:arc_progress="50"
-                                app:arc_suffix_text_size="15sp"
-                                app:arc_text_size="20sp" />
+                                app:arc_suffix_text_size="12sp"
+                                app:arc_text_size="12sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -130,8 +131,8 @@
                                 android:layout_margin="5dp"
                                 app:arc_bottom_text="测试"
                                 app:arc_progress="50"
-                                app:arc_suffix_text_size="15sp"
-                                app:arc_text_size="20sp" />
+                                app:arc_suffix_text_size="12sp"
+                                app:arc_text_size="12sp" />
 
 
                             <TextView
@@ -154,8 +155,8 @@
                                 android:layout_margin="5dp"
                                 app:arc_bottom_text="测试"
                                 app:arc_progress="50"
-                                app:arc_suffix_text_size="15sp"
-                                app:arc_text_size="20sp" />
+                                app:arc_suffix_text_size="12sp"
+                                app:arc_text_size="12sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -195,6 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="原料与做法"
+                android:textColor="#131313"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -205,10 +207,57 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/test_avatar" />
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#FFF"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="主要材料"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/material_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#FFF"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="详细步骤"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/detail_way_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

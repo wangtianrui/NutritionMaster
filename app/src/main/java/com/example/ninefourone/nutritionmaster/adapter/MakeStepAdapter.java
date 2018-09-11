@@ -14,23 +14,23 @@ import java.util.ArrayList;
  * Created by ScorpioMiku on 2018/9/9.
  */
 
-public class MenuAdapter extends RecyclerView.Adapter<MenuHolder> {
+public class MakeStepAdapter extends RecyclerView.Adapter<MakeStepHolder> {
     private ArrayList<String> mList;
     private Context mContext;
 
-    public MenuAdapter(ArrayList mList, Context mContext) {
+    public MakeStepAdapter(ArrayList mList, Context mContext) {
         this.mList = mList;
         this.mContext = mContext;
     }
 
     @Override
-    public MenuHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.menu_item, parent, false);
-        return new MenuHolder(view);
+    public MakeStepHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.make_step_item, parent, false);
+        return new MakeStepHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MenuHolder holder, int position) {
+    public void onBindViewHolder(MakeStepHolder holder, int position) {
         holder.bindView(mList.get(position));
     }
 

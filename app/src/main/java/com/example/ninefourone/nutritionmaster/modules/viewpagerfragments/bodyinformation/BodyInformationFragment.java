@@ -36,7 +36,6 @@ import me.itangqi.waveloadingview.WaveLoadingView;
 
 public class BodyInformationFragment extends BaseFragment {
 
-
     Unbinder unbinder;
     @BindView(R.id.step_text_view)
     TextView stepTextView;
@@ -68,7 +67,6 @@ public class BodyInformationFragment extends BaseFragment {
         initStepCounter();
         initChart();
     }
-
 
     public static BaseFragment getInstance() {
         return new BodyInformationFragment();

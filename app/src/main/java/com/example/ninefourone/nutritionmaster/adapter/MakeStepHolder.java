@@ -7,21 +7,24 @@ import android.widget.TextView;
 import com.example.ninefourone.nutritionmaster.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by ScorpioMiku on 2018/9/9.
  */
 
-public class MenuHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.text)
-    TextView textView;
+public class MakeStepHolder extends RecyclerView.ViewHolder {
 
-    public MenuHolder(View itemView) {
+
+    @BindView(R.id.make_step_text_view)
+    TextView makeStepTextView;
+
+    public MakeStepHolder(View itemView) {
         super(itemView);
-
+        ButterKnife.bind(this, itemView);
     }
 
     public void bindView(String text) {
-        textView.setText(text);
+        makeStepTextView.setText(text);
     }
 }
