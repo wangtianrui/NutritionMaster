@@ -30,6 +30,7 @@
         android:layout_height="450dp"
         android:layout_centerInParent="true"
         android:visibility="gone"
+        app:cardElevation="0dp"
         app:cardCornerRadius="20dp">
 
         <LinearLayout

@@ -11,6 +11,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="@dimen/recommend_item_default_hight"
         android:layout_height="@dimen/recommend_item_default_hight"
+        app:cardElevation="0dp"
         android:layout_marginRight="5dp"
         app:cardCornerRadius="20dp">
 

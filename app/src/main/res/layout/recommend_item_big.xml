@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/recommend_item_big_height"
     android:layout_margin="@dimen/recommend_margin"
+    app:cardElevation="0dp"
     app:cardCornerRadius="20dp">
 
     <LinearLayout
