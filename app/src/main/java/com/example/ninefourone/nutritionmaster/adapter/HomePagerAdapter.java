@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationFragment;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.bodyinformation.BodyInformationFragment;
-import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.page3.Page3;
+import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.recommend.RecommendFragment;
 
 
 /**
@@ -36,7 +36,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
                     fragments[position] = BodyInformationFragment.getInstance();
                     break;
                 case 2:
-                    fragments[position] = Page3.getInstance();
+                    fragments[position] = RecommendFragment.getInstance();
                     break;
                 default:
                     break;

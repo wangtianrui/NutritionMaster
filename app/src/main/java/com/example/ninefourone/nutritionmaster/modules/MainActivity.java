@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
@@ -19,6 +20,7 @@ import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
+import com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.PermissionUtils;
@@ -81,6 +83,8 @@ public class MainActivity extends BaseActivity {
     BoomMenuButton boomMenuButton;
     @BindView(R.id.spider_view)
     RadarChart spiderView;
+    @BindView(R.id.add_information_button)
+    ImageView addInformationButton;
 
 
     @Override
@@ -166,13 +170,11 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    //mDrawer.openMenu();
+
     /**
      * 点击事件
      */
-    @OnClick(R.id.navigation_layout)
-    public void onViewClicked() {
-        mDrawer.openMenu();
-    }
 
 
     /**
@@ -304,5 +306,18 @@ public class MainActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         MessageUtils.MakeToast("权限赋予成功");
+    }
+
+    @OnClick({R.id.navigation_layout, R.id.add_information_button})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.navigation_layout:
+                mDrawer.openMenu();
+                break;
+            case R.id.add_information_button:
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
