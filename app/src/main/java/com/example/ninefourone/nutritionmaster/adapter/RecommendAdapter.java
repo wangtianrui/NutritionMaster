@@ -3,7 +3,9 @@ package com.example.ninefourone.nutritionmaster.adapter;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.ninefourone.nutritionmaster.R;
@@ -36,18 +38,17 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, B
 
     @Override
     protected void convert(BaseViewHolder helper, RecommendFood item) {
+        ImageView imageView = helper.getView(R.id.recommend_item_imageview);
+        Glide.with(mContext).load(R.drawable.food_test).into(imageView);
         switch (item.getItemType()) {
             case RecommendFood.TYPE_BIG:
-                helper.setImageResource(R.id.recommend_item_imageview, R.drawable.food_test);
                 helper.setText(R.id.recommend_item_title, "红烧肉");
                 break;
             case RecommendFood.TYPE_DETAIL:
-                helper.setImageResource(R.id.recommend_item_imageview, R.drawable.food_test);
                 helper.setText(R.id.recommend_item_title, item.getTitle());
                 helper.setText(R.id.recommend_item_description, item.getDescription());
                 break;
             case RecommendFood.TYPE_MIDDLE:
-                helper.setImageResource(R.id.recommend_item_imageview, R.drawable.food_test);
                 helper.setText(R.id.recommend_item_title, "红烧");
                 break;
         }

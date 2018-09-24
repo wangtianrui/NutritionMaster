@@ -37,6 +37,7 @@ public class RecommendFragment extends BaseFragment {
     private GridLayoutManager manager;
     private int[] indexs = new int[]{0, 1, 1, 2};
 
+
     @Override
     public int getLayoutResId() {
         return R.layout.normal_recommend_fragment_layout;
