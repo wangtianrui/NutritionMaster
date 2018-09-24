@@ -1,7 +1,9 @@
 
 ## 营养大师
 
-一款基于数据分析的智能饮食推荐APP
+一款基于数据分析的智能饮食推荐APP  
+
+仓库地址: https://github.com/wangtianrui/NutritionMaster
 
 ### 需求
 
@@ -108,20 +110,53 @@
 
 ### 数据库设计
 
-![](http://ww1.sinaimg.cn/large/0077h8xtly1fuz0a6yb4gj30z10hl1kx.jpg)
+![2](http://ww1.sinaimg.cn/large/0077h8xtly1fuz0a6yb4gj30z10hl1kx.jpg)
 
 **加下划线为主码,加粗为外码,默认not null**
 
-* 菜谱(<u>str菜名</u>,  **str体质_名称**(对应最优菜谱的效果) ,int卡路里,date制作时间,str口味,str工艺,str做法,str图片url)
-* 菜谱\_做菜_食材 ( <u>**str菜谱-菜名**</u>,**<u>str食材-名称**</u>,int用量)
-* 食材( <u>str名称</u>)
-* 体质(<u>str体质名称</u>,str体质特点,str运动调理方式)
-* 食材\_效果_体质(<u> **str食材-名称**</u>,<u> **str体质-名称**</u>,int效果(1有利于,0不利于))
-* 体质性状(<u>str性状名称</u>)
-* 体质\_身体状态_体质性状( <u> **str体质-名称**</u>, <u> **str体质性状-性状名称**</u>)
-* 菜谱功能和分类( <u>str分类名称</u>)
-* 菜谱\_菜谱效果_菜谱功能和分类( <u> **str菜谱-菜名**</u>, <u> **str菜谱功能和分类-分类名称**</u>)
-* 用户( <u>str用户名</u>,str密码, **nullable str 体质-名称**,nullable str特殊职业,)
-* 特殊职业( <u>str职业名称</u>)
+* **菜谱**(<u>str菜名</u>,  **nullable str体质_名称**(对应最优菜谱的效果) ,int卡路里,int制作时间(分钟),str口味,str工艺,str做法,str图片url)
+  * menu
+* **食材**( <u>str名称</u>)
+  * material
+* **体质**(<u>str体质名称</u>,str体质特点,str运动调理方式)
+  * physique
+* **体质性状**(<u>str性状名称</u>)
+  * Physical properties
+* **菜谱功能和分类**( <u>str分类名称</u>)
+  * menu classification
+* **用户**( <u>str用户名</u>,str密码, **nullable str 体质-名称**,**nullable str特殊职业**)
+  * User
+* **特殊职业**( <u>str职业名称</u>)
+  * Occupation
 * 菜谱功能分类_可治愈的职业\_特殊职业( <u> **特殊职业-str职业名称**</u>, <u> **菜谱功能和分类-str分类名称**</u>)
+* 菜谱\_做菜_食材 ( <u>**str菜谱-菜名**</u>,**<u>str食材-名称**</u>,int用量)
+  * cook quantity
+* 食材\_效果_体质(<u> **str食材-名称**</u>,<u> **nullable str体质-名称**</u>,int效果(1有利于,0不利于))
+  * Material effect
+* 体质\_身体状态_体质性状( <u> **str体质-名称**</u>, <u> **str体质性状-性状名称**</u>)
+  * physical_state
+* 菜谱\_菜谱效果_菜谱功能和分类( <u> **str菜谱-菜名**</u>, <u> **str菜谱功能和分类-分类名称**</u>)
+  * menu_effect
 
+
+
+### 服务器请求
+
+| 说明         | 方法 | 请求示例                                            | 备注                                                    |
+| ------------ | ---- | --------------------------------------------------- | ------------------------------------------------------- |
+| 查询菜单信息 | GET  | http://120.77.182.38/menus/某菜名/                  | 不加菜名默认请求所有菜单(服务器可能扛不住)              |
+| 查询食材信息 | GET  | http://120.77.182.38/foodmaterial/西红柿/           | 同上                                                    |
+| 查询用户信息 | GET  | http://120.77.182.38/myuser/zhaolizhi/              | 同上                                                    |
+| 新建用户信息 | POST | http://120.77.182.38/myuser/                        | 参数见下图                                              |
+| 查询菜谱分类 | GET  | http://120.77.182.38/menuclassification/糖尿病食谱/ | 不加分类名默认请求所有分类(和对应的菜谱),响应时间较长   |
+| 查询职业信息 | GET  | http://120.77.182.38/occupation/电力工程师/         | 不加职业名默认查询所有,响应较快  返回职业对应的菜单分类 |
+| 查询体质信息 | GET  | http://120.77.182.38/physique/气虚质/               | 返回体质需要的食材                                      |
+|              |      |                                                     |                                                         |
+|              |      |                                                     |                                                         |
+
+* POST新建用户信息`params`示例
+
+  * 1♂   0♀
+  * `occupation_name`,`physical_name`的值必须和数据库对应
+
+  ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvjbfh6vm1j30r70eh3zj.jpg)
