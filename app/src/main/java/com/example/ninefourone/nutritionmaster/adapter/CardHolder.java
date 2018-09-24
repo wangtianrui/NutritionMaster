@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationActivity;
 import com.orhanobut.logger.Logger;
@@ -40,9 +41,10 @@ public class CardHolder extends RecyclerView.ViewHolder {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void bindView(int picId, String text, int index, final Context context) {
+    public void bindView(int picId, String text, final Context context) {
         tvName.setText(text);
-        ivPhoto.setImageDrawable(context.getDrawable(picId));
+//        ivPhoto.setImageDrawable(context.getDrawable(picId));
+        Glide.with(context).load(picId).into(ivPhoto);
         i = new Intent(context, CustomizationActivity.class);
         i.putExtra("SEND_CODE", text);
 //        Logger.d(text);
