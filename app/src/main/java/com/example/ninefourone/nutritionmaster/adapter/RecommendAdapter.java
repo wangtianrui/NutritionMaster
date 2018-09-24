@@ -66,10 +66,7 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, B
     @Override
     public void loadMoreComplete() {
         super.loadMoreComplete();
-        for (int i = 0; i < 5; i++) {
-            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", indexs[i % 4]);
-            getData().add(recommendFood);
-        }
+
     }
 
     @Override

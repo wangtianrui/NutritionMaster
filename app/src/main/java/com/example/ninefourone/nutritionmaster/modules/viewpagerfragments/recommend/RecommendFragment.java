@@ -83,16 +83,24 @@ public class RecommendFragment extends BaseFragment {
                 recyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
+                        Logger.d("加载数据");
+                        for (int i = 0; i < 6; i++) {
+                            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", indexs[i % 4]);
+                            adapter.getData().add(recommendFood);
+                        }
                         adapter.loadMoreComplete();
 //                        Logger.d("开始加载");
                     }
+
                 }, 1000);
             }
         }, recyclerView);
-        adapter.disableLoadMoreIfNotFullPage();
+//        adapter.disableLoadMoreIfNotFullPage();
         adapter.setEnableLoadMore(true);
         adapter.setHeaderView(LayoutInflater.from(getContext()).
                 inflate(R.layout.recommend_head, (ViewGroup) recyclerView.getParent(), false));
+        adapter.setPreLoadNumber(1);
         recyclerView.setNestedScrollingEnabled(false);
         manager = new GridLayoutManager(getContext(), 2);
         adapter.setHeaderViewAsFlow(false);
