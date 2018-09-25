@@ -70,5 +70,8 @@ dependencies {
     implementation 'com.github.czy1121:turncardlistview:1.0.0'
     //油表盘
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
-
+    //okhttp 网络通信库
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    // json解析库
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
