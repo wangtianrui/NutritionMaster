@@ -42,6 +42,17 @@ public class WebUtils {
     }
 
     /**
+     * 获取count个随机菜谱,在回调中解析为一个Menu数组
+     * @param count
+     * @param callback
+     */
+    public static void getRandomMenus(int count, Callback callback) {
+        OkHttpClient mClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://127.0.0.1:8000/menus/get_random_menus/?count=" + String.valueOf(count)).build();
+        mClient.newCall(request).enqueue(callback);
+    }
+
+    /**
      * 获取某食材可以做的菜
      * [
      * {
@@ -223,6 +234,21 @@ public class WebUtils {
             public void onResponse(Call call, Response response) throws IOException {
                 FoodMenu menu = new Gson().fromJson(response.body().string(), FoodMenu.class);
                 System.out.println(menu);
+            }
+        });*/
+
+        /*WebUtil.getRandomMenus(10, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                FoodMenu[] menus = new Gson().fromJson(response.body().string(), FoodMenu[].class);
+                System.out.println(Arrays.toString(menus));
+                System.out.println(menus.length);
+
             }
         });*/
 
