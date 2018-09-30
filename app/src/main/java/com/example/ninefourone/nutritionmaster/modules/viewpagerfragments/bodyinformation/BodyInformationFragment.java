@@ -178,6 +178,6 @@ public class BodyInformationFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        getActivity().unbindService(coon);
+        getActivity().unbindService(coon);
     }
 }

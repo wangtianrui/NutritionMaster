@@ -2,6 +2,7 @@ package com.example.ninefourone.nutritionmaster.modules;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,11 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cb.ratingbar.CBRatingBar;
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
@@ -47,7 +52,6 @@ import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
-import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,6 +100,16 @@ public class MainActivity extends BaseActivity {
     TextView userNickName;
     @BindView(R.id.user_occupation_text)
     TextView userOccupationText;
+    @BindView(R.id.container)
+    RelativeLayout container;
+    @BindView(R.id.adder_infor)
+    TextView adderInfor;
+    @BindView(R.id.add_infor_ll)
+    LinearLayout addInforLl;
+    @BindView(R.id.show_information)
+    LinearLayout showInformation;
+
+    private OptionsPickerView pickerView;
 
     @Override
     public int getLayoutId() {
@@ -123,11 +137,14 @@ public class MainActivity extends BaseActivity {
 //                Logger.i("openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
+        initInforView();
+        initPicker();
         initSpiderView();
         initViewPager();
         initSearchView();
         initBMB();
         initOccupations();
+
     }
 
     /**
@@ -289,6 +306,24 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
+     * 初始化picker
+     */
+    private void initPicker() {
+        pickerView = new OptionsPickerBuilder(MainActivity.this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                final int option = options1;
+                userOccupationText.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        userOccupationText.setText(ConstantUtils.occupationList.get(option));
+                    }
+                });
+            }
+        }).build();
+    }
+
+    /**
      * 初始化悬浮按钮
      */
     private void initBMB() {
@@ -307,6 +342,29 @@ public class MainActivity extends BaseActivity {
                 .normalImageRes(R.drawable.foods)
                 .normalTextRes(R.string.food_title);
         boomMenuButton.addBuilder(builder2);
+    }
+
+
+    /**
+     * 初始化个人信息界面（UI）
+     */
+    private void initInforView() {
+        adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        if (NutritionMaster.user.getHeight() != 0) {
+            showInformation.setVisibility(View.VISIBLE);
+            adderInfor.setVisibility(View.INVISIBLE);
+        } else {
+            showInformation.setVisibility(View.INVISIBLE);
+            adderInfor.setVisibility(View.VISIBLE);
+        }
+
+        adderInfor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     /**
@@ -329,7 +387,7 @@ public class MainActivity extends BaseActivity {
      * @param view
      */
 
-    @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout, R.id.user_occupation_text})
+    @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout, R.id.user_occupation_text, R.id.adder_infor})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.navigation_layout:
@@ -342,6 +400,9 @@ public class MainActivity extends BaseActivity {
             case R.id.information_layout:
                 break;
             case R.id.user_occupation_text:
+                pickerView.show();
+                break;
+            case R.id.adder_infor:
                 break;
         }
     }
@@ -364,7 +425,7 @@ public class MainActivity extends BaseActivity {
 //                        Logger.d(occupations[i].getOccupation_name());
                         ConstantUtils.occupationList.add(occupations[i].getOccupation_name());
                     }
-
+                    pickerView.setPicker(ConstantUtils.occupationList);
                 }
             });
         }

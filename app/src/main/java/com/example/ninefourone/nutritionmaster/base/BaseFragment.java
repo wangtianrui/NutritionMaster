@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
+import com.example.ninefourone.nutritionmaster.bean.MyUser;
+import com.example.ninefourone.nutritionmaster.bean.User;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -48,7 +52,6 @@ public abstract class BaseFragment extends Fragment {
      * @param state
      */
     public abstract void initView(Bundle state);
-
 
 
     @Override
@@ -150,5 +153,8 @@ public abstract class BaseFragment extends Fragment {
     protected void finishTask() {
     }
 
+    protected void upUser(MyUser user) {
+        NutritionMaster.user = user;
+    }
 
 }

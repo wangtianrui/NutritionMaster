@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
+import com.example.ninefourone.nutritionmaster.bean.MyUser;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -22,7 +25,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         initViews(savedInstanceState);
         initToolBar();
     }
-
 
 
     /**
@@ -84,5 +86,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    protected void upUser(MyUser user) {
+        NutritionMaster.user = user;
     }
 }

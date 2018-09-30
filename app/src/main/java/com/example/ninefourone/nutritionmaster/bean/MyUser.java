@@ -40,6 +40,25 @@ public class MyUser {
     private List<?> groups;
     private List<?> user_permissions;
 
+    private float weight = 0;
+    private float height = 0;
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
     public int getId() {
         return id;
     }
