@@ -3,7 +3,12 @@ package com.example.ninefourone.nutritionmaster.utils;
 
 import android.support.annotation.Nullable;
 
+import com.example.ninefourone.nutritionmaster.bean.Occupation;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+
 import java.io.IOException;
+import java.util.Arrays;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,6 +48,7 @@ public class WebUtils {
 
     /**
      * 获取count个随机菜谱,在回调中解析为一个Menu数组
+     *
      * @param count
      * @param callback
      */
@@ -126,6 +132,12 @@ public class WebUtils {
         mClient.newCall(request).enqueue(callback);
     }
 
+    public static void getAllOccupations(Callback callback) {
+        OkHttpClient mClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://120.77.182.38/occupation/").build();
+        mClient.newCall(request).enqueue(callback);
+    }
+
     /**
      * 获取体质需要的食材
      * {
@@ -188,11 +200,11 @@ public class WebUtils {
         mClient.newCall(request).enqueue(callback);
     }
 
-    public static void changeUserOccupation(String username,String password, String occupation, Callback callback) {
+    public static void changeUserOccupation(String username, String password, String occupation, Callback callback) {
         String url = "http://120.77.182.38/myuser/" + username + "/";
         RequestBody formBody = new FormBody.Builder()
                 .add("username", username)
-                .add("password",password)
+                .add("password", password)
                 .add("occupation", occupation)
                 .build();
 
@@ -205,11 +217,11 @@ public class WebUtils {
         mClient.newCall(request).enqueue(callback);
     }
 
-    public static void changeUserPhysique(String username,String password, String physique, Callback callback) {
+    public static void changeUserPhysique(String username, String password, String physique, Callback callback) {
         String url = "http://120.77.182.38/myuser/" + username + "/";
         RequestBody formBody = new FormBody.Builder()
                 .add("username", username)
-                .add("password",password)
+                .add("password", password)
                 .add("physique", physique)
                 .build();
 
@@ -315,17 +327,19 @@ public class WebUtils {
             }
         });*/
 
-        WebUtils.changeUserOccupation("updatatest","1234" ,"气虚质", new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+//        WebUtils.changeUserOccupation("updatatest","1234" ,"气虚质", new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                System.out.println(response.body().string());
+//            }
+//        });
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                System.out.println(response.body().string());
-            }
-        });
+
     }
 }
 

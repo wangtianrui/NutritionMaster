@@ -10,7 +10,7 @@ public class MyUser {
      * password : password
      * last_login : null
      * is_superuser : false
-     * username : okhttptest
+     * nickName : okhttptest
      * first_name :
      * last_name :
      * email :
@@ -28,7 +28,7 @@ public class MyUser {
     private String password;
     private Object last_login;
     private boolean is_superuser;
-    private String username;
+    private String nickName;
     private String first_name;
     private String last_name;
     private String email;
@@ -80,12 +80,12 @@ public class MyUser {
         this.is_superuser = is_superuser;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getFirst_name() {
@@ -176,7 +176,7 @@ public class MyUser {
                 ", password='" + password + '\'' +
                 ", last_login=" + last_login +
                 ", is_superuser=" + is_superuser +
-                ", username='" + username + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +

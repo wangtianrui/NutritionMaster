@@ -2,7 +2,6 @@ package com.example.ninefourone.nutritionmaster.modules;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,21 +11,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+
 import com.cb.ratingbar.CBRatingBar;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
+import com.example.ninefourone.nutritionmaster.bean.Occupation;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity;
-import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
+import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.PermissionUtils;
+import com.example.ninefourone.nutritionmaster.utils.WebUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
@@ -38,6 +40,7 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.siyamed.shapeimageview.CircularImageView;
+import com.google.gson.Gson;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
@@ -46,12 +49,16 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class MainActivity extends BaseActivity {
@@ -85,7 +92,10 @@ public class MainActivity extends BaseActivity {
     LinearLayout informationLayout;
     @BindView(R.id.title_layout)
     AppBarLayout titleLayout;
-
+    @BindView(R.id.user_nick_name)
+    TextView userNickName;
+    @BindView(R.id.user_occupation_text)
+    TextView userOccupationText;
 
     @Override
     public int getLayoutId() {
@@ -117,6 +127,7 @@ public class MainActivity extends BaseActivity {
         initViewPager();
         initSearchView();
         initBMB();
+        initOccupations();
     }
 
     /**
@@ -151,7 +162,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
-        Logger.d("oncreate");
+//        Logger.d("oncreate");
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         askPermission();
@@ -159,7 +170,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Logger.d("oncreateMenu");
+//        Logger.d("oncreateMenu");
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.id_action_search);
         searchView.setMenuItem(item);
@@ -168,7 +179,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        Logger.d("prepareMenu");
+//        Logger.d("prepareMenu");
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -311,7 +322,14 @@ public class MainActivity extends BaseActivity {
         MessageUtils.MakeToast("权限赋予成功");
     }
 
-    @OnClick({R.id.navigation_layout, R.id.add_information_button})
+
+    /**
+     * 点击事件
+     *
+     * @param view
+     */
+
+    @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout, R.id.user_occupation_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.navigation_layout:
@@ -321,12 +339,36 @@ public class MainActivity extends BaseActivity {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.information_layout:
+                break;
+            case R.id.user_occupation_text:
+                break;
         }
     }
 
-    @OnClick(R.id.information_layout)
-    public void onViewClicked() {
-        Intent intent = new Intent(MainActivity.this, InformationActivity.class);
-        startActivity(intent);
+    /**
+     * 初始化职业常量
+     */
+    private void initOccupations() {
+        if (userOccupationText.getText().equals("请选择您的职业")) {
+            WebUtils.getAllOccupations(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Occupation[] occupations = new Gson().fromJson(response.body().string(), Occupation[].class);
+                    for (int i = 0; i < occupations.length; i++) {
+//                        Logger.d(occupations[i].getOccupation_name());
+                        ConstantUtils.occupationList.add(occupations[i].getOccupation_name());
+                    }
+
+                }
+            });
+        }
     }
+
+
 }

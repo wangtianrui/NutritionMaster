@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.example.ninefourone.nutritionmaster.bean.MyUser;
+
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+
 
 
 /**
@@ -16,11 +19,14 @@ public class NutritionMaster extends Application {
     public static NutritionMaster mInstance;
     private int appCount = 0;
 
+    public static MyUser user;
+
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
         init();
+        initUser();
     }
 
     /**
@@ -78,5 +84,16 @@ public class NutritionMaster extends Application {
     public boolean isForeground() {
         return appCount > 0;
     }
+
+
+    /**
+     * 初始化用户信息
+     */
+    private void initUser() {
+        user = new MyUser();
+        user.setNickName("ScorpioMiku");
+    }
+
+
 
 }

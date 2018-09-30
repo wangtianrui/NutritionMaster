@@ -147,27 +147,39 @@
                             android:layout_height="60dp"
                             android:src="@drawable/test_avatar" />
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="10dp">
+                            android:layout_height="40dp"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/user_nick_name"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="20dp"
+                                android:gravity="center"
                                 android:text="ScorpioMiku"
                                 android:textColor="#FFF" />
-                        </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/user_occupation_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:gravity="center"
+                                android:text="请选择您的职业"
+                                android:textColor="#FFF" />
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/add_information_button"
                         android:alpha="0.2"
                         android:src="@drawable/icon_black" />
 
@@ -179,6 +191,8 @@
                         android:layout_marginRight="25dp"
                         android:layout_marginTop="15dp"
                         android:src="@drawable/ic_data_add" />
+
+
                 </RelativeLayout>
             </LinearLayout>
 

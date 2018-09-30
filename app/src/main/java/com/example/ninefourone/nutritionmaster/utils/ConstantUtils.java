@@ -51,4 +51,7 @@ public class ConstantUtils {
             {"烫的", "冷的", "没有特别喜欢的"},
             {"查看"}
     };
+
+    public static ArrayList<String> occupationList = new ArrayList<>();
+
 }
