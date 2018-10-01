@@ -76,4 +76,134 @@ public class ConstantUtils {
         sexList.add("女");
     }
 
+    /**
+     * 全国平均体重  index 0 对应 3岁
+     */
+    public static ArrayList<Float> averageBoyHeight = new ArrayList<>();
+
+    public static ArrayList<Float> averageGirlHeight = new ArrayList<>();
+
+    static {
+        averageBoyHeight.add(new Float(102.2));
+        averageBoyHeight.add(new Float(107.8));
+        averageBoyHeight.add(new Float(114));
+        averageBoyHeight.add(new Float(119.7));
+        averageBoyHeight.add(new Float(126.6));
+        averageBoyHeight.add(new Float(132));
+        averageBoyHeight.add(new Float(137.2));
+        averageBoyHeight.add(new Float(142.1));
+        averageBoyHeight.add(new Float(148.1));
+        averageBoyHeight.add(new Float(154.5));
+        averageBoyHeight.add(new Float(161.4));
+        averageBoyHeight.add(new Float(166.5));
+        averageBoyHeight.add(new Float(169.8));
+        averageBoyHeight.add(new Float(171.4));
+        averageBoyHeight.add(new Float(172.1));
+        averageBoyHeight.add(new Float(172));
+        averageBoyHeight.add(new Float(172.4));  //index 16  age 19
+
+        averageBoyHeight.add(new Float(171.9));
+        averageBoyHeight.add(new Float(171.6));
+        averageBoyHeight.add(new Float(170.8));
+        averageBoyHeight.add(new Float(169.9));
+        averageBoyHeight.add(new Float(169));
+        averageBoyHeight.add(new Float(168.7));
+        averageBoyHeight.add(new Float(168.3));
+        averageBoyHeight.add(new Float(167.5));
+
+
+        averageGirlHeight.add(new Float(100.9));
+        averageGirlHeight.add(new Float(106.5));
+        averageGirlHeight.add(new Float(112.7));
+        averageGirlHeight.add(new Float(118.1));
+        averageGirlHeight.add(new Float(125.1));
+        averageGirlHeight.add(new Float(130.5));
+        averageGirlHeight.add(new Float(136.3));
+        averageGirlHeight.add(new Float(142.6));
+        averageGirlHeight.add(new Float(149.3));
+        averageGirlHeight.add(new Float(153.7));
+        averageGirlHeight.add(new Float(157));
+        averageGirlHeight.add(new Float(158.7));
+        averageGirlHeight.add(new Float(159.4));
+        averageGirlHeight.add(new Float(159.8));
+        averageGirlHeight.add(new Float(159.9));
+        averageGirlHeight.add(new Float(159.4));
+        averageGirlHeight.add(new Float(160.4));//index 16  age 19
+
+
+        averageGirlHeight.add(new Float(159.9));//index 17 age 24
+        averageGirlHeight.add(new Float(159.6));
+        averageGirlHeight.add(new Float(159.1));
+        averageGirlHeight.add(new Float(158.5));
+        averageGirlHeight.add(new Float(157.8));
+        averageGirlHeight.add(new Float(157.7));
+        averageGirlHeight.add(new Float(157.7));// index 23 age 54
+        averageGirlHeight.add(new Float(156.8)); //index 24 age 59
+
+    }
+
+    /**
+     * 全国平均体重
+     */
+    public static ArrayList<Float> averageBoyWeight = new ArrayList<>();
+    public static ArrayList<Float> averageGirlWeight = new ArrayList<>();
+
+    static {
+        averageBoyWeight.add(new Float(16.6));
+        averageBoyWeight.add(new Float(18.3));
+        averageBoyWeight.add(new Float(20.6));
+        averageBoyWeight.add(new Float(23));
+        averageBoyWeight.add(new Float(26.6));
+        averageBoyWeight.add(new Float(29.9));
+        averageBoyWeight.add(new Float(33.6));
+        averageBoyWeight.add(new Float(37.2));
+        averageBoyWeight.add(new Float(41.9));
+        averageBoyWeight.add(new Float(16.6));
+        averageBoyWeight.add(new Float(52));
+        averageBoyWeight.add(new Float(56.2));
+        averageBoyWeight.add(new Float(59.5));
+        averageBoyWeight.add(new Float(61.5));
+        averageBoyWeight.add(new Float(63.3));
+        averageBoyWeight.add(new Float(63.5));
+        averageBoyWeight.add(new Float(63.5));
+
+        averageBoyWeight.add(new Float(67.2));
+        averageBoyWeight.add(new Float(70.4));
+        averageBoyWeight.add(new Float(71.4));
+        averageBoyWeight.add(new Float(71.5));
+        averageBoyWeight.add(new Float(71.2));
+        averageBoyWeight.add(new Float(71.2));
+        averageBoyWeight.add(new Float(10.6));
+        averageBoyWeight.add(new Float(69.1));
+
+
+        averageGirlWeight.add(new Float(15.9));
+        averageGirlWeight.add(new Float(17.5));
+        averageGirlWeight.add(new Float(19.6));
+        averageGirlWeight.add(new Float(21.6));
+        averageGirlWeight.add(new Float(24.7));
+        averageGirlWeight.add(new Float(27.6));
+        averageGirlWeight.add(new Float(31.3));
+        averageGirlWeight.add(new Float(35.5));
+        averageGirlWeight.add(new Float(40.6));
+        averageGirlWeight.add(new Float(44.5));
+        averageGirlWeight.add(new Float(18));
+        averageGirlWeight.add(new Float(50.4));
+        averageGirlWeight.add(new Float(51.6));
+        averageGirlWeight.add(new Float(52.7));
+        averageGirlWeight.add(new Float(53));
+        averageGirlWeight.add(new Float(52.6));
+        averageGirlWeight.add(new Float(52.4));
+
+        averageGirlWeight.add(new Float(53.8));
+        averageGirlWeight.add(new Float(55.3));
+        averageGirlWeight.add(new Float(56.8));
+        averageGirlWeight.add(new Float(57.8));
+        averageGirlWeight.add(new Float(59));
+        averageGirlWeight.add(new Float(59.7));
+        averageGirlWeight.add(new Float(60.4));
+        averageGirlWeight.add(new Float(59.6));
+
+    }
+
 }

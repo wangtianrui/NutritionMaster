@@ -36,10 +36,10 @@ public class MyUser {
     private boolean is_active;
     private String date_joined;
     private int sex;
-    private String occupation_name;
+    private String occupation_name = "";
     private List<?> groups;
     private List<?> user_permissions;
-    private int age;
+    private int age = 0;
 
     private float weight = 0;
     private float height = 0;

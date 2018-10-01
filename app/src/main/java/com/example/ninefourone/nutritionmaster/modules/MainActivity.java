@@ -18,25 +18,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
-import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.cb.ratingbar.CBRatingBar;
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
-import com.example.ninefourone.nutritionmaster.bean.Occupation;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
-import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
-import com.example.ninefourone.nutritionmaster.ui.InformationDialog;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.PermissionUtils;
-import com.example.ninefourone.nutritionmaster.utils.WebUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
@@ -48,7 +43,6 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.siyamed.shapeimageview.CircularImageView;
-import com.google.gson.Gson;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
@@ -57,16 +51,12 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.orhanobut.logger.Logger;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 
 public class MainActivity extends BaseActivity {
@@ -79,8 +69,8 @@ public class MainActivity extends BaseActivity {
     NoScrollViewPager viewPager;
     @BindView(R.id.sliding_tab_layout)
     SlidingTabLayout slidingTabLayout;
-    @BindView(R.id.cb_rating_bar)
-    CBRatingBar cbRatingBar;
+    @BindView(R.id.score_bar)
+    CBRatingBar scoreBar;
     @BindView(R.id.toolbar_user_avatar)
     CircularImageView toolbarUserAvatar;
     @BindView(R.id.drawer_user_avatar)
@@ -112,6 +102,12 @@ public class MainActivity extends BaseActivity {
     LinearLayout addInforLl;
     @BindView(R.id.show_information)
     LinearLayout showInformation;
+    @BindView(R.id.bmi_bar)
+    RoundCornerProgressBar bmiBar;
+    @BindView(R.id.height_bar)
+    RoundCornerProgressBar heightBar;
+    @BindView(R.id.weight_bar)
+    RoundCornerProgressBar weightBar;
 
 
     @Override
@@ -153,7 +149,8 @@ public class MainActivity extends BaseActivity {
      * 初始化ViewPager
      */
     private void initViewPager() {
-        HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), this);
+        HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(),
+                this);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(homePagerAdapter);
         //CubeInTransformer 内旋
@@ -318,7 +315,8 @@ public class MainActivity extends BaseActivity {
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-                        Intent cameraIntent = new Intent(MainActivity.this, FoodMaterialCamera.class);
+                        Intent cameraIntent = new Intent(MainActivity.this,
+                                FoodMaterialCamera.class);
                         startActivity(cameraIntent);
                     }
                 });
@@ -354,7 +352,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         MessageUtils.MakeToast("权限赋予成功");
     }
@@ -366,7 +365,8 @@ public class MainActivity extends BaseActivity {
      * @param view
      */
 
-    @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout, R.id.user_occupation_text, R.id.adder_infor})
+    @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout,
+            R.id.user_occupation_text, R.id.adder_infor})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.navigation_layout:
@@ -389,15 +389,104 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void backChangeData() {
         super.backChangeData();
         initInforView();
-        if (NutritionMaster.user.getOccupation_name() == null) {
+        if (NutritionMaster.user.getOccupation_name().equals("")) {
 
         } else {
             userOccupationText.setText("职业: " + NutritionMaster.user.getOccupation_name());
         }
+        initInformationBar();
+    }
 
+    /**
+     * 初始化个人信息的条状bar还有状态星级的UI
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initInformationBar() {
+
+        scoreBar.setCanTouch(false);
+        if (NutritionMaster.user.getHeight() != 0 && NutritionMaster.user.getAge() != 0) {
+
+            float maxBmi = 40.0f;
+            float maxHeight = 250.0f;
+            float maxWeight = 130.0f;
+
+            float height = NutritionMaster.user.getHeight();
+            float weight = NutritionMaster.user.getWeight();
+            float age = NutritionMaster.user.getAge();
+            float averageWeight = 0;
+            float averageHeight = 0;
+            float averageBmi = 0;
+            int index = (int) (age >= 20 ? ((age - 20) / 5 + 17) : (age - 3));
+            if (NutritionMaster.user.getSex() == 0) {
+                //女性
+                averageWeight = ConstantUtils.averageGirlWeight.get(index);
+                averageHeight = ConstantUtils.averageGirlHeight.get(index);
+                averageBmi = CalculateUtils.BMI(averageHeight, averageWeight);
+            } else if (NutritionMaster.user.getSex() == 1) {
+                averageWeight = ConstantUtils.averageBoyWeight.get(index);
+                averageHeight = ConstantUtils.averageBoyHeight.get(index);
+                averageBmi = CalculateUtils.BMI(averageHeight, averageWeight);
+            } else {
+                Logger.e("非男非女？");
+                return;
+            }
+            float bmi = CalculateUtils.BMI(height, weight);
+
+            float bmiAverage = averageBmi / maxBmi * 100.0f;
+            float bmiSelf = bmi / maxBmi * 100.0f;
+
+            if (bmiAverage > bmiSelf) {
+                bmiBar.setMax(100);
+                bmiBar.setSecondaryProgress(bmiAverage);
+                bmiBar.setProgress(bmiSelf);
+            } else {
+                bmiBar.setMax(100);
+                bmiBar.setSecondaryProgress(bmiSelf);
+                bmiBar.setProgress(bmiAverage);
+                bmiBar.setProgressColor(getColor(R.color.color_bar_deeper));
+                bmiBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
+            }
+
+
+            float heightAverage = averageHeight / maxHeight * 100.0f;
+            float heightSelf = height / maxHeight * 100.0f;
+            if (heightAverage > heightSelf) {
+                heightBar.setMax(100);
+                heightBar.setSecondaryProgress(heightAverage);
+                heightBar.setProgress(heightSelf);
+            } else {
+                heightBar.setMax(100);
+                heightBar.setSecondaryProgress(heightSelf);
+                heightBar.setProgress(heightAverage);
+                heightBar.setProgressColor(getColor(R.color.color_bar_deeper));
+                heightBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
+            }
+
+
+            float weightAverage = averageWeight / maxWeight * 100.0f;
+            float weightSelf = weight / maxWeight * 100.0f;
+            if (weightAverage>weightSelf){
+                weightBar.setMax(100);
+                weightBar.setSecondaryProgress(weightAverage);
+                weightBar.setProgress(weightSelf);
+            }else{
+                weightBar.setMax(100);
+                weightBar.setSecondaryProgress(weightSelf);
+                weightBar.setProgress(weightAverage);
+                weightBar.setProgressColor(getColor(R.color.color_bar_deeper));
+                weightBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
+            }
+
+            Logger.d("bmi:" + averageBmi / maxBmi * 100.0f + "|" + bmi / maxBmi * 100.0f + "\n" +
+                    "height:" + averageHeight / maxHeight * 100.0f + "|" + height / maxHeight * 100.0f + "\n" +
+                    "weight" + averageWeight / maxWeight * 100.0f + "|" + weight / maxWeight * 100.0f);
+
+
+        }
     }
 }

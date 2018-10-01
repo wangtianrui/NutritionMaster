@@ -208,14 +208,13 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/add_infor_ll"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:gravity="center"
-                        android:id="@+id/add_infor_ll"
                         android:orientation="vertical">
 
                         <TextView
@@ -257,7 +256,7 @@
                             </LinearLayout>
 
                             <com.cb.ratingbar.CBRatingBar
-                                android:id="@+id/cb_rating_bar"
+                                android:id="@+id/score_bar"
                                 android:layout_width="150dp"
                                 android:layout_height="36dp"
                                 android:layout_alignParentRight="true"
@@ -371,6 +370,7 @@
                             </LinearLayout>
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/bmi_bar"
                                 android:layout_width="145dp"
                                 android:layout_height="36dp"
                                 android:layout_alignParentRight="true"
@@ -378,12 +378,9 @@
                                 android:layout_marginTop="3dp"
                                 app:rcBackgroundColor="@color/color_bar_background"
                                 app:rcBackgroundPadding="5dp"
-                                app:rcMax="100"
-                                app:rcProgress="56.6"
                                 app:rcProgressColor="@color/color_bar_self"
                                 app:rcRadius="10dp"
                                 app:rcReverse="false"
-                                app:rcSecondaryProgress="74.1"
                                 app:rcSecondaryProgressColor="@color/color_bar_deeper" />
 
                         </RelativeLayout>
@@ -446,7 +443,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="8dp"
-                                        android:text="@string/standrad_information"
+                                        android:text="@string/average_information"
                                         android:textSize="5sp" />
                                 </LinearLayout>
 
@@ -457,6 +454,7 @@
                             </LinearLayout>
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/height_bar"
                                 android:layout_width="145dp"
                                 android:layout_height="36dp"
                                 android:layout_alignParentRight="true"
@@ -464,12 +462,9 @@
                                 android:layout_marginTop="3dp"
                                 app:rcBackgroundColor="@color/color_bar_background"
                                 app:rcBackgroundPadding="5dp"
-                                app:rcMax="100"
-                                app:rcProgress="16.6"
                                 app:rcProgressColor="@color/color_bar_self"
                                 app:rcRadius="10dp"
                                 app:rcReverse="false"
-                                app:rcSecondaryProgress="32.1"
                                 app:rcSecondaryProgressColor="@color/color_bar_deeper" />
 
                         </RelativeLayout>
@@ -532,7 +527,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="8dp"
-                                        android:text="@string/standrad_information"
+                                        android:text="@string/average_information"
                                         android:textSize="5sp" />
                                 </LinearLayout>
 
@@ -543,6 +538,7 @@
                             </LinearLayout>
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/weight_bar"
                                 android:layout_width="145dp"
                                 android:layout_height="36dp"
                                 android:layout_alignParentRight="true"
@@ -550,12 +546,9 @@
                                 android:layout_marginTop="3dp"
                                 app:rcBackgroundColor="@color/color_bar_background"
                                 app:rcBackgroundPadding="5dp"
-                                app:rcMax="100"
-                                app:rcProgress="32.6"
                                 app:rcProgressColor="@color/color_bar_self"
                                 app:rcRadius="10dp"
                                 app:rcReverse="false"
-                                app:rcSecondaryProgress="56.1"
                                 app:rcSecondaryProgressColor="@color/color_bar_deeper" />
 
                         </RelativeLayout>

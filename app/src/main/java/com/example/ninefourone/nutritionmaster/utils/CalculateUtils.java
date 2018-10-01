@@ -1,5 +1,7 @@
 package com.example.ninefourone.nutritionmaster.utils;
 
+import com.orhanobut.logger.Logger;
+
 /**
  * Created by ScorpioMiku on 2018/8/29.
  */
@@ -14,8 +16,9 @@ public class CalculateUtils {
      */
     public static float BMI(float height, float weight) {
         if (height > 10) {
-            height = height / 100;
+            height = height / 100.0f;
         }
+//        Logger.d(height+"|"+weight / (height * height));
         return weight / (height * height);
     }
 
