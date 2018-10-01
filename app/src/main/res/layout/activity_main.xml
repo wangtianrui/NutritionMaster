@@ -168,7 +168,8 @@
                                 android:layout_height="20dp"
                                 android:gravity="center"
                                 android:text="请完善信息"
-                                android:textColor="#FFF" />
+                                android:textColor="#FFF"
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
