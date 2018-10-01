@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
+import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -90,5 +91,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void upUser(MyUser user) {
         NutritionMaster.user = user;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        backChangeData();
+    }
+
+    /**
+     * 填写完信息返回Activity调用
+     */
+    protected void backChangeData() {
+
     }
 }

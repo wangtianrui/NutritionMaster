@@ -51,13 +51,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
      * 右划
      */
     public void swipe2Right() {
-        Logger.d("右划");
+//        Logger.d("右划");
     }
 
     /**
      * 左划
      */
     public void swipe2left() {
-        Logger.d("左划");
+//        Logger.d("左划");
     }
 }

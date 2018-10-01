@@ -54,4 +54,26 @@ public class ConstantUtils {
 
     public static ArrayList<String> occupationList = new ArrayList<>();
 
+    public static ArrayList<String> ageList = new ArrayList<>();
+
+    public static ArrayList<String> sexList = new ArrayList<>();
+
+    public static ArrayList<String> heightList = new ArrayList<>();
+
+    public static ArrayList<String> weightList = new ArrayList<>();
+
+    static {
+        for (int i = 1; i <= 200; i++) {
+            if (i < 100) {
+                ageList.add(i + "岁");
+            }
+            heightList.add(i + 50 + "cm");
+            if (i < 150) {
+                weightList.add(i + "kg");
+            }
+        }
+        sexList.add("男");
+        sexList.add("女");
+    }
+
 }

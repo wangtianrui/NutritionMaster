@@ -39,9 +39,18 @@ public class MyUser {
     private String occupation_name;
     private List<?> groups;
     private List<?> user_permissions;
+    private int age;
 
     private float weight = 0;
     private float height = 0;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public float getWeight() {
         return weight;
@@ -163,6 +172,14 @@ public class MyUser {
         this.sex = sex;
     }
 
+    public void setSex(String sex) {
+        if (sex.equals("男")) {
+            this.sex = 1;
+        } else {
+            this.sex = 0;
+        }
+    }
+
     public String getOccupation_name() {
         return occupation_name;
     }
@@ -206,6 +223,10 @@ public class MyUser {
                 ", occupation_name='" + occupation_name + '\'' +
                 ", groups=" + groups +
                 ", user_permissions=" + user_permissions +
+                ", user_age=" + age +
+                ", user_sex=" + sex +
+                ", user_height=" + height +
+                ", user_weight=" + weight +
                 '}';
     }
 }

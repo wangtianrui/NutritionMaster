@@ -29,6 +29,9 @@ import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity;
+import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
+import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
+import com.example.ninefourone.nutritionmaster.ui.InformationDialog;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
@@ -52,6 +55,7 @@ import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -109,7 +113,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.show_information)
     LinearLayout showInformation;
 
-    private OptionsPickerView pickerView;
 
     @Override
     public int getLayoutId() {
@@ -137,13 +140,12 @@ public class MainActivity extends BaseActivity {
 //                Logger.i("openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
-        initInforView();
-        initPicker();
+//        initInforView();
         initSpiderView();
         initViewPager();
         initSearchView();
         initBMB();
-        initOccupations();
+//        initOccupations();
 
     }
 
@@ -305,23 +307,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    /**
-     * 初始化picker
-     */
-    private void initPicker() {
-        pickerView = new OptionsPickerBuilder(MainActivity.this, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                final int option = options1;
-                userOccupationText.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        userOccupationText.setText(ConstantUtils.occupationList.get(option));
-                    }
-                });
-            }
-        }).build();
-    }
 
     /**
      * 初始化悬浮按钮
@@ -349,6 +334,7 @@ public class MainActivity extends BaseActivity {
      * 初始化个人信息界面（UI）
      */
     private void initInforView() {
+//        Logger.d(NutritionMaster.user.toString());
         adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         if (NutritionMaster.user.getHeight() != 0) {
             showInformation.setVisibility(View.VISIBLE);
@@ -357,13 +343,6 @@ public class MainActivity extends BaseActivity {
             showInformation.setVisibility(View.INVISIBLE);
             adderInfor.setVisibility(View.VISIBLE);
         }
-
-        adderInfor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
     }
 
@@ -400,36 +379,25 @@ public class MainActivity extends BaseActivity {
             case R.id.information_layout:
                 break;
             case R.id.user_occupation_text:
-                pickerView.show();
+
                 break;
             case R.id.adder_infor:
+                Intent i = new Intent(MainActivity.this, AddInformationActivity.class);
+                startActivity(i);
                 break;
         }
     }
 
-    /**
-     * 初始化职业常量
-     */
-    private void initOccupations() {
-        if (userOccupationText.getText().equals("请选择您的职业")) {
-            WebUtils.getAllOccupations(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Occupation[] occupations = new Gson().fromJson(response.body().string(), Occupation[].class);
-                    for (int i = 0; i < occupations.length; i++) {
-//                        Logger.d(occupations[i].getOccupation_name());
-                        ConstantUtils.occupationList.add(occupations[i].getOccupation_name());
-                    }
-                    pickerView.setPicker(ConstantUtils.occupationList);
-                }
-            });
+    @Override
+    protected void backChangeData() {
+        super.backChangeData();
+        initInforView();
+        if (NutritionMaster.user.getOccupation_name() == null) {
+
+        } else {
+            userOccupationText.setText("职业: " + NutritionMaster.user.getOccupation_name());
         }
+
     }
-
-
 }

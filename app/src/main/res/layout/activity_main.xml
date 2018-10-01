@@ -167,7 +167,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="20dp"
                                 android:gravity="center"
-                                android:text="请选择您的职业"
+                                android:text="请完善信息"
                                 android:textColor="#FFF" />
 
                         </LinearLayout>
