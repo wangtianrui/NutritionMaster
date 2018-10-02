@@ -30,8 +30,8 @@
         android:layout_height="450dp"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,20 +46,24 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="30dp"
-                android:gravity="center"
                 android:orientation="horizontal">
 
 
                 <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/physique_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="40dp"
+                    android:scaleType="centerCrop"
                     tools:src="@drawable/test_avatar" />
 
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/physique_name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#dad9d9"
                     android:textStyle="bold"
                     tools:text="淤血质" />
 
@@ -74,6 +78,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -96,14 +101,16 @@
                             android:layout_height="0.5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
+                            android:alpha="0.5"
                             android:background="@color/place_holder" />
 
                         <TextView
+                            android:id="@+id/expression_text_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:textSize="8sp"
+                            android:textSize="9sp"
                             tools:text="平素面色晦暗，皮肤偏暗或色素沉着，容易出现瘀斑，易患疼痛，口唇暗淡或紫，舌质暗有点、片状瘀斑，舌下静脉曲张。眼眶暗黑，鼻部暗滞，发易脱落，皮肤发干，或有出血倾向、吐血，女性多见痛经、闭经、或经血中多有血块，或经色紫黑有块。" />
                     </LinearLayout>
 
@@ -127,14 +134,16 @@
                             android:layout_height="0.5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
+                            android:alpha="0.5"
                             android:background="@color/place_holder" />
 
                         <TextView
+                            android:id="@+id/characteristic_text_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:textSize="8sp"
+                            android:textSize="9sp"
                             tools:text="瘀血质的人，血行不畅，临床常呈现肤色晦暗、色素沉着、瘀斑、性格抑郁、健忘，舌质紫黯或有瘀点、舌下络脉紫黯或增粗，脉涩。易患痛证、血证、症瘕等。" />
                     </LinearLayout>
 
@@ -158,14 +167,16 @@
                             android:layout_height="0.5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
+                            android:alpha="0.5"
                             android:background="@color/place_holder" />
 
                         <TextView
+                            android:id="@+id/mentality_text_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:textSize="8sp"
+                            android:textSize="9sp"
                             tools:text="性情急躁，心情易烦，健忘。" />
                     </LinearLayout>
 
@@ -189,14 +200,16 @@
                             android:layout_height="0.5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
+                            android:alpha="0.5"
                             android:background="@color/place_holder" />
 
                         <TextView
+                            android:id="@+id/matters_text_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:layout_marginRight="7dp"
-                            android:textSize="8sp"
+                            android:textSize="9sp"
                             tools:text="瘀血质气机失调，血行不畅，应慎食雪糕、冰淇淋、冰冻饮料等寒凉之品，以免影响气血运行。保持心情舒畅，是淤血质调理的重要环节" />
                     </LinearLayout>
                 </LinearLayout>

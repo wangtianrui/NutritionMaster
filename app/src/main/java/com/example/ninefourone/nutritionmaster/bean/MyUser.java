@@ -6,7 +6,7 @@ public class MyUser {
 
     /**
      * id : 7
-     * physical_name : 平和质
+     * physique : 平和质
      * password : password
      * last_login : null
      * is_superuser : false
@@ -24,7 +24,7 @@ public class MyUser {
      */
 
     private int id;
-    private String physical_name;
+    private Physique physique;
     private String password;
     private Object last_login;
     private boolean is_superuser;
@@ -76,12 +76,12 @@ public class MyUser {
         this.id = id;
     }
 
-    public String getPhysical_name() {
-        return physical_name;
+    public Physique getPhysique() {
+        return physique;
     }
 
-    public void setPhysical_name(String physical_name) {
-        this.physical_name = physical_name;
+    public void setPhysique(Physique physique) {
+        this.physique = physique;
     }
 
     public String getPassword() {
@@ -208,7 +208,7 @@ public class MyUser {
     public String toString() {
         return "MyUser{" +
                 "id=" + id +
-                ", physical_name='" + physical_name + '\'' +
+                ", physique='" + physique + '\'' +
                 ", password='" + password + '\'' +
                 ", last_login=" + last_login +
                 ", is_superuser=" + is_superuser +

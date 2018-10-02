@@ -1,8 +1,6 @@
 package com.example.ninefourone.nutritionmaster.modules.addinformation;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +13,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.base.BaseActivity;
+import com.example.ninefourone.nutritionmaster.bean.Physique;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
+import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.github.czy1121.view.TurnCardListView;
+import com.github.siyamed.shapeimageview.CircularImageView;
 import com.orhanobut.logger.Logger;
 
 import java.util.Arrays;
@@ -26,19 +29,29 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddPhysiqueActivity extends AppCompatActivity {
+public class AddPhysiqueActivity extends BaseActivity {
 
 
     @BindView(R.id.card_list)
     TurnCardListView cardList;
     @BindView(R.id.back_button)
     ImageView backButton;
-    @BindView(R.id.title)
-    TextView title;
     @BindView(R.id.result_layout)
     CardView resultLayout;
     @BindView(R.id.bottom_content)
     RelativeLayout bottomContent;
+    @BindView(R.id.physique_image)
+    CircularImageView physiqueImage;
+    @BindView(R.id.physique_name_text_view)
+    TextView physiqueNameTextView;
+    @BindView(R.id.expression_text_view)
+    TextView expressionTextView;
+    @BindView(R.id.characteristic_text_view)
+    TextView characteristicTextView;
+    @BindView(R.id.mentality_text_view)
+    TextView mentalityTextView;
+    @BindView(R.id.matters_text_view)
+    TextView mattersTextView;
 
 
     private String result = "";
@@ -57,13 +70,13 @@ public class AddPhysiqueActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //设置全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+    public int getLayoutId() {
+        return R.layout.activity_add;
+    }
+
+    @Override
+    public void initViews(Bundle savedInstanceState) {
+//        setContentView();
         ButterKnife.bind(this);
         buttonList = new Button[][]{
                 firstButtons,
@@ -71,6 +84,11 @@ public class AddPhysiqueActivity extends AppCompatActivity {
                 thirdButtons
         };
         initAddView();
+    }
+
+    @Override
+    public void initToolBar() {
+
     }
 
     private void initAddView() {
@@ -132,6 +150,7 @@ public class AddPhysiqueActivity extends AppCompatActivity {
                             getResult();
                             resultLayout.setVisibility(View.VISIBLE);
                             cardList.setVisibility(View.INVISIBLE);
+                            MessageUtils.MakeToast("已将体质信息上传至个人信息");
 
                         }
                     });
@@ -273,7 +292,7 @@ public class AddPhysiqueActivity extends AppCompatActivity {
         switch ((int) (codes[3]) - 48) {
             case 1:
                 counter[0]++;
-                counter[1]++;
+
                 counter[2]++;
                 counter[5]++;
                 counter[6]++;
@@ -283,6 +302,7 @@ public class AddPhysiqueActivity extends AppCompatActivity {
                 break;
             case 2:
                 counter[7]++;
+                counter[1]++;
 
                 counter[3] += margin;
                 counter[4] += margin;
@@ -359,8 +379,48 @@ public class AddPhysiqueActivity extends AppCompatActivity {
                 counter[8] = counter[i];
             }
         }
-        Logger.d(Arrays.toString(counter) + "\n" + physiques[maxIndex]);
+        physique = physiques[maxIndex];
+        Logger.d(Arrays.toString(counter) + "\n" + physique);
+        Physique phy = new Physique();
+        phy.setPhysical_name(physique);
+        phy.setCharacteristic(ConstantUtils.physiquesCharacteristics[maxIndex]);
+        phy.setExpression(ConstantUtils.physiquesExpressions[maxIndex]);
+        phy.setMentality(ConstantUtils.physiquesMentalitys[maxIndex]);
+        phy.setMatters(ConstantUtils.physiquesMatters[maxIndex]);
+        phy.setImageUrl(ConstantUtils.physiquesImageUrls[maxIndex]);
+        user.setPhysique(phy);
+        upUser();
+        loadInformation(phy);
 
+    }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //设置全屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    /**
+     * 加载显示的信息
+     *
+     * @param physique
+     */
+    private void loadInformation(Physique physique) {
+        Glide.with(AddPhysiqueActivity.this).load(physique.getImageUrl()).into(physiqueImage);
+        physiqueNameTextView.setText(physique.getPhysical_name());
+        expressionTextView.setText(physique.getExpression());
+        characteristicTextView.setText(physique.getCharacteristic());
+        mentalityTextView.setText(physique.getMentality());
+        mattersTextView.setText(physique.getMatters());
     }
 }

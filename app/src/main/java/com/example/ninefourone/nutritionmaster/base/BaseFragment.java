@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
-import com.example.ninefourone.nutritionmaster.bean.User;
+import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,6 +21,7 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragment extends Fragment {
+    private MyUser user;
     private View parentView;
     private FragmentActivity activity;
     protected boolean isPrepared;
@@ -43,6 +44,7 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         initView(savedInstanceState);
+        this.user = NutritionMaster.user;
     }
 
 
@@ -153,8 +155,9 @@ public abstract class BaseFragment extends Fragment {
     protected void finishTask() {
     }
 
-    protected void upUser(MyUser user) {
+    protected void upUser() {
         NutritionMaster.user = user;
+        Logger.d("用户信息已改"+NutritionMaster.user.toString());
     }
 
 }

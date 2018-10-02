@@ -146,7 +146,7 @@ public class AddInformationActivity extends BaseActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyUser user = NutritionMaster.user;
+
                 if (ageTextView.getText().toString().equals("年龄") || weightTextView.getText().toString().equals("体重")
                         || sexTextView.getText().toString().equals("性别") || heightTextView.getText().toString().equals("身高")||
                         occupationTextView.getText().toString().equals("职业")) {
@@ -157,8 +157,7 @@ public class AddInformationActivity extends BaseActivity {
                     user.setAge(Integer.valueOf(ageTextView.getText().toString().split("岁")[0]));
                     user.setSex(sexTextView.getText().toString());
                     user.setOccupation_name(occupationTextView.getText().toString());
-//                Logger.d(user.toString());
-                    upUser(user);
+                    upUser();
                     MessageUtils.MakeToast("信息填写成功");
                     finish();
                 }

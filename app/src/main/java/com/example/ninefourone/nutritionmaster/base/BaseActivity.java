@@ -17,6 +17,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
+    protected MyUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
         initViews(savedInstanceState);
         initToolBar();
+        this.user = NutritionMaster.user;
     }
 
 
@@ -89,8 +91,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         unbinder.unbind();
     }
 
-    protected void upUser(MyUser user) {
+    protected void upUser() {
         NutritionMaster.user = user;
+        Logger.d("用户信息已改"+NutritionMaster.user.toString());
     }
 
     @Override
