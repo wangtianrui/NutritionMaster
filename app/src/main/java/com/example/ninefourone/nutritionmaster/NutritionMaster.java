@@ -14,6 +14,8 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -118,6 +120,7 @@ public class NutritionMaster extends Application {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Occupation[] occupations = new Gson().fromJson(response.body().string(), Occupation[].class);
+//                Logger.d(Arrays.toString(occupations));
                 for (int i = 0; i < occupations.length; i++) {
                     ConstantUtils.occupationList.add(occupations[i].getOccupation_name());
                 }

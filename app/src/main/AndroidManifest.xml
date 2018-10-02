@@ -51,7 +51,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".modules.addinformation.AddActivity" />
+        <activity android:name=".modules.addinformation.AddPhysiqueActivity" />
         <activity android:name=".modules.viewpagerfragments.customization.CustomizationActivity" />
         <activity android:name=".modules.information.InformationActivity" />
         <activity android:name=".modules.RecipeActivity.RecipeActivity" />

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#b0ce93"
-    tools:context="com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity">
+    tools:context="com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity">
 
 
     <com.github.czy1121.view.TurnCardListView

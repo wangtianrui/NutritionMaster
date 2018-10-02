@@ -25,8 +25,9 @@ import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
-import com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity;
+import com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
+import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
@@ -373,13 +374,12 @@ public class MainActivity extends BaseActivity {
                 mDrawer.openMenu();
                 break;
             case R.id.add_information_button:
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddPhysiqueActivity.class);
                 startActivity(intent);
                 break;
             case R.id.information_layout:
-                break;
-            case R.id.user_occupation_text:
-
+                Intent informationIntent = new Intent(MainActivity.this, InformationActivity.class);
+                startActivity(informationIntent);
                 break;
             case R.id.adder_infor:
                 Intent i = new Intent(MainActivity.this, AddInformationActivity.class);
@@ -470,11 +470,11 @@ public class MainActivity extends BaseActivity {
 
             float weightAverage = averageWeight / maxWeight * 100.0f;
             float weightSelf = weight / maxWeight * 100.0f;
-            if (weightAverage>weightSelf){
+            if (weightAverage > weightSelf) {
                 weightBar.setMax(100);
                 weightBar.setSecondaryProgress(weightAverage);
                 weightBar.setProgress(weightSelf);
-            }else{
+            } else {
                 weightBar.setMax(100);
                 weightBar.setSecondaryProgress(weightSelf);
                 weightBar.setProgress(weightAverage);
