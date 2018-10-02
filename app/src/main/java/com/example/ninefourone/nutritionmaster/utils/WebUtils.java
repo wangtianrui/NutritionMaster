@@ -47,6 +47,35 @@ public class WebUtils {
     }
 
     /**
+     *  获取病相关的菜谱和元素信息
+     *  传入含有病的意义的菜谱分类名称,比如青少年食谱
+     *
+     * {
+     * "menu_classification": {
+     * "classification": "青少年食谱",
+     * "cure_occupation": [
+     * "学生"
+     * ],
+     * "menu_effect": [
+     * "三鲜鳝汤",
+     * "上海糖醋小排骨",
+     * ...
+     * ]
+     * },
+     * "elements": {
+     * "id": 84,
+     * "calorie": 1.1,
+     * ...
+     * }
+     * }
+     */
+    public static void getIllness(String illnessClassification, Callback callback) {
+        OkHttpClient mClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://120.77.182.38/illness/" + illnessClassification + "/").build();
+        mClient.newCall(request).enqueue(callback);
+    }
+
+    /**
      * 获取count个随机菜谱,在回调中解析为一个Menu数组
      *
      * @param count
