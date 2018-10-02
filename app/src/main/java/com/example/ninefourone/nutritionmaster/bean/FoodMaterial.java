@@ -1,5 +1,7 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
+import java.util.List;
+
 public class FoodMaterial {
 
     /**

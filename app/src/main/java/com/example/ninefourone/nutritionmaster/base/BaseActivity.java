@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
+import com.example.ninefourone.nutritionmaster.bean.MyUser;
+import com.orhanobut.logger.Logger;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -13,16 +17,18 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
+    protected MyUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.user = NutritionMaster.user;
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
         initViews(savedInstanceState);
         initToolBar();
-    }
 
+    }
 
 
     /**
@@ -84,5 +90,23 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    protected void upUser() {
+        NutritionMaster.user = user;
+        Logger.d("用户信息已改"+NutritionMaster.user.toString());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        backChangeData();
+    }
+
+    /**
+     * 填写完信息返回Activity调用
+     */
+    protected void backChangeData() {
+
     }
 }

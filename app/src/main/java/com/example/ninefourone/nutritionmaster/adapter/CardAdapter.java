@@ -39,7 +39,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(CardHolder holder, int position) {
-        holder.bindView(mList.get(position).getPictureId(), mList.get(position).getTitle(), context);
+        holder.bindView(mList.get(position).getPictureId(), mList.get(position), context);
     }
 
     @Override
@@ -51,13 +51,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
      * 右划
      */
     public void swipe2Right() {
-        Logger.d("右划");
+//        Logger.d("右划");
     }
 
     /**
      * 左划
      */
     public void swipe2left() {
-        Logger.d("左划");
+//        Logger.d("左划");
     }
 }

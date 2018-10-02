@@ -4,8 +4,20 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.example.ninefourone.nutritionmaster.bean.MyUser;
+
+import com.example.ninefourone.nutritionmaster.bean.Occupation;
+import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
+import com.example.ninefourone.nutritionmaster.utils.WebUtils;
+import com.google.gson.Gson;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 /**
@@ -16,11 +28,14 @@ public class NutritionMaster extends Application {
     public static NutritionMaster mInstance;
     private int appCount = 0;
 
+    public static MyUser user;
+
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
         init();
+        initUser();
     }
 
     /**
@@ -64,6 +79,7 @@ public class NutritionMaster extends Application {
 
             }
         });
+        initOccupations();
     }
 
     public static NutritionMaster getInstance() {
@@ -78,5 +94,38 @@ public class NutritionMaster extends Application {
     public boolean isForeground() {
         return appCount > 0;
     }
+
+
+    /**
+     * 初始化用户信息
+     */
+    private void initUser() {
+        user = new MyUser();
+        user.setUsername("ScorpioMiku");
+    }
+
+    /**
+     * 初始化职业常量
+     */
+    private void initOccupations() {
+
+        WebUtils.getAllOccupations(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Occupation[] occupations = new Gson().fromJson(response.body().string(), Occupation[].class);
+//                Logger.d(Arrays.toString(occupations));
+                for (int i = 0; i < occupations.length; i++) {
+                    ConstantUtils.occupationList.add(occupations[i].getOccupation_name());
+                }
+            }
+        });
+
+    }
+
 
 }

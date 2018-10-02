@@ -100,8 +100,8 @@ public class MyUser {
         return physical_name;
     }
 
-    public void setPhysical_name(String physical_name) {
-        this.physical_name = physical_name;
+    public void setPhysique(Physique physique) {
+        this.physique = physique;
     }
 
     public String getPassword() {

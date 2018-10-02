@@ -56,6 +56,8 @@ public class BodyInformationFragment extends BaseFragment {
 
     private ISportStepInterface iSportStepInterface;
 
+    private ServiceConnection coon;
+
 
     @Override
     public int getLayoutResId() {
@@ -94,7 +96,7 @@ public class BodyInformationFragment extends BaseFragment {
         //开启计步
         Intent stepCounterStart = new Intent(getActivity(), TodayStepService.class);
         getActivity().startService(stepCounterStart);
-        getActivity().bindService(stepCounterStart, new ServiceConnection() {
+        coon = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 iSportStepInterface = ISportStepInterface.Stub.asInterface(service);
@@ -111,7 +113,8 @@ public class BodyInformationFragment extends BaseFragment {
             public void onServiceDisconnected(ComponentName name) {
 
             }
-        }, Context.BIND_AUTO_CREATE);
+        };
+        getActivity().bindService(stepCounterStart, coon, Context.BIND_AUTO_CREATE);
     }
 
     /**
@@ -172,4 +175,9 @@ public class BodyInformationFragment extends BaseFragment {
         ChartDrawer.initSingleLineChart(stepLineChart, stepPointValues, "步数");
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unbindService(coon);
+    }
 }

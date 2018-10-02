@@ -2,7 +2,7 @@ package com.example.ninefourone.nutritionmaster.modules;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,19 +12,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.bumptech.glide.Glide;
 import com.cb.ratingbar.CBRatingBar;
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
-import com.example.ninefourone.nutritionmaster.modules.addinformation.AddActivity;
+import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
+import com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity;
 import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
+import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.PermissionUtils;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -64,8 +71,8 @@ public class MainActivity extends BaseActivity {
     NoScrollViewPager viewPager;
     @BindView(R.id.sliding_tab_layout)
     SlidingTabLayout slidingTabLayout;
-    @BindView(R.id.cb_rating_bar)
-    CBRatingBar cbRatingBar;
+    @BindView(R.id.score_bar)
+    CBRatingBar scoreBar;
     @BindView(R.id.toolbar_user_avatar)
     CircularImageView toolbarUserAvatar;
     @BindView(R.id.drawer_user_avatar)
@@ -85,6 +92,26 @@ public class MainActivity extends BaseActivity {
     LinearLayout informationLayout;
     @BindView(R.id.title_layout)
     AppBarLayout titleLayout;
+    @BindView(R.id.user_nick_name)
+    TextView userNickName;
+    @BindView(R.id.user_occupation_text)
+    TextView userOccupationText;
+    @BindView(R.id.container)
+    RelativeLayout container;
+    @BindView(R.id.adder_infor)
+    TextView adderInfor;
+    @BindView(R.id.add_infor_ll)
+    LinearLayout addInforLl;
+    @BindView(R.id.show_information)
+    LinearLayout showInformation;
+    @BindView(R.id.bmi_bar)
+    RoundCornerProgressBar bmiBar;
+    @BindView(R.id.height_bar)
+    RoundCornerProgressBar heightBar;
+    @BindView(R.id.weight_bar)
+    RoundCornerProgressBar weightBar;
+    @BindView(R.id.tool_bar_nickname)
+    TextView toolBarNickname;
 
 
     @Override
@@ -105,7 +132,6 @@ public class MainActivity extends BaseActivity {
                 } else {
                     titleLayout.setBackgroundColor(getColor(R.color.bar_open));
                 }
-
             }
 
             @Override
@@ -123,7 +149,8 @@ public class MainActivity extends BaseActivity {
      * 初始化ViewPager
      */
     private void initViewPager() {
-        HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), this);
+        HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(),
+                this);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(homePagerAdapter);
         //CubeInTransformer 内旋
@@ -136,7 +163,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
-
+        toolBarNickname.setText(user.getUsername());
     }
 
     @Override
@@ -151,7 +178,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
-        Logger.d("oncreate");
+//        Logger.d("oncreate");
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         askPermission();
@@ -159,7 +186,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Logger.d("oncreateMenu");
+//        Logger.d("oncreateMenu");
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.id_action_search);
         searchView.setMenuItem(item);
@@ -168,7 +195,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        Logger.d("prepareMenu");
+//        Logger.d("prepareMenu");
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -277,6 +304,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
+
     /**
      * 初始化悬浮按钮
      */
@@ -287,7 +315,8 @@ public class MainActivity extends BaseActivity {
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-                        Intent cameraIntent = new Intent(MainActivity.this, FoodMaterialCamera.class);
+                        Intent cameraIntent = new Intent(MainActivity.this,
+                                FoodMaterialCamera.class);
                         startActivity(cameraIntent);
                     }
                 });
@@ -298,6 +327,23 @@ public class MainActivity extends BaseActivity {
         boomMenuButton.addBuilder(builder2);
     }
 
+
+    /**
+     * 初始化个人信息界面（UI）
+     */
+    private void initInforView() {
+//        Logger.d(NutritionMaster.user.toString());
+        adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        if (NutritionMaster.user.getHeight() != 0) {
+            showInformation.setVisibility(View.VISIBLE);
+            adderInfor.setVisibility(View.INVISIBLE);
+        } else {
+            showInformation.setVisibility(View.INVISIBLE);
+            adderInfor.setVisibility(View.VISIBLE);
+        }
+
+    }
+
     /**
      * 请求权限
      */
@@ -306,27 +352,140 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         MessageUtils.MakeToast("权限赋予成功");
     }
 
-    @OnClick({R.id.navigation_layout, R.id.add_information_button})
+
+    /**
+     * 点击事件
+     *
+     * @param view
+     */
+
+    @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout,
+            R.id.user_occupation_text, R.id.adder_infor})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.navigation_layout:
                 mDrawer.openMenu();
                 break;
             case R.id.add_information_button:
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddPhysiqueActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.information_layout:
+                Intent informationIntent = new Intent(MainActivity.this, InformationActivity.class);
+                startActivity(informationIntent);
+                break;
+            case R.id.adder_infor:
+                Intent i = new Intent(MainActivity.this, AddInformationActivity.class);
+                startActivity(i);
                 break;
         }
     }
 
-    @OnClick(R.id.information_layout)
-    public void onViewClicked() {
-        Intent intent = new Intent(MainActivity.this, InformationActivity.class);
-        startActivity(intent);
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void backChangeData() {
+        super.backChangeData();
+        initInforView();
+        if (NutritionMaster.user.getOccupation_name().equals("")) {
+
+        } else {
+            userOccupationText.setText("职业: " + NutritionMaster.user.getOccupation_name());
+        }
+        initInformationBar();
+    }
+
+    /**
+     * 初始化个人信息的条状bar还有状态星级的UI
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initInformationBar() {
+
+        scoreBar.setCanTouch(false);
+        if (NutritionMaster.user.getHeight() != 0 && NutritionMaster.user.getAge() != 0) {
+
+            float maxBmi = 40.0f;
+            float maxHeight = 250.0f;
+            float maxWeight = 130.0f;
+
+            float height = NutritionMaster.user.getHeight();
+            float weight = NutritionMaster.user.getWeight();
+            float age = NutritionMaster.user.getAge();
+            float averageWeight = 0;
+            float averageHeight = 0;
+            float averageBmi = 0;
+            int index = (int) (age >= 20 ? ((age - 20) / 5 + 17) : (age - 3));
+            if (NutritionMaster.user.getSex() == 0) {
+                //女性
+                averageWeight = ConstantUtils.averageGirlWeight.get(index);
+                averageHeight = ConstantUtils.averageGirlHeight.get(index);
+                averageBmi = CalculateUtils.BMI(averageHeight, averageWeight);
+            } else if (NutritionMaster.user.getSex() == 1) {
+                averageWeight = ConstantUtils.averageBoyWeight.get(index);
+                averageHeight = ConstantUtils.averageBoyHeight.get(index);
+                averageBmi = CalculateUtils.BMI(averageHeight, averageWeight);
+            } else {
+                Logger.e("非男非女？");
+                return;
+            }
+            float bmi = CalculateUtils.BMI(height, weight);
+
+            float bmiAverage = averageBmi / maxBmi * 100.0f;
+            float bmiSelf = bmi / maxBmi * 100.0f;
+
+            if (bmiAverage > bmiSelf) {
+                bmiBar.setMax(100);
+                bmiBar.setSecondaryProgress(bmiAverage);
+                bmiBar.setProgress(bmiSelf);
+            } else {
+                bmiBar.setMax(100);
+                bmiBar.setSecondaryProgress(bmiSelf);
+                bmiBar.setProgress(bmiAverage);
+                bmiBar.setProgressColor(getColor(R.color.color_bar_deeper));
+                bmiBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
+            }
+
+
+            float heightAverage = averageHeight / maxHeight * 100.0f;
+            float heightSelf = height / maxHeight * 100.0f;
+            if (heightAverage > heightSelf) {
+                heightBar.setMax(100);
+                heightBar.setSecondaryProgress(heightAverage);
+                heightBar.setProgress(heightSelf);
+            } else {
+                heightBar.setMax(100);
+                heightBar.setSecondaryProgress(heightSelf);
+                heightBar.setProgress(heightAverage);
+                heightBar.setProgressColor(getColor(R.color.color_bar_deeper));
+                heightBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
+            }
+
+
+            float weightAverage = averageWeight / maxWeight * 100.0f;
+            float weightSelf = weight / maxWeight * 100.0f;
+            if (weightAverage > weightSelf) {
+                weightBar.setMax(100);
+                weightBar.setSecondaryProgress(weightAverage);
+                weightBar.setProgress(weightSelf);
+            } else {
+                weightBar.setMax(100);
+                weightBar.setSecondaryProgress(weightSelf);
+                weightBar.setProgress(weightAverage);
+                weightBar.setProgressColor(getColor(R.color.color_bar_deeper));
+                weightBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
+            }
+
+            Logger.d("bmi:" + averageBmi / maxBmi * 100.0f + "|" + bmi / maxBmi * 100.0f + "\n" +
+                    "height:" + averageHeight / maxHeight * 100.0f + "|" + height / maxHeight * 100.0f + "\n" +
+                    "weight" + averageWeight / maxWeight * 100.0f + "|" + weight / maxWeight * 100.0f);
+
+
+        }
     }
 }

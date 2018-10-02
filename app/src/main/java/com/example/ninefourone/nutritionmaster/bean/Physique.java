@@ -14,14 +14,6 @@ public class Physique {
     private ElementsBean elements;
     private List<String> cure_material;
 
-    @Override
-    public String toString() {
-        return "Physique{" +
-                "physical_name='" + physical_name + '\'' +
-                ", elements=" + elements +
-                ", cure_material=" + cure_material +
-                '}';
-    }
 
     public String getPhysical_name() {
         return physical_name;
@@ -45,6 +37,62 @@ public class Physique {
 
     public void setCure_material(List<String> cure_material) {
         this.cure_material = cure_material;
+    }
+
+
+    private String imageUrl;
+    private String expression;
+    private String characteristic;
+    private String mentality;
+    private String matters;
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression;
+    }
+
+    public String getCharacteristic() {
+        return characteristic;
+    }
+
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
+    }
+
+    public String getMentality() {
+        return mentality;
+    }
+
+    public void setMentality(String mentality) {
+        this.mentality = mentality;
+    }
+
+    public String getMatters() {
+        return matters;
+    }
+
+    public void setMatters(String matters) {
+        this.matters = matters;
+    }
+
+    @Override
+    public String toString() {
+        return "Physique{" +
+                "physical_name='" + physical_name + '\'' +
+                ", cure_material=" + cure_material +
+                '}';
     }
 
     public static class ElementsBean {
@@ -343,5 +391,6 @@ public class Physique {
         public void setThiamine(float thiamine) {
             this.thiamine = thiamine;
         }
+
     }
 }

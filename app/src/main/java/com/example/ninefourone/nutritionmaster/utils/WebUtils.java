@@ -3,6 +3,10 @@ package com.example.ninefourone.nutritionmaster.utils;
 import com.google.gson.Gson;
 import com.sun.istack.internal.Nullable;
 
+import com.example.ninefourone.nutritionmaster.bean.Occupation;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -145,6 +149,12 @@ public class WebUtil {
      */
     public void getOccupation(String occupationName, Callback callback) {
         Request request = new Request.Builder().url("http://120.77.182.38/occupation/" + occupationName + "/").build();
+        mClient.newCall(request).enqueue(callback);
+    }
+
+    public static void getAllOccupations(Callback callback) {
+        OkHttpClient mClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://120.77.182.38/occupation/").build();
         mClient.newCall(request).enqueue(callback);
     }
 
