@@ -15,6 +15,7 @@ import com.example.ninefourone.nutritionmaster.bean.DailyCard;
 import com.example.ninefourone.nutritionmaster.cardconfig.CardConfig;
 import com.example.ninefourone.nutritionmaster.cardconfig.CardItemTouchCallBack;
 import com.example.ninefourone.nutritionmaster.cardconfig.SwipeCardLayoutManager;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 
 import java.util.ArrayList;
@@ -80,11 +81,20 @@ public class CustomizationFragment extends BaseFragment {
     @Override
     protected void loadData() {
         super.loadData();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = CalculateUtils.getWeek(); i <= 7; i++) {
 //            mDataList.add("周" + ConstantUtils.arab2Chinese(i) + "美食普");
             DailyCard dailyCard = new DailyCard(
                     "周" + ConstantUtils.arab2Chinese(i) + "美食普",
-                    "这里放描述",
+                    ConstantUtils.dailyDescibes[i-1],
+                    picList[i - 1]
+            );
+            mDataList.add(dailyCard);
+        }
+        for (int i = 1; i < CalculateUtils.getWeek(); i++) {
+//            mDataList.add("周" + ConstantUtils.arab2Chinese(i) + "美食普");
+            DailyCard dailyCard = new DailyCard(
+                    "周" + ConstantUtils.arab2Chinese(i) + "美食普",
+                    ConstantUtils.dailyDescibes[i-1],
                     picList[i - 1]
             );
             mDataList.add(dailyCard);

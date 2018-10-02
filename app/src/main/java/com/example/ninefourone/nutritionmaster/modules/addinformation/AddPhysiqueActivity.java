@@ -94,7 +94,6 @@ public class AddPhysiqueActivity extends BaseActivity {
     private void initAddView() {
         BaseAdapter adapter = new BaseAdapter() {
 
-
             @Override
             public int getCount() {
                 return colors.length;
@@ -112,6 +111,7 @@ public class AddPhysiqueActivity extends BaseActivity {
 
             @Override
             public View getView(final int position, View child, ViewGroup parent) {
+
 
                 child = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_item, parent,
                         false);
@@ -143,7 +143,6 @@ public class AddPhysiqueActivity extends BaseActivity {
                         }
                     });
                 } else {
-
                     firstButtons[position].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -190,6 +189,9 @@ public class AddPhysiqueActivity extends BaseActivity {
             @Override
             public void onTurned(int position) {
                 bottomContent.setBackgroundColor(colors[position] - 60);
+                firstButtons[position].setEnabled(true);
+                secondButtons[position].setEnabled(true);
+                thirdButtons[position].setEnabled(true);
             }
         });
 

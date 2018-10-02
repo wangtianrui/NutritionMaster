@@ -19,14 +19,15 @@ import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.bumptech.glide.Glide;
 import com.cb.ratingbar.CBRatingBar;
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
-import com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
+import com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity;
 import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
@@ -109,6 +110,8 @@ public class MainActivity extends BaseActivity {
     RoundCornerProgressBar heightBar;
     @BindView(R.id.weight_bar)
     RoundCornerProgressBar weightBar;
+    @BindView(R.id.tool_bar_nickname)
+    TextView toolBarNickname;
 
 
     @Override
@@ -129,7 +132,6 @@ public class MainActivity extends BaseActivity {
                 } else {
                     titleLayout.setBackgroundColor(getColor(R.color.bar_open));
                 }
-
             }
 
             @Override
@@ -137,13 +139,10 @@ public class MainActivity extends BaseActivity {
 //                Logger.i("openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
-//        initInforView();
         initSpiderView();
         initViewPager();
         initSearchView();
         initBMB();
-//        initOccupations();
-
     }
 
     /**
@@ -164,7 +163,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
-
+        toolBarNickname.setText(user.getUsername());
     }
 
     @Override
