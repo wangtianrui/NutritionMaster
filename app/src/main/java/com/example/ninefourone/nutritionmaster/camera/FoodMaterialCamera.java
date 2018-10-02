@@ -7,6 +7,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +44,8 @@ public class FoodMaterialCamera extends AppCompatActivity {
     private CameraPreview mPreview;
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
+    private int widthPixel;
+    private float heightPixel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +59,9 @@ public class FoodMaterialCamera extends AppCompatActivity {
         //注意：上面两个设置必须写在setContentView前面
         setContentView(R.layout.cameras_layout);
         ButterKnife.bind(this);
+        Display display = getWindowManager().getDefaultDisplay();
+        widthPixel = display.getWidth();
+        heightPixel = display.getHeight() * (14.0f / 16);
 
         if (!checkCameraHardware(this)) {
             MessageUtils.MakeToast("不支持相机");
@@ -63,6 +70,12 @@ public class FoodMaterialCamera extends AppCompatActivity {
         }
 
         setCameraDisplayOrientation(this, mCameraId, mCamera);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
     }
 
     /**
@@ -109,8 +122,10 @@ public class FoodMaterialCamera extends AppCompatActivity {
         Camera c = null;
         try {
             c = Camera.open();
+
             Camera.Parameters mParameters = c.getParameters();
-            mParameters.setPictureSize(720, 1280);
+            Logger.d(widthPixel+", "+heightPixel);
+            mParameters.setPictureSize(widthPixel, (int) heightPixel);
             c.setParameters(mParameters);
         } catch (Exception e) {
             e.printStackTrace();

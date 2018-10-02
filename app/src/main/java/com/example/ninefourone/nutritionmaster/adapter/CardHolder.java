@@ -56,7 +56,6 @@ public class CardHolder extends RecyclerView.ViewHolder {
                 context.startActivity(i);
             }
         });
-
     }
 
 
