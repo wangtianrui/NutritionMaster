@@ -2,7 +2,6 @@ package com.example.ninefourone.nutritionmaster.bean;
 
 import java.util.List;
 
-
 public class Illness {
 
     /**
@@ -27,6 +26,14 @@ public class Illness {
 
     public void setElements(ElementsBean elements) {
         this.elements = elements;
+    }
+
+    @Override
+    public String toString() {
+        return "Illness{" +
+                "menu_classification=" + menu_classification +
+                ", elements=" + elements +
+                '}';
     }
 
     public static class MenuClassificationBean {
