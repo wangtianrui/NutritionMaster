@@ -22,11 +22,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.user = NutritionMaster.user;
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
         initViews(savedInstanceState);
         initToolBar();
-        this.user = NutritionMaster.user;
+
     }
 
 
