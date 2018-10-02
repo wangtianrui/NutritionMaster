@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.bean.DailyCard;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationActivity;
 import com.orhanobut.logger.Logger;
 
@@ -41,12 +42,13 @@ public class CardHolder extends RecyclerView.ViewHolder {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void bindView(int picId, String text, final Context context) {
-        tvName.setText(text);
+    public void bindView(int picId, DailyCard dailyCard, final Context context) {
+        tvName.setText(dailyCard.getTitle());
+        tvSign.setText(dailyCard.getDescription());
 //        ivPhoto.setImageDrawable(context.getDrawable(picId));
         Glide.with(context).load(picId).into(ivPhoto);
         i = new Intent(context, CustomizationActivity.class);
-        i.putExtra("SEND_CODE", text);
+        i.putExtra("SEND_CODE", dailyCard.getTitle());
 //        Logger.d(text);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

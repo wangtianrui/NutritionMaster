@@ -2,6 +2,8 @@ package com.example.ninefourone.nutritionmaster.utils;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.Calendar;
+
 /**
  * Created by ScorpioMiku on 2018/8/29.
  */
@@ -58,5 +60,16 @@ public class CalculateUtils {
         } else {
             return "重度肥胖";
         }
+    }
+
+    /**
+     * 获取星期几
+     *
+     * @return
+     */
+    public static int getWeek() {
+        Calendar calendar = Calendar.getInstance();
+        Logger.d( calendar.get(Calendar.DAY_OF_WEEK));
+        return calendar.get(Calendar.DAY_OF_WEEK)-1;
     }
 }

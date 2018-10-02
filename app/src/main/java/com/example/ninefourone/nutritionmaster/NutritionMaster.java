@@ -14,8 +14,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -103,7 +101,7 @@ public class NutritionMaster extends Application {
      */
     private void initUser() {
         user = new MyUser();
-        user.setNickName("ScorpioMiku");
+        user.setUsername("ScorpioMiku");
     }
 
     /**

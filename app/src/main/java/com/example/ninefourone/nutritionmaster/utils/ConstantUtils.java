@@ -7,6 +7,10 @@ import java.util.ArrayList;
  */
 
 public class ConstantUtils {
+
+    public static String[] dailyDescibes = {"快乐陪周一", "幸运伴周二", "轻松有周三", "温馨携周四",
+            "愉悦同周五", "休闲找周六", "潇洒属周日"};
+
     public static String arab2Chinese(int number) {
         switch (number) {
             case 1:
