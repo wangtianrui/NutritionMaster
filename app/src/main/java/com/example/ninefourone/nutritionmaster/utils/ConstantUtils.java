@@ -273,4 +273,6 @@ public class ConstantUtils {
     public static String BD_SECRET_KEY = "EEXe6pG7QGVdrqDM8eR0S3RY2WPf4Gwn";
     public static String BD_ACCESS_TOKEN = "";
 
+    public static String BD_DISH_URL = "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish";
+
 }

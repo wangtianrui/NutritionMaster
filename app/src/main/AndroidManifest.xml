@@ -44,7 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".camera.FoodMaterialCamera" />
+        <activity android:name=".camera.ClassifierCamera" />
 
         <receiver
             android:name=".step.StepStarter"

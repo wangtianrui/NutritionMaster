@@ -150,7 +150,7 @@ public class NutritionMaster extends Application {
      */
     private void initBD() {
         ConstantUtils.BD_ACCESS_TOKEN = getAccessToken();
-        Logger.d(ConstantUtils.BD_ACCESS_TOKEN);
+//        Logger.d(ConstantUtils.BD_ACCESS_TOKEN);
     }
 
 
