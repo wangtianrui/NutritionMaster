@@ -69,7 +69,7 @@ public class CalculateUtils {
      */
     public static int getWeek() {
         Calendar calendar = Calendar.getInstance();
-        Logger.d( calendar.get(Calendar.DAY_OF_WEEK));
+//        Logger.d( calendar.get(Calendar.DAY_OF_WEEK));
         return calendar.get(Calendar.DAY_OF_WEEK)-1;
     }
 }

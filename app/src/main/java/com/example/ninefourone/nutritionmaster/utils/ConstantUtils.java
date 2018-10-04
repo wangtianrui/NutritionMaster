@@ -11,6 +11,7 @@ public class ConstantUtils {
     public static String[] dailyDescibes = {"快乐陪周一", "幸运伴周二", "轻松有周三", "温馨携周四",
             "愉悦同周五", "休闲找周六", "潇洒属周日"};
 
+
     public static String arab2Chinese(int number) {
         switch (number) {
             case 1:
@@ -266,5 +267,10 @@ public class ConstantUtils {
             "气虚质中气不足，脾胃消化功能较弱，药膳应忌过于粘腻、寒凉或难以消化之物，以免食滞难化，影响脾胃功能。",
             "平和质人阴阳气血平衡，药膳调理不可偏补、贪补，以保持人体阴阳平衡状态最为紧要。所谓“不伤不扰，顺其自然”。"
     };
+
+    public static String BD_API_KEY = "GQfoj7AUUhj67ocHuwvA8G5q";
+    public static String BD_APP_ID = "14346167";
+    public static String BD_SECRET_KEY = "EEXe6pG7QGVdrqDM8eR0S3RY2WPf4Gwn";
+    public static String BD_ACCESS_TOKEN = "";
 
 }
