@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#54be82"
+    android:orientation="vertical"
+    tools:context="com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="信息清单"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="335dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#50b67c"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="卡路里总和"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/calorie_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
+                        android:layout_toLeftOf="@+id/calorie_tag"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="碳水化合物"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/sugar_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
+                        android:layout_toLeftOf="@+id/sugar_tag"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.005"
+                android:alpha="0.7"
+                android:background="#d7d6d6" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="脂肪"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/fat_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
+                        android:layout_toLeftOf="@+id/fat_tag"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="碳水化合物"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/sugar_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="7dp"
+                        android:layout_toLeftOf="@+id/sugar_tag"
+                        android:text="大卡"
+                        android:textColor="#fff" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="#76c47e"
+            android:text="确认提交到已吃清单"
+            android:textColor="#f7f4f4" />
+    </RelativeLayout>
+</LinearLayout>
