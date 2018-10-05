@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="80dp"
+    android:layout_margin="5dp"
     app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#41da98"
+        android:background="#40b985"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -19,23 +20,41 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.github.siyamed.shapeimageview.CircularImageView
+            <android.support.v7.widget.CardView
+                android:alpha="0.8"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/food_test" />
+                app:cardCornerRadius="30dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/food_test" />
+            </android.support.v7.widget.CardView>
 
             <TextView
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingLeft="15dp"
-                tools:text="麻婆豆腐"
                 android:gravity="center"
-                android:textColor="#fff"/>
+                android:paddingLeft="15dp"
+                android:textColor="#fff"
+                tools:text="麻婆豆腐" />
 
         </LinearLayout>
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/picker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:clipToPadding="false">
+
+        </android.support.v7.widget.RecyclerView>
 
 
     </LinearLayout>

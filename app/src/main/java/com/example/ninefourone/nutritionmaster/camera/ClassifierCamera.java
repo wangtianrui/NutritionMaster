@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+import com.example.ninefourone.nutritionmaster.bean.ResultList;
+import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtils;
@@ -187,7 +189,7 @@ public class ClassifierCamera extends AppCompatActivity {
                             classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
                             classifyResult.setProbability(jsonObject.getDouble("probability"));
                             classifyResult.setName(jsonObject.getString("name"));
-                            Logger.d(classifyResult);
+//                            Logger.d(classifyResult);
                             resultList.add(classifyResult);
                             refreshUI();
                         } catch (Exception e) {
@@ -218,7 +220,13 @@ public class ClassifierCamera extends AppCompatActivity {
                 cameraCoverLinearlayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.more_takephoto_ok:
+                Intent intent = new Intent(ClassifierCamera.this, DishResultActivity.class);
+                intent.putExtra("LIST", resultList);
+//                intent.putExtra("LIST", ConstantUtils.testData);
+                startActivity(intent);
                 resultList.clear();
+                refreshUI();
+                finish();
                 break;
         }
     }

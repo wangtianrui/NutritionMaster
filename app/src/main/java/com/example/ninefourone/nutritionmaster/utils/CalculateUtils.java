@@ -1,7 +1,10 @@
 package com.example.ninefourone.nutritionmaster.utils;
 
+import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+import com.example.ninefourone.nutritionmaster.bean.MyUser;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -70,6 +73,29 @@ public class CalculateUtils {
     public static int getWeek() {
         Calendar calendar = Calendar.getInstance();
 //        Logger.d( calendar.get(Calendar.DAY_OF_WEEK));
-        return calendar.get(Calendar.DAY_OF_WEEK)-1;
+        return calendar.get(Calendar.DAY_OF_WEEK) - 1;
+    }
+
+    /**
+     * 计算每个食物吃多少
+     * @param classifyResultArrayList
+     * @param user
+     * @return
+     */
+
+    public static ArrayList<ClassifyResult> getDishQuantity(
+            ArrayList<ClassifyResult> classifyResultArrayList, MyUser user) {
+        double calorieSum = 0;
+        double[] calories = new double[classifyResultArrayList.size()];
+        double[] quantitys = new double[classifyResultArrayList.size()];
+        float baseQuantity = 600f;
+        for (int i = 0; i < classifyResultArrayList.size(); i++) {
+            calorieSum += classifyResultArrayList.get(i).getCalorie();
+            calories[i] = classifyResultArrayList.get(i).getCalorie();
+        }
+        for (int i = 0; i < classifyResultArrayList.size(); i++) {
+            classifyResultArrayList.get(i).setQuantity(calories[i] / calorieSum * baseQuantity);
+        }
+        return classifyResultArrayList;
     }
 }

@@ -1,16 +1,27 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by ScorpioMiku on 2018/10/4.
  */
 
-public class ClassifyResult {
+public class ClassifyResult implements Serializable {
 
-    private String imgPath ;
+    private String imgPath;
     private double probability;
     private String name;
-    private int calorie;
+    private double calorie;
     private Boolean has_calorie;
+    private double quantity = -1;
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
 
     public String getImgPath() {
         return imgPath;
@@ -36,11 +47,11 @@ public class ClassifyResult {
         this.name = name;
     }
 
-    public int getCalorie() {
+    public double getCalorie() {
         return calorie;
     }
 
-    public void setCalorie(int calorie) {
+    public void setCalorie(double calorie) {
         this.calorie = calorie;
     }
 
@@ -55,6 +66,5 @@ public class ClassifyResult {
     @Override
     public String toString() {
         return name + ";置信度" + probability + ";卡路里" + calorie;
-
     }
 }
