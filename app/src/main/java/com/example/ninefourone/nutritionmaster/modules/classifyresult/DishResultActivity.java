@@ -15,6 +15,7 @@ import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 
@@ -32,7 +33,8 @@ public class DishResultActivity extends BaseActivity {
     TextView protein;
     @BindView(R.id.ok_button)
     Button okButton;
-    //    private ResultList results;
+
+
     private ArrayList<ClassifyResult> results;
     private ResultListAdapter resultListAdapter;
 
@@ -54,7 +56,8 @@ public class DishResultActivity extends BaseActivity {
 //        for (int i = 0; i < results.size(); i++) {
 //            Logger.d(results.get(i));
 //        }
-        resultListAdapter = new ResultListAdapter(ConstantUtils.testData, this);
+        results = ConstantUtils.testData;
+        resultListAdapter = new ResultListAdapter(results, this);
         recyclerView.setAdapter(resultListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -68,4 +71,30 @@ public class DishResultActivity extends BaseActivity {
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+    /**
+     * 能量根据选择的来变
+     *
+     * @param quantity
+     */
+    public void refreshData(int quantity, int positon) {
+        float calorieSum = 0;
+        float fatSum = 0;
+        float sugarSum = 0;
+        float proteinSum = 0;
+        ClassifyResult temp = results.get(positon);
+        temp.setQuantity(quantity);
+        results.set(positon, temp);
+        for (int i = 0; i < results.size(); i++) {
+            calorieSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
+            fatSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
+            calorieSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
+            calorieSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
+        }
+        calorie.setText((int)calorieSum + "");
+        protein.setText((int)proteinSum + "");
+        fat.setText((int)fatSum + "");
+        suger.setText((int)sugarSum + "");
+    }
+
 }

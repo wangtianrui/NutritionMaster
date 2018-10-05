@@ -288,4 +288,14 @@ public class ConstantUtils {
             testData.add(classifyResult);
         }
     }
+
+    public static ArrayList<String> dishPicerData = new ArrayList<>();
+
+    static {
+        for (int i = 0; i <= 700; i++) {
+            if (i % 2 == 0) {
+                dishPicerData.add(i + "");
+            }
+        }
+    }
 }

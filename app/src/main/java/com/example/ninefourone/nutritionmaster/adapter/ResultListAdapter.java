@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListHolder> {
         super();
         mList = list;
         this.context = context;
+        mList = CalculateUtils.getDishQuantity(mList, NutritionMaster.user);
     }
 
     @Override
@@ -37,7 +41,7 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListHolder> {
 
     @Override
     public void onBindViewHolder(ResultListHolder holder, int position) {
-        holder.bindView(mList.get(position), pickerLayoutManager);
+        holder.bindView(mList.get(position), pickerLayoutManager, (DishResultActivity) context, position);
     }
 
     @Override
