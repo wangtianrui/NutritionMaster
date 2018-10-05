@@ -390,7 +390,7 @@ public class AddPhysiqueActivity extends BaseActivity {
         phy.setMentality(ConstantUtils.physiquesMentalitys[maxIndex]);
         phy.setMatters(ConstantUtils.physiquesMatters[maxIndex]);
         phy.setImageUrl(ConstantUtils.physiquesImageUrls[maxIndex]);
-        user.setPhysique(phy);
+        user.setPhysical_name(physique);
         upUser();
         loadInformation(phy);
 

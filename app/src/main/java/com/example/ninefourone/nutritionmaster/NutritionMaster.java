@@ -8,7 +8,7 @@ import com.example.ninefourone.nutritionmaster.bean.MyUser;
 
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
-import com.example.ninefourone.nutritionmaster.utils.WebUtils;
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -43,8 +43,6 @@ public class NutritionMaster extends Application {
         super.onCreate();
         mInstance = this;
         init();
-        initUser();
-
     }
 
     /**
@@ -89,7 +87,8 @@ public class NutritionMaster extends Application {
             }
         });
         initOccupations();
-        getAccessToken();
+        initUser();
+//        getAccessToken();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -97,6 +96,7 @@ public class NutritionMaster extends Application {
             }
         });
         thread.start();
+
     }
 
     public static NutritionMaster getInstance() {
@@ -117,6 +117,7 @@ public class NutritionMaster extends Application {
      * 初始化用户信息
      */
     private void initUser() {
+        Logger.d("初始化user");
         user = new MyUser();
         user.setUsername("ScorpioMiku");
     }
@@ -126,7 +127,7 @@ public class NutritionMaster extends Application {
      */
     private void initOccupations() {
 
-        WebUtils.getAllOccupations(new Callback() {
+        WebUtil.getAllOccupations(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -187,9 +188,10 @@ public class NutritionMaster extends Application {
             /**
              * 返回结果示例
              */
-            System.err.println("result:" + result);
+//            System.err.println("result:" + result);
             JSONObject jsonObject = new JSONObject(result);
             String access_token = jsonObject.getString("access_token");
+//            Logger.d(access_token);
             return access_token;
         } catch (Exception e) {
             e.printStackTrace();

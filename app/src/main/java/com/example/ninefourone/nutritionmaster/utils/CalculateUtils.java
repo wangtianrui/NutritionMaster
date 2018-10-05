@@ -77,7 +77,24 @@ public class CalculateUtils {
     }
 
     /**
+     * 性别转数字
+     * @param sex
+     * @return
+     */
+    public static int sex2int(String sex) {
+        if (sex.equals("男")) {
+            return 1;
+        } else if (sex.equals("女")) {
+            return 0;
+        } else {
+            Logger.e("不男不女");
+            return 1;
+        }
+    }
+
+    /**
      * 计算每个食物吃多少
+     *
      * @param classifyResultArrayList
      * @param user
      * @return

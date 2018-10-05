@@ -341,7 +341,7 @@ public class MainActivity extends BaseActivity {
      * 初始化个人信息界面（UI）
      */
     private void initInforView() {
-//        Logger.d(NutritionMaster.user.toString());
+
         adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         if (NutritionMaster.user.getHeight() != 0) {
             showInformation.setVisibility(View.VISIBLE);

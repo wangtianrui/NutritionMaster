@@ -19,11 +19,10 @@ import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
-import com.example.ninefourone.nutritionmaster.bean.ResultList;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
-import com.example.ninefourone.nutritionmaster.utils.WebUtils;
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
@@ -173,10 +172,10 @@ public class ClassifierCamera extends AppCompatActivity {
                         String result = null;
                         try {
                             if (code == 0) {
-                                result = WebUtils.HttpPost(ConstantUtils.BD_DISH_URL,
+                                result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
                                         ConstantUtils.BD_ACCESS_TOKEN, param);
                             } else if (code == 1) {
-                                result = WebUtils.HttpPost(ConstantUtils.BD_DISH_URL,
+                                result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
                                         ConstantUtils.BD_ACCESS_TOKEN, param);
                             } else {
                                 Logger.e("拍照code为-1");

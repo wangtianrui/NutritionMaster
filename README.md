@@ -123,14 +123,60 @@
 
 赵: 
 
-* 体质表: 添加几列对某种物质的需求
-* 职业表: 添加几列对某种物质的需求,添加一列BMI的需求
-* user表: 添加综合对物质的需求
+* 体质表: 添加几列对某种物质的需求  √
+
+* 职业表: 添加几列对某种物质的需求,添加一列BMI的需求 √
+
+* user表: 添加综合对物质的需求 √
+
 * 菜单表: 
-  * 添加一列早/午晚餐,早为1,else为0.  根据 饼 粥 羹 面 奶  判断
-  * 补充一下缺失的url,卡路里
-  * 添加几列各种物质的需求
+  * **添加一列早/午晚餐,早为1,else为0.  根据 饼 粥 羹 面 奶  判断**  
+  * 补充一下缺失的url,卡路里 √
+  * 添加几列各种物质的需求 √
     * 有一部分数据是爬下的csv里面直接读取,一部分缺失的用food_material的组合来计算
+
+* **对接任务**: 接口使用方法可以参尻main函数里面的注释和数据库ER图
+
+  * WebUtil改成了单例,一些方法注意一下
+
+  * 注册: `createUser`.注意年龄应该让用户填出生年,获取年龄时每次都根据年份计算一下
+
+    * 直接set设置用户的各种信息,不需要的就空着不用set,特殊的一点是病有多个值,要用一个List
+
+    ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvu5tfi47aj30mv0gg403.jpg)
+
+  * 修改用户信息 `changeUserInfo`,注意username必须设置,其他的是需要改的值.**修改会覆盖之前的内容**.比如用户之前illness是健忘食谱,想增加一个高血压食谱, 就需要把之前的也写上,就是一起传 `健忘食谱,高血压食谱`这两个参数.写到List里面. 具体参考main函数里面的
+
+  * 获取九体信息 `getPhysique`方法
+
+  * 获取用户营养元素所需的量: 先`getUser`获取到用户的病/职业/体质名字,然后根据这些名字查询每个 病/职业/体质信息对应的元素需求,最后加权计算 (这里是不是麻烦了点?)
+
+  * 用户职业BMI分类 3多动,2中等,1少动  先 `getUser`获取到用户的职业名字.然后`getOccupation`获取到该职业的BMI分类
+
+  * 动态改变用户已吃的营养元素的量: 在用户表添加element参数,每周清空一次,每吃一个菜就记录一下  
+
+    * 获取用户本周已摄入的营养元素的量: `getUser`得到当前用户的信息,解析后用`MyUser`的`getEaten_elements()`获取到Element对象.里面有各种元素信息
+    * 每吃一个菜就post一下
+
+    ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvsze639cyj30k507vaa9.jpg)
+
+  * **用户的浏览历史: 添加用户和菜谱的多对多关系**
+
+  * 菜名搜索: `getMenu`方法,传入菜名(菜名通过其他的各种关联方式获取) (menu.calorie是直接爬到的卡路里值,营养元素里的menu.elements.calorie卡路里是根据每个食材的卡路里计算的,相对来说,menu.calorie的值更准确)
+
+  * 功效搜菜 `getMenuClassification`传入分类(功效)参数,比如川菜.搜到所有的川菜名字.然后可以用菜名搜索搜某个菜的详细信息
+
+  * **营养量搜菜 : 搜索某个营养量范围内的菜**
+
+  * **季节搜菜**
+
+  * 小知识获取 : `getRandomTricks`
+
+
+
+![1538310994730](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1538310994730.png)
+
+![1538313835249](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1538313835249.png)
 
 
 
@@ -141,7 +187,7 @@
 
 ### 数据库设计
 
-![](http://ww1.sinaimg.cn/large/0077h8xtly1fuz0a6yb4gj30z10hl1kx.jpg)
+![](http://ww1.sinaimg.cn/large/0077h8xtly1fvu67fbm8qj312f0sux6p.jpg)
 
 **加下划线为主码,加粗为外码,默认not null**
 
