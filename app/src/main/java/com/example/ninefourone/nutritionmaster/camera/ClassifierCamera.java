@@ -2,12 +2,13 @@ package com.example.ninefourone.nutritionmaster.camera;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
+import android.util.Base64;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
@@ -17,8 +18,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+import com.example.ninefourone.nutritionmaster.bean.ResultList;
+import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
+import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
+import com.example.ninefourone.nutritionmaster.utils.WebUtils;
 import com.orhanobut.logger.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +41,11 @@ import butterknife.OnClick;
  * Created by ScorpioMiku on 2018/9/3.
  */
 
-public class FoodMaterialCamera extends AppCompatActivity {
+public class ClassifierCamera extends AppCompatActivity {
+
+    public static int MATERAIL_CODE = 0;
+    public static int DISH_CODE = 1;
+
     @BindView(R.id.camera_preview)
     FrameLayout mCameraLayout;
     @BindView(R.id.results_text_view)
@@ -37,20 +54,22 @@ public class FoodMaterialCamera extends AppCompatActivity {
     ImageView moreTakePhotoButtonCapture;
     @BindView(R.id.more_takephoto_ok)
     ImageView moreTakephotoOk;
-    @BindView(R.id.more_camera_cover_linearlayout)
-    FrameLayout moreCameraCoverLinearlayout;
+    @BindView(R.id.camera_cover_linearlayout)
+    FrameLayout cameraCoverLinearlayout;
 
     private Camera mCamera;
     private CameraPreview mPreview;
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
-    private int widthPixel;
-    private float heightPixel;
+    private ArrayList<ClassifyResult> resultList = new ArrayList<>();
+
+    private int code = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = getIntent();
+        code = intent.getIntExtra("CODE", -1);
         //取消toolbar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //设置全屏
@@ -59,9 +78,6 @@ public class FoodMaterialCamera extends AppCompatActivity {
         //注意：上面两个设置必须写在setContentView前面
         setContentView(R.layout.cameras_layout);
         ButterKnife.bind(this);
-        Display display = getWindowManager().getDefaultDisplay();
-        widthPixel = display.getWidth();
-        heightPixel = display.getHeight() * (14.0f / 16);
 
         if (!checkCameraHardware(this)) {
             MessageUtils.MakeToast("不支持相机");
@@ -101,13 +117,6 @@ public class FoodMaterialCamera extends AppCompatActivity {
         if (null == mCamera) {
             mCamera = getCameraInstance();
             mPreview = new CameraPreview(this, mCamera);
-//            mPreview.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    mCamera.autoFocus(null);
-//                    return false;
-//                }
-//            });
             mCameraLayout.addView(mPreview);
             mCamera.startPreview();
         }
@@ -124,8 +133,10 @@ public class FoodMaterialCamera extends AppCompatActivity {
             c = Camera.open();
 
             Camera.Parameters mParameters = c.getParameters();
-            Logger.d(widthPixel+", "+heightPixel);
-            mParameters.setPictureSize(widthPixel, (int) heightPixel);
+            List<Camera.Size> sizes = mParameters.getSupportedPreviewSizes();
+
+            mParameters.setPictureSize(2048, 1536);
+            mParameters.setPreviewSize(2048, 1536);
             c.setParameters(mParameters);
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,7 +163,45 @@ public class FoodMaterialCamera extends AppCompatActivity {
     private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
-            MessageUtils.MakeToast("拍照！");
+            try {
+                String imgStr = Base64.encodeToString(data, Base64.DEFAULT);
+                String imgParam = URLEncoder.encode(imgStr, "UTF-8");
+                final String param = "image=" + imgParam + "&top_num=" + 1;
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String result = null;
+                        try {
+                            if (code == 0) {
+                                result = WebUtils.HttpPost(ConstantUtils.BD_DISH_URL,
+                                        ConstantUtils.BD_ACCESS_TOKEN, param);
+                            } else if (code == 1) {
+                                result = WebUtils.HttpPost(ConstantUtils.BD_DISH_URL,
+                                        ConstantUtils.BD_ACCESS_TOKEN, param);
+                            } else {
+                                Logger.e("拍照code为-1");
+                            }
+                            JSONObject jsonObject = new JSONObject(result);
+                            ClassifyResult classifyResult = new ClassifyResult();
+                            JSONArray resultObject = jsonObject.getJSONArray("result");
+                            jsonObject = resultObject.getJSONObject(0);
+                            classifyResult.setCalorie(jsonObject.getInt("calorie"));
+                            classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
+                            classifyResult.setProbability(jsonObject.getDouble("probability"));
+                            classifyResult.setName(jsonObject.getString("name"));
+//                            Logger.d(classifyResult);
+                            resultList.add(classifyResult);
+                            refreshUI();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            MessageUtils.MakeToast("拍照！");
             mCamera.startPreview();
         }
     };
@@ -168,8 +217,16 @@ public class FoodMaterialCamera extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.more_take_photo_button_capture:
                 mCamera.autoFocus(mAutoFocusCallback);
+                cameraCoverLinearlayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.more_takephoto_ok:
+                Intent intent = new Intent(ClassifierCamera.this, DishResultActivity.class);
+                intent.putExtra("LIST", resultList);
+//                intent.putExtra("LIST", ConstantUtils.testData);
+                startActivity(intent);
+                resultList.clear();
+                refreshUI();
+                finish();
                 break;
         }
     }
@@ -208,5 +265,20 @@ public class FoodMaterialCamera extends AppCompatActivity {
             result = (info.orientation - degrees + 360) % 360;
         }
         camera.setDisplayOrientation(result);
+    }
+
+
+    private void refreshUI() {
+        resultsTextView.post(new Runnable() {
+            @Override
+            public void run() {
+                String text = "";
+                for (int i = 0; i < resultList.size(); i++) {
+                    text += resultList.get(i).getName() + " ";
+                }
+                resultsTextView.setText(text);
+                cameraCoverLinearlayout.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }
