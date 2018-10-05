@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#40b985"
+        android:background="#fff"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingLeft="15dp"
-                android:textColor="#fff"
+                android:textColor="#535252"
                 tools:text="麻婆豆腐" />
 
         </LinearLayout>

@@ -6,13 +6,19 @@ import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.orhanobut.logger.Logger;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CustomizationActivity extends BaseActivity {
 
+    private ArrayList<FoodMenu> breakfastList = new ArrayList<>();
+    private ArrayList<FoodMenu> lunchList = new ArrayList<>();
+    private ArrayList<FoodMenu> dinnerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,7 @@ public class CustomizationActivity extends BaseActivity {
 
     @Override
     public void initViews(Bundle savedInstanceState) {
+        loadData();
         String text = getIntent().getStringExtra("SEND_CODE");
         Logger.d(text);
     }
@@ -38,6 +45,12 @@ public class CustomizationActivity extends BaseActivity {
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void loadData() {
+        super.loadData();
 
     }
 }

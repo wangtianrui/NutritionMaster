@@ -39,7 +39,7 @@ public class WebUtil {
     private static WebUtil instance = new WebUtil();
     private OkHttpClient mClient = new OkHttpClient();
 
-    private WebUtil() {
+    public WebUtil() {
     }
 
     public static WebUtil getInstance() {

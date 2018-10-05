@@ -91,13 +91,11 @@ public class RecommendFragment extends BaseFragment {
                             adapter.getData().add(recommendFood);
                         }
                         adapter.loadMoreComplete();
-//                        Logger.d("开始加载");
                     }
 
                 }, 1000);
             }
         }, recyclerView);
-//        adapter.disableLoadMoreIfNotFullPage();
         adapter.setEnableLoadMore(true);
         adapter.setHeaderView(LayoutInflater.from(getContext()).
                 inflate(R.layout.recommend_head, (ViewGroup) recyclerView.getParent(), false));

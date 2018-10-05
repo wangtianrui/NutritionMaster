@@ -211,11 +211,11 @@ public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
      */
     @Override
     public float getSwipeEscapeVelocity(float defaultValue) {
-        Log.d(TAG, "getSwipeEscapeVelocity: " + defaultValue);
-        View topView = mRecyclerView.getChildAt(mRecyclerView.getChildCount() - 1);
-        if (isUpOrDown(topView)) { //如果是向上或者向下滑动
-            return Float.MAX_VALUE; //就返回阈值为很大
-        }
+//        Log.d(TAG, "getSwipeEscapeVelocity: " + defaultValue);
+//        View topView = mRecyclerView.getChildAt(mRecyclerView.getChildCount() - 1);
+//        if (isUpOrDown(topView)) { //如果是向上或者向下滑动
+//            return Float.MAX_VALUE; //就返回阈值为很大
+//        }
         return super.getSwipeEscapeVelocity(defaultValue);
     }
 

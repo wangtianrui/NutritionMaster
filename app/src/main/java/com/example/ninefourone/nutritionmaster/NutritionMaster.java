@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
@@ -88,7 +89,6 @@ public class NutritionMaster extends Application {
         });
         initOccupations();
         initUser();
-//        getAccessToken();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

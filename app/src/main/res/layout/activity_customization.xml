@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="11"
+        android:background="#eae8e8"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,6 +23,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="#08d966"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -29,8 +31,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
-                    android:textSize="17sp"
-                    tools:text="早餐" />
+                    android:text="早餐"
+                    android:textColor="#fff"
+                    android:textSize="17sp" />
 
 
                 <TextView
@@ -48,22 +51,25 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/breakfast_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#eae8e8">
 
             </android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="#08d966"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
-                    android:textSize="17sp"
-                    tools:text="午餐" />
+                    android:text="午餐"
+                    android:textColor="#fff"
+                    android:textSize="17sp" />
 
 
                 <TextView
@@ -81,22 +87,25 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/lunch_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#eae8e8">
 
             </android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="#08d966"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
-                    android:textSize="17sp"
-                    tools:text="晚餐" />
+                    android:text="晚餐"
+                    android:textColor="#fff"
+                    android:textSize="17sp" />
 
 
                 <TextView
@@ -114,10 +123,122 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/dinner_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#eae8e8">
 
             </android.support.v7.widget.RecyclerView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:padding="15dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:background="#eae8e8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_calorie" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="卡路里:500千卡" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_fat" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="脂肪:500克" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_sugar" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="糖分:500克" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_protein" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="蛋白质:500克" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
+
 
     </ScrollView>
 
@@ -152,7 +273,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="换一批"
-                    android:textColor="#f0311e"
+                    android:textColor="#363534"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -174,8 +295,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="根据已吃卡路里刷新"
-                    android:textColor="#f0311e"
+                    android:text="复制到饮食记录"
+                    android:textColor="#363534"
                     android:textSize="12sp" />
 
             </LinearLayout>
