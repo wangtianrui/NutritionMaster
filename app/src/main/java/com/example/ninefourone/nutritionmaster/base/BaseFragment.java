@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
@@ -27,6 +28,8 @@ public abstract class BaseFragment extends Fragment {
     protected boolean isPrepared;
     protected boolean isVisible;
     private Unbinder unbinder;
+    private WebUtil webUtil;
+
 
     public abstract
     @LayoutRes
@@ -44,9 +47,14 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         initView(savedInstanceState);
+        webUtil = new WebUtil();
         this.user = NutritionMaster.user;
     }
 
+
+    public WebUtil getWebUtil() {
+        return webUtil;
+    }
 
     /**
      * 初始化自己的ui
@@ -157,7 +165,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected void upUser() {
         NutritionMaster.user = user;
-        Logger.d("用户信息已改"+NutritionMaster.user.toString());
+        Logger.d("用户信息已改" + NutritionMaster.user.toString());
     }
 
 }

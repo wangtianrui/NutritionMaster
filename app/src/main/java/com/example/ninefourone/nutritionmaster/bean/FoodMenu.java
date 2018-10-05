@@ -1,9 +1,9 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class FoodMenu {
-
+public class FoodMenu implements Serializable {
 
     /**
      * flavor : 五香味

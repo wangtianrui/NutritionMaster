@@ -117,7 +117,6 @@ public class NutritionMaster extends Application {
      * 初始化用户信息
      */
     private void initUser() {
-        Logger.d("初始化user");
         user = new MyUser();
         user.setUsername("ScorpioMiku");
     }
@@ -136,7 +135,6 @@ public class NutritionMaster extends Application {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Occupation[] occupations = new Gson().fromJson(response.body().string(), Occupation[].class);
-//                Logger.d(Arrays.toString(occupations));
                 for (int i = 0; i < occupations.length; i++) {
                     ConstantUtils.occupationList.add(occupations[i].getOccupation_name());
                 }

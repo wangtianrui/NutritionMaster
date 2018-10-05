@@ -1,6 +1,15 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+
+import java.io.IOException;
 import java.io.Serializable;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by ScorpioMiku on 2018/10/4.
@@ -14,6 +23,34 @@ public class ClassifyResult implements Serializable {
     private double calorie;
     private Boolean has_calorie;
     private double quantity = -1;
+    private FoodMenu foodMenu;
+
+
+    public void getMenu() {
+        WebUtil webUtil = new WebUtil();
+        webUtil.getMenu("素红烧肉", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                name = "-1";
+                Logger.e("我们数据库没有这个菜");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                FoodMenu menu = new Gson().fromJson(response.body().string(), FoodMenu.class);
+                foodMenu = menu;
+                Logger.d(name + "|" + menu);
+            }
+        });
+    }
+
+    public FoodMenu getFoodMenu() {
+        return foodMenu;
+    }
+
+    public void setFoodMenu(FoodMenu foodMenu) {
+        this.foodMenu = foodMenu;
+    }
 
     public double getQuantity() {
         return quantity;

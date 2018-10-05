@@ -15,6 +15,7 @@ import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
 import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.view.LayoutInflater;
@@ -22,6 +23,9 @@ import android.view.LayoutInflater;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by ScorpioMiku on 2018/8/26.
@@ -84,13 +88,7 @@ public class RecommendFragment extends BaseFragment {
                 recyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
-                        Logger.d("加载数据");
-                        for (int i = 0; i < 6; i++) {
-                            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", indexs[i % 4]);
-                            adapter.getData().add(recommendFood);
-                        }
-                        adapter.loadMoreComplete();
+                        addData();
                     }
 
                 }, 1000);
@@ -124,15 +122,40 @@ public class RecommendFragment extends BaseFragment {
     }
 
     /**
-     * 加载数据
+     * 初始化数据
+     * 病  、   体质  、  职业
+     * 0-4     5-7       8-10
      */
     @Override
     protected void loadData() {
         super.loadData();
         for (int i = 0; i < 11; i++) {
-            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", indexs[i % 4]);
+            int flag = indexs[i % 4];
+            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
             datas.add(recommendFood);
+//            if (flag == 2) {
+//
+//            } else {
+//
+//            }
         }
+    }
+
+    /**
+     * 加载新数据
+     */
+    private void addData() {
+//        Logger.d("加载数据");
+        for (int i = 0; i < 7; i++) {
+            int flag = indexs[i % 4];
+            if (flag == 2) {
+
+            } else {
+                RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
+                adapter.getData().add(recommendFood);
+            }
+        }
+        adapter.loadMoreComplete();
     }
 
     /**
