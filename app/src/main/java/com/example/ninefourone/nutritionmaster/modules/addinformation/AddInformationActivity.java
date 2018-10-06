@@ -158,6 +158,8 @@ public class AddInformationActivity extends BaseActivity {
                     user.setAge(Integer.valueOf(ageTextView.getText().toString().split("岁")[0]));
                     user.setSex(CalculateUtils.sex2int(sexTextView.getText().toString()));
                     user.setOccupation_name(occupationTextView.getText().toString());
+                    float BMI = CalculateUtils.BMI(user.getHeight().floatValue(),user.getWeight().floatValue());
+                    user.setBmi(Integer.valueOf((int)BMI));
                     upUser();
                     MessageUtils.MakeToast("信息填写成功");
                     finish();

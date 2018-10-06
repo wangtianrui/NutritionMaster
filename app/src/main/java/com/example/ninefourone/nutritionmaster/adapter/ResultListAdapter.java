@@ -11,6 +11,7 @@ import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
 import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -27,9 +28,9 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListHolder> {
 
     public ResultListAdapter(ArrayList<ClassifyResult> list, Context context) {
         super();
-        mList = list;
         this.context = context;
-        mList = CalculateUtils.getDishQuantity(mList, NutritionMaster.user);
+        Logger.d(NutritionMaster.user);
+        mList = CalculateUtils.getDishQuantity(list, NutritionMaster.user);
     }
 
     @Override

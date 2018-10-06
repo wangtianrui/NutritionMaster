@@ -121,6 +121,8 @@ public class MainActivity extends BaseActivity {
     RecyclerView illRecyclerView;
     @BindView(R.id.ill_button)
     LinearLayout illButton;
+    @BindView(R.id.change_information)
+    TextView changeInformation;
 
 
     private OptionsPickerView illPicker;
@@ -360,6 +362,7 @@ public class MainActivity extends BaseActivity {
     private void initInforView() {
 
         adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        changeInformation.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
         if (NutritionMaster.user.getHeight() != 0) {
             showInformation.setVisibility(View.VISIBLE);
             adderInfor.setVisibility(View.INVISIBLE);
@@ -392,7 +395,7 @@ public class MainActivity extends BaseActivity {
      */
 
     @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout,
-            R.id.user_occupation_text, R.id.adder_infor})
+            R.id.user_occupation_text, R.id.adder_infor,R.id.change_information})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.navigation_layout:
@@ -409,6 +412,10 @@ public class MainActivity extends BaseActivity {
             case R.id.adder_infor:
                 Intent i = new Intent(MainActivity.this, AddInformationActivity.class);
                 startActivity(i);
+                break;
+            case R.id.change_information:
+                Intent i2 = new Intent(MainActivity.this, AddInformationActivity.class);
+                startActivity(i2);
                 break;
         }
     }
@@ -542,4 +549,6 @@ public class MainActivity extends BaseActivity {
         illPicker.setPicker(illness);
         illPicker.show();
     }
+
+
 }

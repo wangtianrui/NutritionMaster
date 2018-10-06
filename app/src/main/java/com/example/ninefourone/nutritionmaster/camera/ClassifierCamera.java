@@ -190,7 +190,7 @@ public class ClassifierCamera extends AppCompatActivity {
                                 result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
                                         ConstantUtils.BD_ACCESS_TOKEN, param);
                                 JSONObject jsonObject = new JSONObject(result);
-                                ClassifyResult classifyResult = new ClassifyResult();
+                                ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.DISH);
                                 JSONArray resultObject = jsonObject.getJSONArray("result");
                                 jsonObject = resultObject.getJSONObject(0);
                                 classifyResult.setCalorie(jsonObject.getInt("calorie"));
@@ -324,7 +324,7 @@ public class ClassifierCamera extends AppCompatActivity {
                 String result = "";
                 result = translate.getTranslations().get(0);
 //                Logger.d(result);
-                ClassifyResult classifyResult = new ClassifyResult();
+                ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.MATERIAL);
                 classifyResult.setName(result);
                 resultList.add(classifyResult);
                 refreshUI();

@@ -208,7 +208,7 @@ public class AddPhysiqueActivity extends BaseActivity {
      */
     private void getResult() {
 
-        float margin = 0.75f;
+        float margin = 0.6f;
 
         String code = result.substring(1);
         char[] codes = code.toCharArray();
@@ -230,9 +230,9 @@ public class AddPhysiqueActivity extends BaseActivity {
                 counter[3] += margin;
                 break;
             case 3:
-                counter[6]++;
                 counter[7]++;
 
+                counter[6] += margin;
                 counter[3] += margin;
                 break;
             default:
@@ -244,23 +244,22 @@ public class AddPhysiqueActivity extends BaseActivity {
 
                 counter[2] += margin;
                 counter[3] += margin;
-                counter[6] += margin;
                 break;
             case 2:
                 counter[4]++;
 
                 counter[2] += margin;
                 counter[3] += margin;
-                counter[6] += margin;
                 break;
             case 3:
                 counter[1]++;
                 counter[5]++;
                 counter[7]++;
+                counter[6]++;
 
                 counter[2] += margin;
                 counter[3] += margin;
-                counter[6] += margin;
+
                 break;
         }
         switch ((int) (codes[2]) - 48) {
@@ -294,7 +293,6 @@ public class AddPhysiqueActivity extends BaseActivity {
         switch ((int) (codes[3]) - 48) {
             case 1:
                 counter[0]++;
-
                 counter[2]++;
                 counter[5]++;
                 counter[6]++;
@@ -354,6 +352,7 @@ public class AddPhysiqueActivity extends BaseActivity {
                 counter[6] += margin;
                 break;
             case 2:
+                counter[1]++;
                 counter[1]++;
                 counter[1]++;
 

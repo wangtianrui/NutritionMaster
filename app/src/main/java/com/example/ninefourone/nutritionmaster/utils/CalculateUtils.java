@@ -78,6 +78,7 @@ public class CalculateUtils {
 
     /**
      * 性别转数字
+     *
      * @param sex
      * @return
      */
@@ -104,14 +105,27 @@ public class CalculateUtils {
             ArrayList<ClassifyResult> classifyResultArrayList, MyUser user) {
         double calorieSum = 0;
         double[] calories = new double[classifyResultArrayList.size()];
-        double[] quantitys = new double[classifyResultArrayList.size()];
         float baseQuantity = 600f;
+        float factor = 1;
+
+        if (user.getBmi().intValue() == -1) {
+            MessageUtils.MakeToast("检测到未填写个人信息，按成人标准进行计算");
+        } else {
+            if (user.getAge() <= 60) {
+                factor = 1 - (Math.abs(user.getAge() - 30)) / 30.0f;
+            } else {
+                factor = 1 - (Math.abs(user.getAge() - 30)) / 70.0f;
+            }
+            factor = factor * (user.getBmi().intValue() / 21.0f) - (factor - 1.0f) / 5;
+            Logger.d(factor);
+        }
+
         for (int i = 0; i < classifyResultArrayList.size(); i++) {
             calorieSum += classifyResultArrayList.get(i).getCalorie();
             calories[i] = classifyResultArrayList.get(i).getCalorie();
         }
         for (int i = 0; i < classifyResultArrayList.size(); i++) {
-            classifyResultArrayList.get(i).setQuantity(calories[i] / calorieSum * baseQuantity);
+            classifyResultArrayList.get(i).setQuantity(calories[i] / calorieSum * baseQuantity * factor);
         }
         return classifyResultArrayList;
     }

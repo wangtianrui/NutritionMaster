@@ -279,22 +279,22 @@ public class ConstantUtils {
 
     public static String BD_DISH_URL = "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish";
 
-    public static ArrayList<ClassifyResult> testData = new ArrayList<>();
-
-    static {
-        for (int i = 0; i < 7; i++) {
-            ClassifyResult classifyResult = new ClassifyResult();
-            classifyResult.setName("酱肉丝" + i);
-            classifyResult.setProbability(0.5 + i);
-            classifyResult.setCalorie(274 + i * 10);
-            testData.add(classifyResult);
-        }
-    }
+//    public static ArrayList<ClassifyResult> testData = new ArrayList<>();
+//
+//    static {
+//        for (int i = 0; i < 7; i++) {
+//            ClassifyResult classifyResult = new ClassifyResult();
+//            classifyResult.setName("酱肉丝" + i);
+//            classifyResult.setProbability(0.5 + i);
+//            classifyResult.setCalorie(274 + i * 10);
+//            testData.add(classifyResult);
+//        }
+//    }
 
     public static ArrayList<String> dishPicerData = new ArrayList<>();
 
     static {
-        for (int i = 0; i <= 700; i++) {
+        for (int i = 0; i <= 1000; i++) {
             if (i % 2 == 0) {
                 dishPicerData.add(i + "");
             }

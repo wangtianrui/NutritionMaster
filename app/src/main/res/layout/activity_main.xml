@@ -201,8 +201,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginRight="25dp"
-                        >
+                        android:layout_marginRight="25dp">
 
                     </android.support.v7.widget.RecyclerView>
 
@@ -580,6 +579,13 @@
                                 app:rcSecondaryProgressColor="@color/color_bar_deeper" />
 
                         </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/change_information"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:gravity="center"
+                            android:text="修改信息" />
 
                     </LinearLayout>
                 </RelativeLayout>

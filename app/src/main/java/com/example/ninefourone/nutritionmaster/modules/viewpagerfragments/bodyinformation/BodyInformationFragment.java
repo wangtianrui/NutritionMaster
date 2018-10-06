@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.utils.ChartDrawer;
@@ -45,6 +46,10 @@ public class BodyInformationFragment extends BaseFragment {
     LineChart weightLineChart;
     @BindView(R.id.step_line_chart)
     LineChart stepLineChart;
+    @BindView(R.id.calorie_text)
+    TextView calorieText;
+    @BindView(R.id.weight_text)
+    TextView weightText;
 
     private int stepCount = 0;
     private static final int REFRESH_STEP_WHAT = 0;
@@ -179,5 +184,21 @@ public class BodyInformationFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unbindService(coon);
+    }
+
+    /**
+     * 更新数据
+     */
+    private void refreshUI() {
+        if (NutritionMaster.user.getBmi() != -1) {
+            weightText.setText(NutritionMaster.user.getWeight());
+        }
+//        waveLoadingView.setProgressValue();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshUI();
     }
 }
