@@ -1,9 +1,13 @@
 package com.example.ninefourone.nutritionmaster.utils;
+
+import com.example.ninefourone.nutritionmaster.bean.FoodMenuLight;
+import com.example.ninefourone.nutritionmaster.bean.MyUser;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringWriter;
@@ -22,8 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.FoodMenuLight;
-import model.MyUser;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -36,7 +39,7 @@ public class WebUtil {
     private static WebUtil instance = new WebUtil();
     private OkHttpClient mClient = new OkHttpClient();
 
-    public WebUtil() {
+    private WebUtil() {
     }
 
     public static WebUtil getInstance() {
@@ -68,6 +71,7 @@ public class WebUtil {
         Request request = new Request.Builder().url("http://120.77.182.38/menus/" + menuName + "/").build();
         mClient.newCall(request).enqueue(callback);
     }
+
 
     /**
      * 获取count个随机菜谱,在回调中解析为一个Menu数组
@@ -162,7 +166,11 @@ public class WebUtil {
         Request request = new Request.Builder().url("http://120.77.182.38/occupation/" + occupationName + "/").build();
         mClient.newCall(request).enqueue(callback);
     }
-
+    public static void getAllOccupations(Callback callback) {
+        OkHttpClient mClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://120.77.182.38/occupation/").build();
+        mClient.newCall(request).enqueue(callback);
+    }
     /**
      * 获取体质需要的食材
      * {
@@ -294,24 +302,26 @@ public class WebUtil {
     }
 
     */
+
     /**
-    public static void changeUserIllness(String username, String[] illnesses, Callback callback) {
-        String url = "http://120.77.182.38/myuser/" + username + "/";
-
-        FormBody.Builder builder = new FormBody.Builder();
-        for (String illness : illnesses) {
-            builder.add("illness", illness);
-        }
-        RequestBody formBody = builder.build();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .patch(formBody)
-                .build();
-
-        OkHttpClient mClient = new OkHttpClient();
-        mClient.newCall(request).enqueue(callback);
-    }*/
+     * public static void changeUserIllness(String username, String[] illnesses, Callback callback) {
+     * String url = "http://120.77.182.38/myuser/" + username + "/";
+     * <p>
+     * FormBody.Builder builder = new FormBody.Builder();
+     * for (String illness : illnesses) {
+     * builder.add("illness", illness);
+     * }
+     * RequestBody formBody = builder.build();
+     * <p>
+     * Request request = new Request.Builder()
+     * .url(url)
+     * .patch(formBody)
+     * .build();
+     * <p>
+     * OkHttpClient mClient = new OkHttpClient();
+     * mClient.newCall(request).enqueue(callback);
+     * }
+     */
     private static RequestBody buildUserRequestBody(MyUser user) {
         try {
             FormBody.Builder builder = new FormBody.Builder();
@@ -322,7 +332,7 @@ public class WebUtil {
                 String fieldName = f.toString().substring(f.toString().lastIndexOf(".") + 1);
                 f.setAccessible(true);
                 Object object = f.get(user);//获取属性的值
-                if (object != null ) {
+                if (object != null) {
                     //illness属性是一个list,需要加入每个list的值,而不是list对象
                     if (fieldName.equals("illness")) {
                         List<String> illnessList = (List<String>) object;
@@ -385,10 +395,11 @@ public class WebUtil {
     /**
      * 用户吃了一个菜,更新用户本周已吃摄入的营养元素的量
      * 返回当前user的最新信息,用MyUser类解析json
+     *
      * @param username
      * @param menuName
      */
-    public void eatenMenu(String username, String menuName,Callback callback) {
+    public void eatenMenu(String username, String menuName, Callback callback) {
         String url = "http://120.77.182.38/myuser/eaten_menu/";
         RequestBody formBody = new FormBody.Builder()
                 .add("username", username)
@@ -403,9 +414,10 @@ public class WebUtil {
 
     /**
      * 返回符合元素信息的menus
+     *
      * @param elements
      */
-    public void getMenusByElements(Map<String, Double> elements,Callback callback) {
+    public void getMenusByElements(Map<String, Double> elements, Callback callback) {
         String url = "http://120.77.182.38/menus/get_menus_by_elements/";
         FormBody.Builder builder = new FormBody.Builder();
         //构造RequestBody参数

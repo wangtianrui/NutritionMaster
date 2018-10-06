@@ -126,7 +126,8 @@ public class NutritionMaster extends Application {
      */
     private void initOccupations() {
 
-        WebUtil.getAllOccupations(new Callback() {
+        WebUtil webUtil = WebUtil.getInstance();
+        webUtil.getAllOccupations(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

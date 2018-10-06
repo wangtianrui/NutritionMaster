@@ -27,7 +27,7 @@ public class ClassifyResult implements Serializable {
 
 
     public void getMenu() {
-        WebUtil webUtil = new WebUtil();
+        WebUtil webUtil = WebUtil.getInstance();
         webUtil.getMenu("素红烧肉", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
