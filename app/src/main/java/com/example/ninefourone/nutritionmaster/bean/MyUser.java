@@ -47,7 +47,7 @@ public class MyUser {
     private Integer height;
     private Integer weight;
     private Integer bmi;
-    private Object occupation_name;
+    private String occupation_name;
     private List<?> groups;
     private List<?> user_permissions;
     private List<?> illness;
@@ -230,7 +230,7 @@ public class MyUser {
     }
 
     public String getOccupation_name() {
-        return occupation_name+"";
+        return occupation_name;
     }
 
     public void setOccupation_name(String occupation_name) {

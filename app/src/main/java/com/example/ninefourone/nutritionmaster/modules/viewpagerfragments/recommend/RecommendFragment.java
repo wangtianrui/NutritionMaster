@@ -133,11 +133,6 @@ public class RecommendFragment extends BaseFragment {
             int flag = indexs[i % 4];
             RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
             datas.add(recommendFood);
-//            if (flag == 2) {
-//
-//            } else {
-//
-//            }
         }
     }
 
@@ -148,12 +143,14 @@ public class RecommendFragment extends BaseFragment {
 //        Logger.d("加载数据");
         for (int i = 0; i < 7; i++) {
             int flag = indexs[i % 4];
-            if (flag == 2) {
-
-            } else {
-                RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
-                adapter.getData().add(recommendFood);
-            }
+            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
+            adapter.getData().add(recommendFood);
+//            if (flag == 2) {
+//
+//            } else {
+//                RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
+//                adapter.getData().add(recommendFood);
+//            }
         }
         adapter.loadMoreComplete();
     }
