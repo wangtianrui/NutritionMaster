@@ -3,6 +3,8 @@ package com.example.ninefourone.nutritionmaster.utils;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by ScorpioMiku on 2018/8/26.
@@ -297,5 +299,46 @@ public class ConstantUtils {
                 dishPicerData.add(i + "");
             }
         }
+    }
+
+    public static HashMap<String, String> illnessMap = new HashMap<>();
+
+    static {
+        illnessMap.put("补肾", "肾调养食谱");
+        illnessMap.put("糖尿病", "糖尿病食谱");
+        illnessMap.put("结核病", "结核病食谱");
+        illnessMap.put("骨质酥松症", "骨质疏松食谱");
+        illnessMap.put("营养不良", "营养不良食谱");
+        illnessMap.put("便秘", "便秘食谱");
+        illnessMap.put("高血压", "高血压食谱");
+        illnessMap.put("消化不良", "消化不良食谱");
+        illnessMap.put("神经衰弱", "神经衰弱食谱");
+        illnessMap.put("肾炎", "肾炎食谱");
+        illnessMap.put("月经不调", "月经不调食谱");
+        illnessMap.put("上火", "清热解毒食谱");
+        illnessMap.put("贫血", "贫血食谱");
+        illnessMap.put("多汗", "自汗盗汗食谱");
+        illnessMap.put("咳嗽", "咳喘食谱");
+        illnessMap.put("防暑", "防暑食谱");
+        illnessMap.put("健忘", "健忘食谱");
+        illnessMap.put("耳鸣", "耳鸣食谱");
+        illnessMap.put("肺病", "肺调养食谱");
+        illnessMap.put("冻疮", "冻疮食谱");
+        illnessMap.put("利尿", "利尿食谱");
+        illnessMap.put("头疼", "头痛食谱");
+        illnessMap.put("口腔溃疡", "口腔溃疡食谱");
+        illnessMap.put("祛痱", "祛痱食谱");
+        illnessMap.put("感冒", "感冒食谱");
+        illnessMap.put("前内腺疾病", "前列腺疾病食谱");
+        illnessMap.put("鼻炎", "鼻炎食谱");
+        illnessMap.put("跌打骨折", "跌打骨折食谱");
+    }
+
+    public static ArrayList<String> getIllness() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (String key : illnessMap.keySet()) {
+            arrayList.add(key);
+        }
+        return arrayList;
     }
 }

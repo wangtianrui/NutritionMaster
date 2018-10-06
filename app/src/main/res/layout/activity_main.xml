@@ -202,9 +202,23 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginRight="25dp"
-                        android:background="#dc4444">
+                        >
 
                     </android.support.v7.widget.RecyclerView>
+
+                    <LinearLayout
+                        android:id="@+id/ill_button"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="35dp"
+                        android:alpha="0.3"
+                        android:background="@drawable/ic_ill"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
 
 
                 </RelativeLayout>
