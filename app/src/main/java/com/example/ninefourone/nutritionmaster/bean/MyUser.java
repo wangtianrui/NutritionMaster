@@ -47,7 +47,7 @@ public class MyUser {
     private Integer height;
     private Integer weight;
     private Integer bmi;
-    private Object occupation_name;
+    private String occupation_name;
     private List<?> groups;
     private List<?> user_permissions;
     private List<?> illness;
@@ -100,8 +100,8 @@ public class MyUser {
         return physical_name;
     }
 
-    public void setPhysique(Physique physique) {
-        this.physique = physique;
+    public void setPhysical_name(String physical_name) {
+        this.physical_name = physical_name;
     }
 
     public String getPassword() {
@@ -224,11 +224,11 @@ public class MyUser {
         this.bmi = bmi;
     }
 
-    public Object getOccupation_name() {
+    public String getOccupation_name() {
         return occupation_name;
     }
 
-    public void setOccupation_name(Object occupation_name) {
+    public void setOccupation_name(String occupation_name) {
         this.occupation_name = occupation_name;
     }
 

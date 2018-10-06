@@ -12,7 +12,7 @@ public class Occupation {
 
     private String occupation_name;
     private ElementsBean elements;
-    private float bmi_classification;
+    private int bmi_classification;
     private List<String> menuclassification_set;
 
     public String getOccupation_name() {
@@ -31,11 +31,11 @@ public class Occupation {
         this.elements = elements;
     }
 
-    public float getBmi_classification() {
+    public int getBmi_classification() {
         return bmi_classification;
     }
 
-    public void setBmi_classification(float bmi_classification) {
+    public void setBmi_classification(int bmi_classification) {
         this.bmi_classification = bmi_classification;
     }
 

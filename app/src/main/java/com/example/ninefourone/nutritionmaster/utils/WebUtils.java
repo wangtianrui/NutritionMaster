@@ -1,17 +1,14 @@
 package com.example.ninefourone.nutritionmaster.utils;
-
 import com.google.gson.Gson;
-import com.sun.istack.internal.Nullable;
-
-import com.example.ninefourone.nutritionmaster.bean.Occupation;
-import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import model.FoodMenuLight;
 import model.MyUser;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,7 +62,7 @@ public class WebUtil {
      * @param callback
      */
     public void getRandomMenus(int count, Callback callback) {
-        Request request = new Request.Builder().url("http://127.0.0.1:8000/menus/get_random_menus/?count=" + String.valueOf(count)).build();
+        Request request = new Request.Builder().url("http://120.77.182.38/menus/get_random_menus/?count=" + String.valueOf(count)).build();
         mClient.newCall(request).enqueue(callback);
     }
 
@@ -76,7 +73,7 @@ public class WebUtil {
      * @param callback
      */
     public void getRandomTricks(int count, Callback callback) {
-        Request request = new Request.Builder().url("http://127.0.0.1:8000/trick/get_random_tricks/?count=" + String.valueOf(count)).build();
+        Request request = new Request.Builder().url("http://120.77.182.38/trick/get_random_tricks/?count=" + String.valueOf(count)).build();
         mClient.newCall(request).enqueue(callback);
     }
 
@@ -149,12 +146,6 @@ public class WebUtil {
      */
     public void getOccupation(String occupationName, Callback callback) {
         Request request = new Request.Builder().url("http://120.77.182.38/occupation/" + occupationName + "/").build();
-        mClient.newCall(request).enqueue(callback);
-    }
-
-    public static void getAllOccupations(Callback callback) {
-        OkHttpClient mClient = new OkHttpClient();
-        Request request = new Request.Builder().url("http://120.77.182.38/occupation/").build();
         mClient.newCall(request).enqueue(callback);
     }
 
@@ -396,8 +387,48 @@ public class WebUtil {
         mClient.newCall(request).enqueue(callback);
     }
 
+    /**
+     * 返回符合元素信息的menus
+     * @param elements
+     */
+    public void getMenusByElements(Map<String, Double> elements,Callback callback) {
+        String url = "http://120.77.182.38/menus/get_menus_by_elements/";
+        FormBody.Builder builder = new FormBody.Builder();
+        //构造RequestBody参数
+        for (Map.Entry<String, Double> entry : elements.entrySet()) {
+            String key = entry.getKey();
+            double value = entry.getValue();
+            builder.add(key, String.valueOf(value));
+        }
+        RequestBody formBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+        mClient.newCall(request).enqueue(callback);
+    }
 
     public static void main(String[] args) {
+        Map<String, Double> params = new HashMap<>();
+        params.put("calorie", 100.0);
+        params.put("fat", 10.0);
+        WebUtil.getInstance().getMenusByElements(params, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                System.out.println(json);
+                //轻量级的Menu,只有Menu的名字,卡路里,元素对象的主码id.想获取详细信息可以用getMenu方法获取
+                //这样是为了查询更快
+                FoodMenuLight[] foodMenuLights = new Gson().fromJson(json, FoodMenuLight[].class);
+                System.out.println(Arrays.toString(foodMenuLights));
+            }
+        });
+
 /*
         MyUser testUser = new MyUser();
         testUser.setUsername("test6");

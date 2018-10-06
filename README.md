@@ -166,7 +166,36 @@
 
   * 功效搜菜 `getMenuClassification`传入分类(功效)参数,比如川菜.搜到所有的川菜名字.然后可以用菜名搜索搜某个菜的详细信息
 
-  * **营养量搜菜 : 搜索某个营养量范围内的菜**
+  * 营养量搜菜 : 搜索某个营养量范围内的菜
+
+    可选参数:  `[calorie,carbohydrate,fat ,protein,cellulose,vitaminA,vitaminB1,vitaminB2,vitaminB6,vitaminC,vitaminE,carotene,cholesterol,Mg,Ca,Fe,Zn,Cu,Mn,K ,P ,Na,Se,niacin ,thiamine]`
+
+    ```java
+    public static void main(String[] args) {
+        	//首先构造一个Map, key是参数的名字,value是参数的值.用不到的参数不用写.
+        	//我在服务器端根据这些参数构造一个sql,就是 ... WHERE key1 <= val1 AND ...这样的.
+       		//所以你只传入需要作为搜索条件的参数就可以了.
+            Map<String, Double> params = new HashMap<>();
+            params.put("calorie", 100.0);
+            params.put("fat", 10.0);
+            WebUtil.getInstance().getMenusByElements(params, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    System.out.println(json);
+                    //用轻量级的菜单类MenuLight解析json,这个类只有Menu的[名字,卡路里,元素对象的主码id]这三个域.想获取详细信息可以用getMenu方法获取
+                    //这样是为了查询更快
+                    FoodMenuLight[] foodMenuLights = new Gson().fromJson(json, FoodMenuLight[].class);
+                    System.out.println(Arrays.toString(foodMenuLights));
+                }
+            });
+    }
+    ```
 
   * **季节搜菜**
 
