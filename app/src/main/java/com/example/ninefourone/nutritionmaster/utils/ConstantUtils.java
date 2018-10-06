@@ -341,4 +341,6 @@ public class ConstantUtils {
         }
         return arrayList;
     }
+
+    public static String YOUDAO_APPKEY = "3ea8061348a6bdd6";
 }

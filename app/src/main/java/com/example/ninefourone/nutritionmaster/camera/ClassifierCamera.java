@@ -20,10 +20,19 @@ import android.widget.TextView;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
+import com.example.ninefourone.nutritionmaster.modules.classifyresult.MaterialResultActivity;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
+import com.example.ninefourone.nutritionmaster.utils.MaterialClassifier;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.orhanobut.logger.Logger;
+import com.youdao.sdk.app.Language;
+import com.youdao.sdk.app.LanguageUtils;
+import com.youdao.sdk.ydonlinetranslate.Translator;
+import com.youdao.sdk.ydtranslate.Translate;
+import com.youdao.sdk.ydtranslate.TranslateErrorCode;
+import com.youdao.sdk.ydtranslate.TranslateListener;
+import com.youdao.sdk.ydtranslate.TranslateParameters;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -171,27 +180,30 @@ public class ClassifierCamera extends AppCompatActivity {
                     public void run() {
                         String result = null;
                         try {
-                            if (code == 0) {
+                            if (code == MATERAIL_CODE) {
+                                MaterialClassifier materialClassifier = new MaterialClassifier();
+                                JSONObject jsonObject = materialClassifier.plantDetect(data);
+                                result = jsonObject.getJSONArray("objects")
+                                        .getJSONObject(0).getString("value");
+                                translate(result);
+                            } else if (code == DISH_CODE) {
                                 result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
                                         ConstantUtils.BD_ACCESS_TOKEN, param);
-                            } else if (code == 1) {
-                                result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
-                                        ConstantUtils.BD_ACCESS_TOKEN, param);
+                                JSONObject jsonObject = new JSONObject(result);
+                                ClassifyResult classifyResult = new ClassifyResult();
+                                JSONArray resultObject = jsonObject.getJSONArray("result");
+                                jsonObject = resultObject.getJSONObject(0);
+                                classifyResult.setCalorie(jsonObject.getInt("calorie"));
+                                classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
+                                classifyResult.setProbability(jsonObject.getDouble("probability"));
+                                classifyResult.setName(jsonObject.getString("name"));
+                                classifyResult.getMenu();
+                                resultList.add(classifyResult);
+                                refreshUI();
                             } else {
                                 Logger.e("拍照code为-1");
                             }
-                            JSONObject jsonObject = new JSONObject(result);
-                            ClassifyResult classifyResult = new ClassifyResult();
-                            JSONArray resultObject = jsonObject.getJSONArray("result");
-                            jsonObject = resultObject.getJSONObject(0);
-                            classifyResult.setCalorie(jsonObject.getInt("calorie"));
-                            classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
-                            classifyResult.setProbability(jsonObject.getDouble("probability"));
-                            classifyResult.setName(jsonObject.getString("name"));
-                            classifyResult.getMenu();
-//                            Logger.d(classifyResult);
-                            resultList.add(classifyResult);
-                            refreshUI();
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -220,9 +232,15 @@ public class ClassifierCamera extends AppCompatActivity {
                 cameraCoverLinearlayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.more_takephoto_ok:
-                Intent intent = new Intent(ClassifierCamera.this, DishResultActivity.class);
+                Intent intent;
+                if (code == DISH_CODE) {
+                    intent = new Intent(ClassifierCamera.this, DishResultActivity.class);
+
+                } else {
+                    intent = new Intent(ClassifierCamera.this, MaterialResultActivity.class);
+
+                }
                 intent.putExtra("LIST", resultList);
-//                intent.putExtra("LIST", ConstantUtils.testData);
                 startActivity(intent);
                 resultList.clear();
                 refreshUI();
@@ -278,6 +296,43 @@ public class ClassifierCamera extends AppCompatActivity {
                 }
                 resultsTextView.setText(text);
                 cameraCoverLinearlayout.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    /**
+     * YOUDAO
+     *
+     * @param english
+     */
+    private void translate(String english) {
+        Language languageFrom = LanguageUtils.getLangByName("英文");
+        Language languageTo = LanguageUtils.getLangByName("中文");
+
+        TranslateParameters tps = new TranslateParameters.Builder()
+                .source("NM")
+                .from(languageFrom).to(languageTo).build();
+        Translator translator = Translator.getInstance(tps);
+        translator.lookup(english, "5c0e8adb488ba180", new TranslateListener() {
+            @Override
+            public void onError(TranslateErrorCode translateErrorCode, String s) {
+
+            }
+
+            @Override
+            public void onResult(Translate translate, String s, String s1) {
+                String result = "";
+                result = translate.getTranslations().get(0);
+//                Logger.d(result);
+                ClassifyResult classifyResult = new ClassifyResult();
+                classifyResult.setName(result);
+                resultList.add(classifyResult);
+                refreshUI();
+            }
+
+            @Override
+            public void onResult(List<Translate> list, List<String> list1, List<TranslateErrorCode> list2, String s) {
+
             }
         });
     }

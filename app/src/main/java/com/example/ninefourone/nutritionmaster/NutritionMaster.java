@@ -13,6 +13,8 @@ import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.youdao.sdk.app.YouDaoApplication;
+import com.youdao.sdk.chdict.ChDictor;
 
 import org.json.JSONObject;
 
@@ -44,6 +46,7 @@ public class NutritionMaster extends Application {
         super.onCreate();
         mInstance = this;
         init();
+        initYouDao();
     }
 
     /**
@@ -150,7 +153,6 @@ public class NutritionMaster extends Application {
      */
     private void initBD() {
         ConstantUtils.BD_ACCESS_TOKEN = getAccessToken();
-//        Logger.d(ConstantUtils.BD_ACCESS_TOKEN);
     }
 
 
@@ -187,15 +189,20 @@ public class NutritionMaster extends Application {
             /**
              * 返回结果示例
              */
-//            System.err.println("result:" + result);
             JSONObject jsonObject = new JSONObject(result);
             String access_token = jsonObject.getString("access_token");
-//            Logger.d(access_token);
             return access_token;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * YD init
+     */
+    private void initYouDao() {
+        YouDaoApplication.init(this, ConstantUtils.YOUDAO_APPKEY);
     }
 
 

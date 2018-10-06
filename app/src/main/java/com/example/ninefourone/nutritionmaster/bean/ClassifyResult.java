@@ -20,8 +20,8 @@ public class ClassifyResult implements Serializable {
     private String imgPath;
     private double probability;
     private String name;
-    private double calorie;
-    private Boolean has_calorie;
+    private double calorie = 0;
+    private Boolean has_calorie = false;
     private double quantity = -1;
     private FoodMenu foodMenu;
 
