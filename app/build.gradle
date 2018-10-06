@@ -83,4 +83,7 @@ dependencies {
     // json解析库
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    //横向picker
+    compile 'com.github.adityagohad:HorizontalPicker:1.0.1'
+
 }

@@ -52,6 +52,11 @@ public class MyUser {
     private List<?> user_permissions;
     private List<?> illness;
 
+    public MyUser() {
+        height = new Integer(0);
+        occupation_name = "";
+    }
+
     @Override
     public String toString() {
         return "MyUser{" +
@@ -80,11 +85,11 @@ public class MyUser {
                 '}';
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -120,11 +125,11 @@ public class MyUser {
         this.last_login = last_login;
     }
 
-    public boolean isIs_superuser() {
+    public Boolean getIs_superuser() {
         return is_superuser;
     }
 
-    public void setIs_superuser(boolean is_superuser) {
+    public void setIs_superuser(Boolean is_superuser) {
         this.is_superuser = is_superuser;
     }
 
@@ -160,19 +165,19 @@ public class MyUser {
         this.email = email;
     }
 
-    public boolean isIs_staff() {
+    public Boolean getIs_staff() {
         return is_staff;
     }
 
-    public void setIs_staff(boolean is_staff) {
+    public void setIs_staff(Boolean is_staff) {
         this.is_staff = is_staff;
     }
 
-    public boolean isIs_active() {
+    public Boolean getIs_active() {
         return is_active;
     }
 
-    public void setIs_active(boolean is_active) {
+    public void setIs_active(Boolean is_active) {
         this.is_active = is_active;
     }
 
@@ -184,43 +189,43 @@ public class MyUser {
         this.date_joined = date_joined;
     }
 
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public int getBmi() {
+    public Integer getBmi() {
         return bmi;
     }
 
-    public void setBmi(int bmi) {
+    public void setBmi(Integer bmi) {
         this.bmi = bmi;
     }
 

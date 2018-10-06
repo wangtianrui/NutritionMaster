@@ -263,6 +263,6 @@
 * POST新建用户信息`params`示例
 
   * 1♂   0♀
-  * `occupation_name`,`physique`的值必须和数据库对应
+  * `occupation_name`,`physical_name`的值必须和数据库对应
 
   ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvjbfh6vm1j30r70eh3zj.jpg)

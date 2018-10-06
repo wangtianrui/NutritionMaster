@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
@@ -18,6 +19,7 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
     protected MyUser user;
+    private WebUtil webUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,10 +28,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
         initViews(savedInstanceState);
+        webUtil = new WebUtil();
         initToolBar();
-
     }
 
+    public WebUtil getWebUtil() {
+        return webUtil;
+    }
 
     /**
      * 设置布局layout
@@ -94,7 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void upUser() {
         NutritionMaster.user = user;
-        Logger.d("用户信息已改"+NutritionMaster.user.toString());
+        Logger.d("用户信息已改" + NutritionMaster.user.toString());
     }
 
     @Override

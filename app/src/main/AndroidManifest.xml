@@ -44,7 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".camera.FoodMaterialCamera" />
+        <activity android:name=".camera.ClassifierCamera" />
 
         <receiver
             android:name=".step.StepStarter"
@@ -55,10 +55,11 @@
         <activity android:name=".modules.viewpagerfragments.customization.CustomizationActivity" />
         <activity android:name=".modules.information.InformationActivity" />
         <activity android:name=".modules.RecipeActivity.RecipeActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".modules.addinformation.AddInformationActivity"></activity>
+        <!-- <activity -->
+        <!-- android:name=".LoginActivity" -->
+        <!-- android:label="@string/title_activity_login" /> -->
+        <activity android:name=".modules.addinformation.AddInformationActivity" />
+        <activity android:name=".modules.classifyresult.DishResultActivity"></activity>
     </application>
 
 </manifest>

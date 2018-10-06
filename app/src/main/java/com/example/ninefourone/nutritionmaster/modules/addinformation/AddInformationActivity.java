@@ -15,6 +15,7 @@ import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 import com.example.ninefourone.nutritionmaster.modules.MainActivity;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 
@@ -148,14 +149,14 @@ public class AddInformationActivity extends BaseActivity {
             public void onClick(View v) {
 
                 if (ageTextView.getText().toString().equals("年龄") || weightTextView.getText().toString().equals("体重")
-                        || sexTextView.getText().toString().equals("性别") || heightTextView.getText().toString().equals("身高")||
+                        || sexTextView.getText().toString().equals("性别") || heightTextView.getText().toString().equals("身高") ||
                         occupationTextView.getText().toString().equals("职业")) {
                     MessageUtils.MakeToast("请点击图片填写所有信息");
                 } else {
                     user.setHeight(Integer.valueOf(heightTextView.getText().toString().split("c")[0]));
                     user.setWeight(Integer.valueOf(weightTextView.getText().toString().split("k")[0]));
                     user.setAge(Integer.valueOf(ageTextView.getText().toString().split("岁")[0]));
-                    user.setSex(sexTextView.getText().toString());
+                    user.setSex(CalculateUtils.sex2int(sexTextView.getText().toString()));
                     user.setOccupation_name(occupationTextView.getText().toString());
                     upUser();
                     MessageUtils.MakeToast("信息填写成功");

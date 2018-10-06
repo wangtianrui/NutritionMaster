@@ -19,13 +19,12 @@ import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
-import com.bumptech.glide.Glide;
 import com.cb.ratingbar.CBRatingBar;
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
-import com.example.ninefourone.nutritionmaster.camera.FoodMaterialCamera;
+import com.example.ninefourone.nutritionmaster.camera.ClassifierCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity;
 import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
@@ -316,14 +315,24 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onBoomButtonClick(int index) {
                         Intent cameraIntent = new Intent(MainActivity.this,
-                                FoodMaterialCamera.class);
+                                ClassifierCamera.class);
+                        cameraIntent.putExtra("CODE", ClassifierCamera.MATERAIL_CODE);
                         startActivity(cameraIntent);
                     }
                 });
         boomMenuButton.addBuilder(builder);
         HamButton.Builder builder2 = new HamButton.Builder()
                 .normalImageRes(R.drawable.foods)
-                .normalTextRes(R.string.food_title);
+                .normalTextRes(R.string.food_title)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        Intent cameraIntent = new Intent(MainActivity.this,
+                                ClassifierCamera.class);
+                        cameraIntent.putExtra("CODE", ClassifierCamera.DISH_CODE);
+                        startActivity(cameraIntent);
+                    }
+                });
         boomMenuButton.addBuilder(builder2);
     }
 
@@ -332,7 +341,7 @@ public class MainActivity extends BaseActivity {
      * 初始化个人信息界面（UI）
      */
     private void initInforView() {
-//        Logger.d(NutritionMaster.user.toString());
+
         adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         if (NutritionMaster.user.getHeight() != 0) {
             showInformation.setVisibility(View.VISIBLE);

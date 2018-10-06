@@ -1,5 +1,7 @@
 package com.example.ninefourone.nutritionmaster.utils;
 
+import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +12,7 @@ public class ConstantUtils {
 
     public static String[] dailyDescibes = {"快乐陪周一", "幸运伴周二", "轻松有周三", "温馨携周四",
             "愉悦同周五", "休闲找周六", "潇洒属周日"};
+
 
     public static String arab2Chinese(int number) {
         switch (number) {
@@ -267,4 +270,32 @@ public class ConstantUtils {
             "平和质人阴阳气血平衡，药膳调理不可偏补、贪补，以保持人体阴阳平衡状态最为紧要。所谓“不伤不扰，顺其自然”。"
     };
 
+    public static String BD_API_KEY = "GQfoj7AUUhj67ocHuwvA8G5q";
+    public static String BD_APP_ID = "14346167";
+    public static String BD_SECRET_KEY = "EEXe6pG7QGVdrqDM8eR0S3RY2WPf4Gwn";
+    public static String BD_ACCESS_TOKEN = "";
+
+    public static String BD_DISH_URL = "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish";
+
+    public static ArrayList<ClassifyResult> testData = new ArrayList<>();
+
+    static {
+        for (int i = 0; i < 7; i++) {
+            ClassifyResult classifyResult = new ClassifyResult();
+            classifyResult.setName("酱肉丝" + i);
+            classifyResult.setProbability(0.5 + i);
+            classifyResult.setCalorie(274 + i * 10);
+            testData.add(classifyResult);
+        }
+    }
+
+    public static ArrayList<String> dishPicerData = new ArrayList<>();
+
+    static {
+        for (int i = 0; i <= 700; i++) {
+            if (i % 2 == 0) {
+                dishPicerData.add(i + "");
+            }
+        }
+    }
 }

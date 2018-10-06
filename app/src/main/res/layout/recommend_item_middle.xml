@@ -2,12 +2,14 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="160dp"
+    android:layout_width="165dp"
     android:layout_height="@dimen/recommend_item_default_hight"
+    android:layout_gravity="center"
     android:layout_margin="@dimen/recommend_margin"
     android:layout_weight="1"
-    app:cardElevation="0dp"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp">
+
     <LinearLayout
         android:id="@+id/whole_layout"
         android:layout_width="match_parent"
@@ -25,7 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:orientation="vertical">
 
             <TextView
@@ -40,7 +42,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </android.support.v7.widget.CardView>

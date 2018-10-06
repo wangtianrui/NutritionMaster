@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/id_action_exchange"
-        android:icon="@drawable/ic_exchange"
-        android:title="切换"
-        app:showAsAction="always"
-        />
-    <item
         android:id="@+id/id_action_record"
         android:icon="@drawable/ic_record"
         android:orderInCategory="100"
