@@ -73,7 +73,13 @@ public class CalculateUtils {
     public static int getWeek() {
         Calendar calendar = Calendar.getInstance();
 //        Logger.d( calendar.get(Calendar.DAY_OF_WEEK));
-        return calendar.get(Calendar.DAY_OF_WEEK) - 1;
+//        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        int week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        Logger.d(week);
+        if (week == 0) {
+            return 7;
+        }
+        return week;
     }
 
     /**
