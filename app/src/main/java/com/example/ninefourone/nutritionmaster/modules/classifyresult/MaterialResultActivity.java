@@ -1,12 +1,19 @@
 package com.example.ninefourone.nutritionmaster.modules.classifyresult;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MaterialResultActivity extends BaseActivity {
+
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
 
     @Override
@@ -27,5 +34,12 @@ public class MaterialResultActivity extends BaseActivity {
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

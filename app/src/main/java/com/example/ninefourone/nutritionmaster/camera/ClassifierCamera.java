@@ -186,6 +186,7 @@ public class ClassifierCamera extends AppCompatActivity {
                                 result = jsonObject.getJSONArray("objects")
                                         .getJSONObject(0).getString("value");
                                 translate(result);
+                                refreshUI();
                             } else if (code == DISH_CODE) {
                                 result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
                                         ConstantUtils.BD_ACCESS_TOKEN, param);
@@ -323,7 +324,7 @@ public class ClassifierCamera extends AppCompatActivity {
             public void onResult(Translate translate, String s, String s1) {
                 String result = "";
                 result = translate.getTranslations().get(0);
-//                Logger.d(result);
+                Logger.d(result);
                 ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.MATERIAL);
                 classifyResult.setName(result);
                 resultList.add(classifyResult);

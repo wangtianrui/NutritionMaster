@@ -126,7 +126,11 @@ public class BodyInformationFragment extends BaseFragment {
      * 改变记步UI中的数字
      */
     private void updateStepCount() {
-        stepTextView.setText(stepCount + "");
+        try {
+            stepTextView.setText(stepCount + "");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

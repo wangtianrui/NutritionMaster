@@ -24,7 +24,7 @@ public class ClassifyResult implements Serializable {
     private Boolean has_calorie = false;
     private double quantity = -1;
     private FoodMenu foodMenu;
-    private FoodMaterial foodMaterial;
+    private Material foodMaterial;
 
     private int flag = -1;
     public static int MATERIAL = 0;
@@ -69,8 +69,9 @@ public class ClassifyResult implements Serializable {
                 public void onResponse(Call call, Response response) throws IOException {
                     String json = response.body().string();
                     FoodMaterial material = new Gson().fromJson(json, FoodMaterial.class);
-                    foodMaterial = material;
-                    Logger.d(name + "|" + foodMaterial);
+                    foodMaterial = new Material();
+                    foodMaterial.setFoodMaterial(material);
+
                 }
             });
         } else {
@@ -78,7 +79,7 @@ public class ClassifyResult implements Serializable {
         }
     }
 
-    public FoodMaterial getFoodMaterial() {
+    public Material getFoodMaterial() {
         return foodMaterial;
     }
 

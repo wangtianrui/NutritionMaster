@@ -203,6 +203,19 @@ public class NutritionMaster extends Application {
      */
     private void initYouDao() {
         YouDaoApplication.init(this, ConstantUtils.YOUDAO_APPKEY);
+//        WebUtil webUtil = WebUtil.getInstance();
+//        webUtil.getMenu("雪丽对虾", new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                FoodMenu menu = new Gson().fromJson(response.body().string(), FoodMenu.class);
+//                Logger.d(menu);
+//            }
+//        });
     }
 
 

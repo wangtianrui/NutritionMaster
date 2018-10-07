@@ -42,6 +42,8 @@ public class WebUtil {
     private WebUtil() {
     }
 
+
+
     public static WebUtil getInstance() {
         return instance;
     }
@@ -166,11 +168,13 @@ public class WebUtil {
         Request request = new Request.Builder().url("http://120.77.182.38/occupation/" + occupationName + "/").build();
         mClient.newCall(request).enqueue(callback);
     }
+
     public static void getAllOccupations(Callback callback) {
         OkHttpClient mClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://120.77.182.38/occupation/").build();
         mClient.newCall(request).enqueue(callback);
     }
+
     /**
      * 获取体质需要的食材
      * {

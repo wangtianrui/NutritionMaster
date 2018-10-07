@@ -143,7 +143,8 @@ public class RecommendFragment extends BaseFragment {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    FoodMenu[] menus = new Gson().fromJson(response.body().string(), FoodMenu[].class);
+                    String json = response.body().string();
+                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
                     int count = 0;
                     for (int i = 0; i < menus.length; i++) {
                         if (count > 11) {
@@ -169,7 +170,8 @@ public class RecommendFragment extends BaseFragment {
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            Trick[] tricks = new Gson().fromJson(response.body().string(), Trick[].class);
+                            String json = response.body().string();
+                            Trick[] tricks = new Gson().fromJson(json, Trick[].class);
                             int index = 0;
                             for (int i = 0; i < datas.size(); i++) {
                                 if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {
@@ -205,7 +207,8 @@ public class RecommendFragment extends BaseFragment {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     final int originsize = datas.size();
-                    FoodMenu[] menus = new Gson().fromJson(response.body().string(), FoodMenu[].class);
+                    String json = response.body().string();
+                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
                     int count = 0;
                     for (int i = 0; i < menus.length; i++) {
                         if (count > 7) {
@@ -231,7 +234,8 @@ public class RecommendFragment extends BaseFragment {
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            Trick[] tricks = new Gson().fromJson(response.body().string(), Trick[].class);
+                            String json = response.body().string();
+                            Trick[] tricks = new Gson().fromJson(json, Trick[].class);
                             int index = 0;
                             for (int i = originsize; i < datas.size(); i++) {
                                 if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {

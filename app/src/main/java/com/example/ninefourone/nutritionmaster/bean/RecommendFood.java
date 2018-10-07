@@ -65,4 +65,10 @@ public class RecommendFood implements MultiItemEntity, Serializable {
     public int getItemType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return menu.toString();
+
+    }
 }

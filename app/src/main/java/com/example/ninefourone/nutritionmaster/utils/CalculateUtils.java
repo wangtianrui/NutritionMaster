@@ -1,11 +1,14 @@
 package com.example.ninefourone.nutritionmaster.utils;
 
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by ScorpioMiku on 2018/8/29.
@@ -134,5 +137,50 @@ public class CalculateUtils {
             classifyResultArrayList.get(i).setQuantity(calories[i] / calorieSum * baseQuantity * factor);
         }
         return classifyResultArrayList;
+    }
+
+    /**
+     * 元素比例
+     *
+     * @param elementsBean
+     * @return
+     */
+    public static HashMap<String, Integer> elementsProportion(FoodMenu.ElementsBean elementsBean) {
+        HashMap<String, Integer> map = new HashMap<>();
+        Double suger = elementsBean.getCarbohydrate();
+        Double fat = elementsBean.getFat();
+        Double protein = elementsBean.getProtein();
+        Double sum = fat + suger + protein;
+        suger = suger / sum * 100;
+        fat = fat / sum * 100;
+        protein = protein / sum * 100;
+        map.put("suger", suger.intValue());
+        map.put("fat", fat.intValue());
+        map.put("protein", protein.intValue());
+        Logger.d(elementsBean);
+        Logger.d(map.toString());
+        return map;
+    }
+
+    /**
+     * 将步骤字符串分解
+     *
+     * @param whole
+     * @return
+     */
+    public static ArrayList<String> getStepArray(String whole) {
+        ArrayList<String> list = new ArrayList<>();
+        String[] array = whole.split("'");
+        Logger.d(Arrays.toString(array));
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals("[") || array[i].equals("]") || array[i].equals(", ") ||
+                    array[i].equals("，")||array[i].equals(" ")) {
+
+            } else {
+                list.add(array[i]);
+            }
+        }
+        Logger.d(Arrays.toString(list.toArray()));
+        return list;
     }
 }
