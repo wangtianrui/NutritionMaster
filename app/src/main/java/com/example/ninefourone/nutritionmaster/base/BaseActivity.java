@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
+import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.orhanobut.logger.Logger;
@@ -99,6 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void upUser() {
         NutritionMaster.user = user;
+        NutritionMaster.element = new Element(user);
         Logger.d("用户信息已改" + NutritionMaster.user.toString());
     }
 

@@ -514,9 +514,9 @@ public class MainActivity extends BaseActivity {
                 weightBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
             }
 
-            Logger.d("bmi:" + averageBmi / maxBmi * 100.0f + "|" + bmi / maxBmi * 100.0f + "\n" +
-                    "height:" + averageHeight / maxHeight * 100.0f + "|" + height / maxHeight * 100.0f + "\n" +
-                    "weight" + averageWeight / maxWeight * 100.0f + "|" + weight / maxWeight * 100.0f);
+//            Logger.d("bmi:" + averageBmi / maxBmi * 100.0f + "|" + bmi / maxBmi * 100.0f + "\n" +
+//                    "height:" + averageHeight / maxHeight * 100.0f + "|" + height / maxHeight * 100.0f + "\n" +
+//                    "weight" + averageWeight / maxWeight * 100.0f + "|" + weight / maxWeight * 100.0f);
 
 
         }
@@ -545,7 +545,6 @@ public class MainActivity extends BaseActivity {
                 illButton.setBackgroundResource(0);
             }
         }).build();
-        MessageUtils.MakeToast("dianjile");
         illPicker.setPicker(illness);
         illPicker.show();
     }

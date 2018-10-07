@@ -17,9 +17,12 @@ import android.widget.TextView;
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
+import com.example.ninefourone.nutritionmaster.bean.Element;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ChartDrawer;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.orhanobut.logger.Logger;
 import com.today.step.lib.ISportStepInterface;
 import com.today.step.lib.TodayStepManager;
 import com.today.step.lib.TodayStepService;
@@ -128,7 +131,7 @@ public class BodyInformationFragment extends BaseFragment {
     private void updateStepCount() {
         try {
             stepTextView.setText(stepCount + "");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -195,9 +198,26 @@ public class BodyInformationFragment extends BaseFragment {
      */
     private void refreshUI() {
         if (NutritionMaster.user.getBmi() != -1) {
-            weightText.setText(NutritionMaster.user.getWeight());
+            weightText.post(new Runnable() {
+                @Override
+                public void run() {
+                    weightText.setText(NutritionMaster.user.getWeight() + "");
+                }
+            });
         }
-//        waveLoadingView.setProgressValue();
+        if (NutritionMaster.element != null) {
+            Logger.d(NutritionMaster.element);
+            try {
+                Element elementTemp = NutritionMaster.element.calculateData(NutritionMaster.user);
+                int temp = (int) (elementTemp.getCalorie());
+                calorieText.setText(temp + "");
+                temp = (int) (NutritionMaster.user.getEaten_elements().getCalorie() / temp * 100);
+                waveLoadingView.setProgressValue(temp);
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
+import com.example.ninefourone.nutritionmaster.bean.Physique;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
@@ -39,7 +41,10 @@ public class NutritionMaster extends Application {
     public static NutritionMaster mInstance;
     private int appCount = 0;
 
-    public static MyUser user;
+    public static MyUser user =null;
+    public static Physique physique = null;
+    public static Occupation occupation = null;
+    public static Element element = null;
 
     @Override
     public void onCreate() {
@@ -203,19 +208,7 @@ public class NutritionMaster extends Application {
      */
     private void initYouDao() {
         YouDaoApplication.init(this, ConstantUtils.YOUDAO_APPKEY);
-//        WebUtil webUtil = WebUtil.getInstance();
-//        webUtil.getMenu("雪丽对虾", new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                FoodMenu menu = new Gson().fromJson(response.body().string(), FoodMenu.class);
-//                Logger.d(menu);
-//            }
-//        });
+
     }
 
 

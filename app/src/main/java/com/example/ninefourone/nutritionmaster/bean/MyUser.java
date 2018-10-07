@@ -30,7 +30,7 @@ public class MyUser {
      */
 
     private Integer id;
-    private EatenElementsBean eaten_elements;
+    private EatenElementsBean eaten_elements = new EatenElementsBean();
     private String physical_name;
     private String password;
     private Object last_login;
@@ -84,6 +84,12 @@ public class MyUser {
                 ", illness=" + illness +
                 '}';
     }
+
+
+    public void changeElement(EatenElementsBean eaten_elements) {
+
+    }
+
 
     public Integer getId() {
         return id;
@@ -292,7 +298,7 @@ public class MyUser {
          */
 
         private double id;
-        private double calorie;
+        private double calorie = 1;
         private double carbohydrate;
         private double fat;
         private double protein;
