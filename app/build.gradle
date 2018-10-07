@@ -20,7 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -31,43 +35,61 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     //butterknife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     //logger
     implementation 'com.orhanobut:logger:2.2.0'
+
     //超帅侧拉ui
     implementation 'com.mxn.soul:flowingdrawer-core:2.0.0'
     implementation 'com.nineoldandroids:library:2.4.0'
+
     //图片形状库
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+
     //cardview
     implementation 'com.android.support:cardview-v7:26.1.0'
+
     //tablayout
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
+
     //viewpager transforms
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+
     //个人信息的那个条条
     implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+
     //wave
     implementation 'me.itangqi.waveloadingview:library:0.3.5'
+
     //计步
     implementation project(':todaystepcounterlib')
+
     //打分ui
     implementation 'com.github.CB-ysx:CBRatingBar:3.0.1'
+
     //折线
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
     //searchview
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+
     //floatbuttom
     implementation 'com.nightonke:boommenu:2.1.1'
+
     //recycler and card
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
+
     //混合式recyclerview
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
     //翻页view
     implementation 'com.github.czy1121:turncardlistview:1.0.0'
+
     //油表盘
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
@@ -80,10 +102,14 @@ dependencies {
 
     //okhttp 网络通信库
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+
     // json解析库
     implementation 'com.google.code.gson:gson:2.8.5'
 
     //横向picker
-    compile 'com.github.adityagohad:HorizontalPicker:1.0.1'
-
+    implementation 'com.github.adityagohad:HorizontalPicker:1.0.1'
+    implementation files('libs/YoudaoBase.jar')
+    implementation files('libs/YoudaoCnDictOffline.jar')
+    implementation files('libs/YoudaoTranslateOffline.jar')
+    implementation files('libs/YoudaoTranslateOnline.jar')
 }

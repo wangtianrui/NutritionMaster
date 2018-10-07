@@ -114,7 +114,7 @@ public class FoodMenu implements Serializable {
         this.menuclassification_set = menuclassification_set;
     }
 
-    public static class ElementsBean {
+    public static class ElementsBean implements Serializable{
         /**
          * id : 3940
          * calorie : 183
@@ -412,7 +412,7 @@ public class FoodMenu implements Serializable {
         }
     }
 
-    public static class CookQuantityBean {
+    public static class CookQuantityBean implements Serializable{
         /**
          * menu : 五香酥鱼
          * quantity : 500

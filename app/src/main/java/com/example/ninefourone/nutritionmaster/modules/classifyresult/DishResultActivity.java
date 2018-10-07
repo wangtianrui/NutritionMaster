@@ -56,7 +56,7 @@ public class DishResultActivity extends BaseActivity {
 //        for (int i = 0; i < results.size(); i++) {
 //            Logger.d(results.get(i));
 //        }
-        results = ConstantUtils.testData;
+//        results = ConstantUtils.testData;
         resultListAdapter = new ResultListAdapter(results, this);
         recyclerView.setAdapter(resultListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,14 +87,14 @@ public class DishResultActivity extends BaseActivity {
         results.set(positon, temp);
         for (int i = 0; i < results.size(); i++) {
             calorieSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
-            fatSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
-            calorieSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
-            calorieSum += results.get(i).getCalorie() * results.get(i).getQuantity() / 100;
+            fatSum += results.get(i).getFoodMenu().getElements().getFat() * results.get(i).getQuantity() / 100;
+            sugarSum += results.get(i).getFoodMenu().getElements().getCarbohydrate() * results.get(i).getQuantity() / 100;
+            proteinSum += results.get(i).getFoodMenu().getElements().getProtein() * results.get(i).getQuantity() / 100;
         }
-        calorie.setText((int)calorieSum + "");
-        protein.setText((int)proteinSum + "");
-        fat.setText((int)fatSum + "");
-        suger.setText((int)sugarSum + "");
+        calorie.setText((int) calorieSum + "");
+        protein.setText((int) proteinSum + "");
+        fat.setText((int) fatSum + "");
+        suger.setText((int) sugarSum + "");
     }
 
 }

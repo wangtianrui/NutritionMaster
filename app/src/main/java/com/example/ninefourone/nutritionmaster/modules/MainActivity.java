@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +21,14 @@ import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cb.ratingbar.CBRatingBar;
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
+import com.example.ninefourone.nutritionmaster.adapter.IllAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.camera.ClassifierCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
@@ -111,6 +117,18 @@ public class MainActivity extends BaseActivity {
     RoundCornerProgressBar weightBar;
     @BindView(R.id.tool_bar_nickname)
     TextView toolBarNickname;
+    @BindView(R.id.ill_recycler_view)
+    RecyclerView illRecyclerView;
+    @BindView(R.id.ill_button)
+    LinearLayout illButton;
+    @BindView(R.id.change_information)
+    TextView changeInformation;
+
+
+    private OptionsPickerView illPicker;
+    private ArrayList<String> illness = ConstantUtils.getIllness();
+    private ArrayList<String> userIllness = new ArrayList<>();
+    private IllAdapter illAdapter;
 
 
     @Override
@@ -142,6 +160,7 @@ public class MainActivity extends BaseActivity {
         initViewPager();
         initSearchView();
         initBMB();
+        initIllnessRecycler();
     }
 
     /**
@@ -343,6 +362,7 @@ public class MainActivity extends BaseActivity {
     private void initInforView() {
 
         adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        changeInformation.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
         if (NutritionMaster.user.getHeight() != 0) {
             showInformation.setVisibility(View.VISIBLE);
             adderInfor.setVisibility(View.INVISIBLE);
@@ -375,7 +395,7 @@ public class MainActivity extends BaseActivity {
      */
 
     @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout,
-            R.id.user_occupation_text, R.id.adder_infor})
+            R.id.user_occupation_text, R.id.adder_infor,R.id.change_information})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.navigation_layout:
@@ -392,6 +412,10 @@ public class MainActivity extends BaseActivity {
             case R.id.adder_infor:
                 Intent i = new Intent(MainActivity.this, AddInformationActivity.class);
                 startActivity(i);
+                break;
+            case R.id.change_information:
+                Intent i2 = new Intent(MainActivity.this, AddInformationActivity.class);
+                startActivity(i2);
                 break;
         }
     }
@@ -497,4 +521,34 @@ public class MainActivity extends BaseActivity {
 
         }
     }
+
+
+    /**
+     * 初始化用户疾病list
+     */
+    private void initIllnessRecycler() {
+        illAdapter = new IllAdapter(userIllness, MainActivity.this);
+        illRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+        illRecyclerView.setAdapter(illAdapter);
+    }
+
+    /**
+     * 疾病list点击事件
+     */
+    @OnClick(R.id.ill_button)
+    public void onViewClicked() {
+        illPicker = new OptionsPickerBuilder(MainActivity.this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                userIllness.add(illness.get(options1));
+                illAdapter.notifyDataSetChanged();
+                illButton.setBackgroundResource(0);
+            }
+        }).build();
+        MessageUtils.MakeToast("dianjile");
+        illPicker.setPicker(illness);
+        illPicker.show();
+    }
+
+
 }

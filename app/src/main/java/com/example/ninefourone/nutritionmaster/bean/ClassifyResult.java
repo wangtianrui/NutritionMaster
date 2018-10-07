@@ -20,28 +20,66 @@ public class ClassifyResult implements Serializable {
     private String imgPath;
     private double probability;
     private String name;
-    private double calorie;
-    private Boolean has_calorie;
+    private double calorie = 0;
+    private Boolean has_calorie = false;
     private double quantity = -1;
     private FoodMenu foodMenu;
+    private FoodMaterial foodMaterial;
 
+    private int flag = -1;
+    public static int MATERIAL = 0;
+    public static int DISH = 1;
+
+    public ClassifyResult(int flag) {
+        this.flag = flag;
+    }
 
     public void getMenu() {
-        WebUtil webUtil = new WebUtil();
-        webUtil.getMenu("素红烧肉", new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                name = "-1";
-                Logger.e("我们数据库没有这个菜");
-            }
+        if (flag == DISH) {
+            WebUtil webUtil = WebUtil.getInstance();
+            webUtil.getMenu(name, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    name = "-1";
+                    Logger.e("我们数据库没有这个菜");
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                FoodMenu menu = new Gson().fromJson(response.body().string(), FoodMenu.class);
-                foodMenu = menu;
-                Logger.d(name + "|" + menu);
-            }
-        });
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    FoodMenu menu = new Gson().fromJson(response.body().string(), FoodMenu.class);
+                    foodMenu = menu;
+                    Logger.d(name + "|" + menu);
+                }
+            });
+        } else {
+            Logger.e("flag 为材料的");
+        }
+    }
+
+    public void getMaterial() {
+        if (flag == MATERIAL) {
+            WebUtil webUtil = WebUtil.getInstance();
+            webUtil.getFoodMaterial(name, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    FoodMaterial material = new Gson().fromJson(json, FoodMaterial.class);
+                    foodMaterial = material;
+                    Logger.d(name + "|" + foodMaterial);
+                }
+            });
+        } else {
+            Logger.e("flag 为菜谱的");
+        }
+    }
+
+    public FoodMaterial getFoodMaterial() {
+        return foodMaterial;
     }
 
     public FoodMenu getFoodMenu() {
@@ -82,6 +120,11 @@ public class ClassifyResult implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+        if (flag == MATERIAL) {
+            getMaterial();
+        } else {
+            getMenu();
+        }
     }
 
     public double getCalorie() {

@@ -47,7 +47,7 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         initView(savedInstanceState);
-        webUtil = new WebUtil();
+        webUtil = WebUtil.getInstance();
         this.user = NutritionMaster.user;
     }
 

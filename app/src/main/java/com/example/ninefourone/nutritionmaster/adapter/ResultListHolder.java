@@ -15,6 +15,7 @@ import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResult
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.github.siyamed.shapeimageview.CircularImageView;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +43,8 @@ public class ResultListHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindView(ClassifyResult classifyResult, PickerLayoutManager pickerLayoutManager,
-                         final DishResultActivity dishResultActivity,final int position) {
+                         final DishResultActivity dishResultActivity, final int position) {
+        int index = (int) classifyResult.getQuantity() / 2 - 2;
         pickerLayoutManager.setChangeAlpha(true);
         pickerLayoutManager.setScaleDownBy(0.99f);
         pickerLayoutManager.setScaleDownDistance(0.8f);
@@ -52,7 +54,7 @@ public class ResultListHolder extends RecyclerView.ViewHolder {
         pickerAdapter = new PickerAdapter(ConstantUtils.dishPicerData, context);
         picker.setAdapter(pickerAdapter);
         picker.setNestedScrollingEnabled(false);
-        picker.scrollToPosition(48);
+        picker.scrollToPosition(index);
         picker.smoothScrollBy(10, 0);
 
         pickerLayoutManager.setOnScrollStopListener(new PickerLayoutManager.onScrollStopListener() {
@@ -60,7 +62,7 @@ public class ResultListHolder extends RecyclerView.ViewHolder {
             public void selectedView(View view) {
                 String text = ((TextView) view).getText().toString();
 //                MessageUtils.MakeToast(text);
-                dishResultActivity.refreshData(Integer.valueOf(text),position);
+                dishResultActivity.refreshData(Integer.valueOf(text), position);
             }
         });
 
