@@ -44,7 +44,7 @@ public class RecommendFragment extends BaseFragment {
     private RecommendAdapter adapter;
     private ArrayList<RecommendFood> datas = new ArrayList<>();
     private GridLayoutManager manager;
-    private int[] indexs = new int[]{0, 1, 1, 2};
+    private int[] indexs = new int[]{0, 1, 2};
 
 
     @Override
@@ -113,8 +113,7 @@ public class RecommendFragment extends BaseFragment {
                 if (position == 0) {
                     return 2;
                 } else {
-                    if (adapter.getItemViewType(position) == RecommendFood.TYPE_BIG ||
-                            adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
+                    if (adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
 //                    Logger.d(manager.getSpanCount());
                         return 2;
                     } else {
@@ -150,7 +149,7 @@ public class RecommendFragment extends BaseFragment {
                         if (count > 11) {
                             break;
                         } else {
-                            int flag = indexs[count % 4];
+                            int flag = indexs[count % 3];
                             RecommendFood recommendFood = new RecommendFood(menus[i], flag);
                             if (!recommendFood.getPicture().equals("0")) {
                                 datas.add(recommendFood);
@@ -162,7 +161,7 @@ public class RecommendFragment extends BaseFragment {
                     /**
                      * 获取小知识
                      */
-                    getWebUtil().getRandomTricks(3, new Callback() {
+                    getWebUtil().getRandomTricks(5, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
 
@@ -214,7 +213,7 @@ public class RecommendFragment extends BaseFragment {
                         if (count > 7) {
                             break;
                         } else {
-                            int flag = indexs[count % 4];
+                            int flag = indexs[count % 3];
                             RecommendFood recommendFood = new RecommendFood(menus[i], flag);
                             if (!recommendFood.getPicture().equals("0")) {
                                 datas.add(recommendFood);
@@ -226,7 +225,7 @@ public class RecommendFragment extends BaseFragment {
                     /**
                      * 获取小知识
                      */
-                    getWebUtil().getRandomTricks(3, new Callback() {
+                    getWebUtil().getRandomTricks(5, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
 
