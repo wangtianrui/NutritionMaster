@@ -7,7 +7,7 @@
     <!--clipToPadding = false-->
     <!--令布局可以延伸到状态栏-->
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -72,12 +72,13 @@
                             android:layout_height="50dp">
 
                             <TextView
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
                                 android:layout_marginLeft="15dp"
                                 android:text="营养成分"
-                                android:textColor="#000000"
+                                android:textColor="#fff"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -86,6 +87,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentRight="true"
+                                android:textColor="#fff"
                                 android:layout_marginRight="10dp"
                                 android:text="单位：每100克"
                                 android:textSize="10sp" />
@@ -121,6 +123,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="4.1克"
+                                    android:textColor="#fff"
                                     android:textSize="10sp" />
                             </LinearLayout>
 
@@ -145,6 +148,7 @@
                                     android:id="@+id/fat_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:textColor="#fff"
                                     android:text="4.1克"
                                     android:textSize="10sp" />
                             </LinearLayout>
@@ -170,6 +174,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="4.1克"
+                                    android:textColor="#fff"
                                     android:textSize="10sp" />
                             </LinearLayout>
 
@@ -181,8 +186,8 @@
 
                 <ImageView
                     android:id="@+id/back_button"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/ic_back_button_white" />
@@ -269,11 +274,15 @@
                     android:background="#ffffff">
 
                 </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <com.nightonke.boommenu.BoomMenuButton
         android:id="@+id/boom_menu_button"
@@ -283,6 +292,7 @@
         android:layout_alignParentRight="true"
         app:bmb_buttonEnum="ham"
         app:bmb_buttonPlaceEnum="buttonPlace_ham_1"
+        app:bmb_normalColor="#8cbc79"
         app:bmb_piecePlaceEnum="piecePlace_ham_1" />
 
 </RelativeLayout>

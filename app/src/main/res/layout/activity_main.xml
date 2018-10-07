@@ -104,6 +104,7 @@
 
         <com.nightonke.boommenu.BoomMenuButton
             android:id="@+id/boom_menu_button"
+            app:bmb_normalColor="#8cbc79"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

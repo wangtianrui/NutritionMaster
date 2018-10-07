@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
 import com.example.ninefourone.nutritionmaster.modules.RecipeActivity.RecipeActivity;
+import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -23,7 +24,6 @@ import java.util.List;
  */
 
 public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, BaseViewHolder> {
-    private int[] indexs = new int[]{0, 1, 1, 2};
     private Intent intent;
 
     /**
@@ -41,56 +41,33 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, B
 
     @Override
     protected void convert(BaseViewHolder helper, final RecommendFood item) {
-        intent = new Intent(mContext, RecipeActivity.class);
-        intent.putExtra("SEND_OBJECT", item);
         ImageView imageView = helper.getView(R.id.recommend_item_imageview);
-        View view = helper.getView(R.id.whole_layout);
+
         Glide.with(mContext).load(item.getPicture()).into(imageView);
-
-
-        switch (item.getItemType()) {
-            case RecommendFood.TYPE_BIG:
-                helper.setText(R.id.recommend_item_title, item.getTitle());
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mContext.startActivity(intent);
-                    }
-                });
-                break;
-            case RecommendFood.TYPE_DETAIL:
-                helper.setText(R.id.recommend_item_title, item.getTitle());
-                helper.setText(R.id.recommend_item_description, item.getDescription());
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mContext.startActivity(intent);
-                    }
-                });
-
-                LinearLayout detailClick = helper.getView(R.id.detail_click);
-
-                detailClick.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext).setTitle("小知识")
-                                        .setMessage(item.getDescription()).setIcon(R.drawable.ic_add_recipe);
-                        AlertDialog dialog = builder.create();
-                        dialog.setCanceledOnTouchOutside(true);
-                        dialog.setCancelable(true);
-                        dialog.show();
-                    }
-                });
-                break;
-            case RecommendFood.TYPE_MIDDLE:
-                helper.setText(R.id.recommend_item_title, item.getTitle());
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mContext.startActivity(intent);
-                    }
-                });
-                break;
+        View view = helper.getView(R.id.whole_layout);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, RecipeActivity.class);
+                intent.putExtra("SEND_OBJECT", item);
+                mContext.startActivity(intent);
+            }
+        });
+        helper.setText(R.id.recommend_item_title, item.getTitle());
+        if (item.getItemType() == RecommendFood.TYPE_DETAIL) {
+            helper.setText(R.id.recommend_item_description, item.getDescription());
+            LinearLayout detailClick = helper.getView(R.id.detail_click);
+            detailClick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext).setTitle("小知识")
+                            .setMessage(item.getDescription()).setIcon(R.drawable.ic_add_recipe);
+                    AlertDialog dialog = builder.create();
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.setCancelable(true);
+                    dialog.show();
+                }
+            });
         }
 
 
