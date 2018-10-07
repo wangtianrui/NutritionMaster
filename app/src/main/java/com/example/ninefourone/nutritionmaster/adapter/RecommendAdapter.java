@@ -39,17 +39,17 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<RecommendFood, B
     @Override
     protected void convert(BaseViewHolder helper, RecommendFood item) {
         ImageView imageView = helper.getView(R.id.recommend_item_imageview);
-        Glide.with(mContext).load(R.drawable.food_test).into(imageView);
+        Glide.with(mContext).load(item.getPicture()).into(imageView);
         switch (item.getItemType()) {
             case RecommendFood.TYPE_BIG:
-                helper.setText(R.id.recommend_item_title, "红烧肉");
+                helper.setText(R.id.recommend_item_title, item.getTitle());
                 break;
             case RecommendFood.TYPE_DETAIL:
                 helper.setText(R.id.recommend_item_title, item.getTitle());
                 helper.setText(R.id.recommend_item_description, item.getDescription());
                 break;
             case RecommendFood.TYPE_MIDDLE:
-                helper.setText(R.id.recommend_item_title, "红烧");
+                helper.setText(R.id.recommend_item_title, item.getTitle());
                 break;
         }
         View view = helper.getView(R.id.whole_layout);

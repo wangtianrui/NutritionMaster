@@ -47,7 +47,7 @@ public class MyUser {
     private Integer height;
     private Integer weight;
     private Integer bmi = new Integer(-1);
-    private String occupation_name;
+    private String occupation_name = "";
     private List<?> groups;
     private List<?> user_permissions;
     private List<?> illness;

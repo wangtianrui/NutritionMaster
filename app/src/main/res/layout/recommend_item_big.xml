@@ -25,7 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -33,7 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:textSize="13sp"
+                android:background="#f3f9de"
                 android:textStyle="bold"
                 tools:text="红烧肉" />
 
