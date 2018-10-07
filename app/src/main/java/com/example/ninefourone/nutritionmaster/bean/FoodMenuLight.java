@@ -1,6 +1,8 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
-public class FoodMenuLight {
+import java.io.Serializable;
+
+public class FoodMenuLight implements Serializable{
 
     /**
      * name : 番茄虾仁

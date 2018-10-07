@@ -1,8 +1,9 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class FoodMenu {
+public class FoodMenu implements Serializable {
 
 
     /**
@@ -124,7 +125,7 @@ public class FoodMenu {
         this.menuclassification_set = menuclassification_set;
     }
 
-    public static class ElementsBean {
+    public static class ElementsBean implements Serializable {
         /**
          * id : 3940
          * calorie : 183
@@ -422,7 +423,7 @@ public class FoodMenu {
         }
     }
 
-    public static class CookQuantityBean {
+    public static class CookQuantityBean implements Serializable{
         /**
          * menu : 五香酥鱼
          * quantity : 500
