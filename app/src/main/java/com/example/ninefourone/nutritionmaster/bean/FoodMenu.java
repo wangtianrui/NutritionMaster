@@ -1,9 +1,9 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class FoodMenu implements Serializable {
+public class FoodMenu {
+
 
     /**
      * flavor : 五香味
@@ -20,6 +20,7 @@ public class FoodMenu implements Serializable {
     private String flavor;
     private float calorie;
     private String name;
+    private int is_breakfast;
     private String technology;
     private String image_url;
     private String practice;
@@ -33,6 +34,7 @@ public class FoodMenu implements Serializable {
                 "flavor='" + flavor + '\'' +
                 ", calorie=" + calorie +
                 ", name='" + name + '\'' +
+                ", is_breakfast=" + is_breakfast +
                 ", technology='" + technology + '\'' +
                 ", image_url='" + image_url + '\'' +
                 ", practice='" + practice + '\'' +
@@ -40,6 +42,14 @@ public class FoodMenu implements Serializable {
                 ", cook_quantity=" + cook_quantity +
                 ", menuclassification_set=" + menuclassification_set +
                 '}';
+    }
+
+    public int getIs_breakfast() {
+        return is_breakfast;
+    }
+
+    public void setIs_breakfast(int is_breakfast) {
+        this.is_breakfast = is_breakfast;
     }
 
     public String getFlavor() {
@@ -114,7 +124,7 @@ public class FoodMenu implements Serializable {
         this.menuclassification_set = menuclassification_set;
     }
 
-    public static class ElementsBean implements Serializable{
+    public static class ElementsBean {
         /**
          * id : 3940
          * calorie : 183
@@ -412,7 +422,7 @@ public class FoodMenu implements Serializable {
         }
     }
 
-    public static class CookQuantityBean implements Serializable{
+    public static class CookQuantityBean {
         /**
          * menu : 五香酥鱼
          * quantity : 500
@@ -459,4 +469,3 @@ public class FoodMenu implements Serializable {
 
 
 }
-
