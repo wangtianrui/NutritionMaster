@@ -1,5 +1,6 @@
 package com.example.ninefourone.nutritionmaster.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
+import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
+import com.example.ninefourone.nutritionmaster.modules.RecipeActivity.RecipeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,10 +21,10 @@ import butterknife.ButterKnife;
  */
 
 public class MaterialResultHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.recommend_item_imageview)
-    ImageView recommendItemImageview;
-    @BindView(R.id.recommend_item_title)
-    TextView recommendItemTitle;
+    @BindView(R.id.image)
+    ImageView image;
+    @BindView(R.id.name)
+    TextView name;
     @BindView(R.id.whole_layout)
     LinearLayout wholeLayout;
 
@@ -30,8 +33,17 @@ public class MaterialResultHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(FoodMenu foodMenu) {
-        Glide.with(itemView.getContext()).load(foodMenu.getImage_url()).into(recommendItemImageview);
-        recommendItemTitle.setText(foodMenu.getName());
+    public void bindView(final FoodMenu foodMenu) {
+        Glide.with(itemView.getContext()).load(foodMenu.getImage_url()).into(image);
+        name.setText(foodMenu.getName());
+        wholeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(itemView.getContext().getApplicationContext(), RecipeActivity.class);
+                RecommendFood recommendFood = new RecommendFood(foodMenu, 1);
+                intent.putExtra("SEND_OBJECT", recommendFood);
+                itemView.getContext().getApplicationContext().startActivity(intent);
+            }
+        });
     }
 }

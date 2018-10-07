@@ -19,15 +19,20 @@ public class MaterialResultAdapter extends RecyclerView.Adapter<MaterialResultHo
     private ArrayList<FoodMenu> foodMenus;
     private Context context;
 
+    public MaterialResultAdapter(ArrayList<FoodMenu> foodMenus, Context context) {
+        this.foodMenus = foodMenus;
+        this.context = context;
+    }
+
     @Override
     public MaterialResultHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recommend_item_middle, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.material_result_item, parent, false);
         return new MaterialResultHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MaterialResultHolder holder, int position) {
-
+        holder.bindView(foodMenus.get(position));
     }
 
     @Override

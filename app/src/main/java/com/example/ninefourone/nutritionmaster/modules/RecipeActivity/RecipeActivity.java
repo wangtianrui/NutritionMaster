@@ -82,7 +82,7 @@ public class RecipeActivity extends BaseActivity {
         proteinText.setText(new Double(recommendFood.getMenu().getElements().getProtein()).intValue() + "克");
         fatText.setText(new Double(recommendFood.getMenu().getElements().getFat()).intValue() + "克");
         sugerText.setText(new Double(recommendFood.getMenu().getElements().getCarbohydrate()).intValue() + "克");
-        Logger.d(recommendFood.getMenu().getPractice());
+//        Logger.d(recommendFood.getMenu().getPractice());
         initList();
         initBMB();
     }

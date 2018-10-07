@@ -1,5 +1,6 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
+import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -26,26 +27,38 @@ public class Material implements Serializable {
 
     public void setFoodMaterial(FoodMaterial foodMaterial) {
         this.foodMaterial = foodMaterial;
-        int max = foodMaterial.getCook_quantity().size() > 30 ? 30 : foodMaterial.getCook_quantity().size();
-        int index = 0;
-//        addMenu(index, max);
-        for (int i = 0; i < max; i++) {
-            WebUtil webUtil = WebUtil.getInstance();
-            FoodMaterial.CookQuantityBean temp = foodMaterial.getCook_quantity().get(i);
-            String menuName = temp.getMenu();
-            webUtil.getMenu(menuName, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
+        try {
+            int max = foodMaterial.getCook_quantity().size() > 30 ? 30 : foodMaterial.getCook_quantity().size();
+            for (int i = 0; i < max; i++) {
+                WebUtil webUtil = WebUtil.getInstance();
+                FoodMaterial.CookQuantityBean temp = foodMaterial.getCook_quantity().get(i);
+                String menuName = temp.getMenu();
+                webUtil.getMenu(menuName, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
 
-                }
+                    }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Logger.d(response.body().string());
-                    FoodMenu menu = new Gson().fromJson(response.body().string(), FoodMenu.class);
-                    menus.add(menu);
-                }
-            });
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String json = response.body().string();
+                        try {
+                            FoodMenu menu = new Gson().fromJson(json, FoodMenu.class);
+                            if (!menu.getImage_url().equals("0")) {
+                                menus.add(menu);
+//                            Logger.d(menu);
+                            }
+                        }catch (Exception e){
+//                        Logger.e(json);
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+//            MessageUtils.MakeToast("您当前拍摄的食材没有录入服务器");
         }
     }
 

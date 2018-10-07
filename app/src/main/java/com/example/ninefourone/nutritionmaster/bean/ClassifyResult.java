@@ -64,14 +64,12 @@ public class ClassifyResult implements Serializable {
                 public void onFailure(Call call, IOException e) {
 
                 }
-
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String json = response.body().string();
                     FoodMaterial material = new Gson().fromJson(json, FoodMaterial.class);
                     foodMaterial = new Material();
                     foodMaterial.setFoodMaterial(material);
-
                 }
             });
         } else {

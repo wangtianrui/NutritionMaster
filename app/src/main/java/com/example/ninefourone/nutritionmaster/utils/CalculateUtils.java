@@ -157,8 +157,8 @@ public class CalculateUtils {
         map.put("suger", suger.intValue());
         map.put("fat", fat.intValue());
         map.put("protein", protein.intValue());
-        Logger.d(elementsBean);
-        Logger.d(map.toString());
+//        Logger.d(elementsBean);
+//        Logger.d(map.toString());
         return map;
     }
 
@@ -171,7 +171,7 @@ public class CalculateUtils {
     public static ArrayList<String> getStepArray(String whole) {
         ArrayList<String> list = new ArrayList<>();
         String[] array = whole.split("'");
-        Logger.d(Arrays.toString(array));
+//        Logger.d(Arrays.toString(array));
         for (int i = 0; i < array.length; i++) {
             if (array[i].equals("[") || array[i].equals("]") || array[i].equals(", ") ||
                     array[i].equals("，")||array[i].equals(" ")) {
@@ -180,7 +180,7 @@ public class CalculateUtils {
                 list.add(array[i]);
             }
         }
-        Logger.d(Arrays.toString(list.toArray()));
+//        Logger.d(Arrays.toString(list.toArray()));
         return list;
     }
 }
