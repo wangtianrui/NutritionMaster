@@ -384,16 +384,20 @@ public class WebUtil {
 
     /**
      * 用户吃了一个菜,更新用户本周已吃摄入的营养元素的量
+     * 传入这顿饭摄入的营养量
      * 返回当前user的最新信息,用MyUser类解析json
-     * @param username
-     * @param menuName
      */
-    public void eatenMenu(String username, String menuName,Callback callback) {
+    public void eatenElements(String username, Map<String, Double> elements, Callback callback) {
         String url = "http://120.77.182.38/myuser/eaten_menu/";
-        RequestBody formBody = new FormBody.Builder()
-                .add("username", username)
-                .add("menu_name", menuName)
-                .build();
+        FormBody.Builder builder = new FormBody.Builder();
+        //构造RequestBody参数
+        for (Map.Entry<String, Double> entry : elements.entrySet()) {
+            String key = entry.getKey();
+            double value = entry.getValue();
+            builder.add(key, String.valueOf(value));
+        }
+        builder.add("username", username);
+        RequestBody formBody = builder.build();
         Request request = new Request.Builder()
                 .url(url)
                 .post(formBody)

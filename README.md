@@ -153,12 +153,35 @@
 
   * 用户职业BMI分类 3多动,2中等,1少动  先 `getUser`获取到用户的职业名字.然后`getOccupation`获取到该职业的BMI分类
 
-  * 动态改变用户已吃的营养元素的量: 在用户表添加element参数,每周清空一次,每吃一个菜就记录一下  
+  * 动态改变用户已吃的营养元素的量: 在用户表添加element参数,每周自动清空一次
 
-    * 获取用户本周已摄入的营养元素的量: `getUser`得到当前用户的信息,解析后用`MyUser`的`getEaten_elements()`获取到Element对象.里面有各种元素信息
-    * 每吃一个菜就post一下
+    * Map的可选参数:  `[calorie,carbohydrate,fat ,protein,cellulose,vitaminA,vitaminB1,vitaminB2,vitaminB6,vitaminC,vitaminE,carotene,cholesterol,Mg,Ca,Fe,Zn,Cu,Mn,K ,P ,Na,Se,niacin ,thiamine]`
 
-    ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvsze639cyj30k507vaa9.jpg)
+    ```java
+    public static void main(String[] args) {
+        	//只传入变动的参数就行.
+        	//比如 这顿饭摄入了100卡路里,10脂肪.就这样写.
+            Map<String, Double> params = new HashMap<>();
+            params.put("calorie", 100.0);
+            params.put("fat", 10.0);
+    		
+        	//第一个参数是username,第二个参数是摄入的营养元素值.可以看函数的源码,有注释
+            WebUtil.getInstance().eatenElements("test5", params, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    System.out.println(new Gson().fromJson(response.body().string(), MyUser.class));
+    
+                }
+            });
+    }
+    ```
+
+  * 获取用户本周已摄入的营养元素的量: `getUser`得到当前用户的信息,解析后用`MyUser`的`getEaten_elements()`获取到Element对象.里面有各种元素信息
 
   * **用户的浏览历史: 添加用户和菜谱的多对多关系**
 
