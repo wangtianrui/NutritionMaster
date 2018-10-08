@@ -9,16 +9,17 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.bean.Element;
-import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ChartDrawer;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.itangqi.waveloadingview.WaveLoadingView;
 
@@ -53,6 +55,8 @@ public class BodyInformationFragment extends BaseFragment {
     TextView calorieText;
     @BindView(R.id.weight_text)
     TextView weightText;
+    @BindView(R.id.see_whole_elements)
+    LinearLayout seeWholeElements;
 
     private int stepCount = 0;
     private static final int REFRESH_STEP_WHAT = 0;
@@ -136,6 +140,12 @@ public class BodyInformationFragment extends BaseFragment {
         }
     }
 
+    @OnClick(R.id.see_whole_elements)
+    public void onViewClicked() {
+        AlertDialog dialog = new ElementDialog.Builder(getContext()).create();
+        dialog.show();
+    }
+
 
     /**
      * 定时器，修改UI
@@ -209,10 +219,10 @@ public class BodyInformationFragment extends BaseFragment {
             Logger.d(NutritionMaster.element);
             try {
                 Element elementTemp = NutritionMaster.element.calculateData(NutritionMaster.user);
-                int temp = (int) (elementTemp.getCalorie());
-                calorieText.setText(temp + "");
-                temp = (int) (NutritionMaster.user.getEaten_elements().getCalorie() / temp * 100);
-                waveLoadingView.setProgressValue(temp);
+                float temp = (float) (elementTemp.getCalorie());
+                calorieText.setText((int) temp + "");
+                int progress = (int) (NutritionMaster.user.getEaten_elements().getCalorie() / temp * 100);
+                waveLoadingView.setProgressValue(progress);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }

@@ -101,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void upUser() {
         NutritionMaster.user = user;
         NutritionMaster.element = new Element(user);
-        Logger.d("用户信息已改" + NutritionMaster.user.toString());
+//        Logger.d("用户信息已改" + NutritionMaster.user.toString());
     }
 
     @Override

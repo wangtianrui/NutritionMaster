@@ -41,10 +41,12 @@ public class NutritionMaster extends Application {
     public static NutritionMaster mInstance;
     private int appCount = 0;
 
-    public static MyUser user =null;
+    public static MyUser user = null;
     public static Physique physique = null;
     public static Occupation occupation = null;
     public static Element element = null;
+
+
 
     @Override
     public void onCreate() {

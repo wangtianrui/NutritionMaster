@@ -64,6 +64,7 @@ public class CustomizationActivity extends BaseActivity {
         loadData();
         String text = getIntent().getStringExtra("SEND_CODE");
         Logger.d(text);
+
     }
 
     @Override

@@ -104,13 +104,13 @@
 
         <com.nightonke.boommenu.BoomMenuButton
             android:id="@+id/boom_menu_button"
-            app:bmb_normalColor="#8cbc79"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             app:bmb_buttonEnum="ham"
             app:bmb_buttonPlaceEnum="buttonPlace_ham_2"
+            app:bmb_normalColor="#8cbc79"
             app:bmb_piecePlaceEnum="piecePlace_ham_2" />
     </RelativeLayout>
 
@@ -178,6 +178,19 @@
 
                     </LinearLayout>
 
+
+                    <LinearLayout
+                        android:id="@+id/ill_button"
+                        android:layout_width="120dp"
+                        android:layout_height="150dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:alpha="0.3"
+                        android:background="@drawable/ic_ill"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
                     <ImageView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
@@ -185,6 +198,7 @@
                         android:layout_alignTop="@+id/add_information_button"
                         android:alpha="0.2"
                         android:src="@drawable/icon_black" />
+
 
                     <ImageView
                         android:id="@+id/add_information_button"
@@ -205,20 +219,6 @@
                         android:layout_marginRight="25dp">
 
                     </android.support.v7.widget.RecyclerView>
-
-                    <LinearLayout
-                        android:id="@+id/ill_button"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginRight="35dp"
-                        android:alpha="0.3"
-                        android:background="@drawable/ic_ill"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
 
 
                 </RelativeLayout>
