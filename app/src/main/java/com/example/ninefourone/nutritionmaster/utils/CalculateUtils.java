@@ -1,5 +1,6 @@
 package com.example.ninefourone.nutritionmaster.utils;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
 import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
@@ -87,6 +88,36 @@ public class CalculateUtils {
             return 7;
         }
         return week;
+    }
+
+    public static int title2Int(String text) {
+        String temp = text.substring(1, 2);
+        Logger.d(temp);
+        if (temp.equals("一")) {
+            return 1;
+        } else if (temp.equals("二")) {
+            return 2;
+        } else if (temp.equals("三")) {
+            return 3;
+        } else if (temp.equals("四")) {
+            return 4;
+        } else if (temp.equals("五")) {
+            return 5;
+        } else if (temp.equals("六")) {
+            return 6;
+        } else {
+            return 7;
+        }
+    }
+
+    /**
+     * 获得秒
+     *
+     * @return
+     */
+    public static int getSecond() {
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.SECOND);
     }
 
     /**
@@ -224,4 +255,6 @@ public class CalculateUtils {
         userElement.add(physiqueElement, -1);
         return userElement;
     }
+
+
 }

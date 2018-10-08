@@ -95,7 +95,7 @@ public class CustomizationFragment extends BaseFragment {
         for (int i = 1; i < CalculateUtils.getWeek(); i++) {
 //            mDataList.add("周" + ConstantUtils.arab2Chinese(i) + "美食普");
             DailyCard dailyCard = new DailyCard(
-                    "周" + ConstantUtils.arab2Chinese(i) + "美食普",
+                    "周" + ConstantUtils.arab2Chinese(i) + "美食谱",
                     ConstantUtils.dailyDescibes[i - 1],
                     picList[i - 1]
             );

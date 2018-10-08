@@ -129,6 +129,62 @@ public class Element implements Cloneable {
         thiamine = elementsBean.getThiamine();
     }
 
+    public Element(FoodMenu.ElementsBean elementsBean) {
+        calorie = elementsBean.getCalorie();
+        carbohydrate = (float) elementsBean.getCarbohydrate();
+        fat = (float) elementsBean.getFat();
+        protein = (float) elementsBean.getProtein();
+        cellulose = (float) elementsBean.getCellulose();
+        vitaminA = (float) elementsBean.getVitaminA();
+        vitaminB1 = elementsBean.getVitaminB1();
+        vitaminB2 = (float) elementsBean.getVitaminB2();
+        vitaminB6 = elementsBean.getVitaminB6();
+        vitaminC = (float) elementsBean.getVitaminC();
+        vitaminE = (float) elementsBean.getVitaminE();
+        carotene = (float) elementsBean.getCarotene();
+        cholesterol = (float) elementsBean.getCholesterol();
+        Mg = (float) elementsBean.getMg();
+        Ca = (float) elementsBean.getCa();
+        Fe = (float) elementsBean.getFe();
+        Zn = (float) elementsBean.getZn();
+        Cu = (float) elementsBean.getCu();
+        Mn = (float) elementsBean.getMn();
+        K = (float) elementsBean.getK();
+        P = (float) elementsBean.getP();
+        Na = (float) elementsBean.getNa();
+        Se = (float) elementsBean.getSe();
+        niacin = (float) elementsBean.getNiacin();
+        thiamine = (float) elementsBean.getThiamine();
+    }
+
+    public Element(Element elementsBean) {
+        calorie = elementsBean.getCalorie();
+        carbohydrate = elementsBean.getCarbohydrate();
+        fat = elementsBean.getFat();
+        protein = elementsBean.getProtein();
+        cellulose = elementsBean.getCellulose();
+        vitaminA = elementsBean.getVitaminA();
+        vitaminB1 = elementsBean.getVitaminB1();
+        vitaminB2 = elementsBean.getVitaminB2();
+        vitaminB6 = elementsBean.getVitaminB6();
+        vitaminC = elementsBean.getVitaminC();
+        vitaminE = elementsBean.getVitaminE();
+        carotene = elementsBean.getCarotene();
+        cholesterol = elementsBean.getCholesterol();
+        Mg = elementsBean.getMg();
+        Ca = elementsBean.getCa();
+        Fe = elementsBean.getFe();
+        Zn = elementsBean.getZn();
+        Cu = elementsBean.getCu();
+        Mn = elementsBean.getMn();
+        K = elementsBean.getK();
+        P = elementsBean.getP();
+        Na = elementsBean.getNa();
+        Se = elementsBean.getSe();
+        niacin = elementsBean.getNiacin();
+        thiamine = elementsBean.getThiamine();
+    }
+
     public Element(Occupation.ElementsBean elementsBean) {
         calorie = elementsBean.getCalorie();
         carbohydrate = elementsBean.getCarbohydrate();

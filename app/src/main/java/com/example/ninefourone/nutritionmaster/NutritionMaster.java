@@ -11,6 +11,7 @@ import com.example.ninefourone.nutritionmaster.bean.MyUser;
 
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
 import com.example.ninefourone.nutritionmaster.bean.Physique;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
@@ -47,6 +48,10 @@ public class NutritionMaster extends Application {
     public static Occupation occupation = null;
     public static Element element = null;
     public static Illness illness = null;
+
+    public static Element calculatedElement = null;
+
+    public static int randomSeed = CalculateUtils.getWeek();
 
 
     @Override
