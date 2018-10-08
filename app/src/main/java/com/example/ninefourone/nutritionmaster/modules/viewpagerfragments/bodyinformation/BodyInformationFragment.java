@@ -206,7 +206,7 @@ public class BodyInformationFragment extends BaseFragment {
     /**
      * 更新数据
      */
-    private void refreshUI() {
+    public void refreshUI() {
         if (NutritionMaster.user.getBmi() != -1) {
             weightText.post(new Runnable() {
                 @Override

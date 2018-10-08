@@ -179,17 +179,6 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:id="@+id/ill_button"
-                        android:layout_width="120dp"
-                        android:layout_height="150dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:alpha="0.3"
-                        android:background="@drawable/ic_ill"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="120dp"
@@ -199,6 +188,17 @@
                         android:alpha="0.2"
                         android:src="@drawable/icon_black" />
 
+                    <LinearLayout
+                        android:id="@+id/ill_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/add_information_button"
+                        android:background="@drawable/ic_ill_add_button"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
 
                     <ImageView
                         android:id="@+id/add_information_button"

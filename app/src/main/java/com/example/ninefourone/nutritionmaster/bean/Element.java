@@ -158,6 +158,35 @@ public class Element implements Cloneable {
     }
 
 
+    public Element(Illness.ElementsBean elementsBean) {
+        calorie = elementsBean.getCalorie();
+        carbohydrate = elementsBean.getCarbohydrate();
+        fat = elementsBean.getFat();
+        protein = elementsBean.getProtein();
+        cellulose = elementsBean.getCellulose();
+        vitaminA = elementsBean.getVitaminA();
+        vitaminB1 = elementsBean.getVitaminB1();
+        vitaminB2 = elementsBean.getVitaminB2();
+        vitaminB6 = elementsBean.getVitaminB6();
+        vitaminC = elementsBean.getVitaminC();
+        vitaminE = elementsBean.getVitaminE();
+        carotene = elementsBean.getCarotene();
+        cholesterol = elementsBean.getCholesterol();
+        Mg = elementsBean.getMg();
+        Ca = elementsBean.getCa();
+        Fe = elementsBean.getFe();
+        Zn = elementsBean.getZn();
+        Cu = elementsBean.getCu();
+        Mn = elementsBean.getMn();
+        K = elementsBean.getK();
+        P = elementsBean.getP();
+        Na = elementsBean.getNa();
+        Se = elementsBean.getSe();
+        niacin = elementsBean.getNiacin();
+        thiamine = elementsBean.getThiamine();
+    }
+
+
     @Override
     public String toString() {
         return "ElementsBean{" +

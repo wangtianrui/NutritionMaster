@@ -389,6 +389,9 @@ public class AddPhysiqueActivity extends BaseActivity {
             }
         }
         physique = physiques[maxIndex];
+        if (physique.equals("淤血质")) {
+            physique = "瘀血质";
+        }
         Logger.d(Arrays.toString(counter) + "\n" + physique);
         Physique phy = new Physique();
         phy.setPhysical_name(physique);

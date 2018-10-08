@@ -42,7 +42,7 @@ public class MyUser {
     private Boolean is_staff;
     private Boolean is_active;
     private String date_joined;
-    private Integer sex;
+    private Integer sex = 1;
     private Integer age;
     private Integer height;
     private Integer weight;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
+import com.example.ninefourone.nutritionmaster.bean.Illness;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
@@ -45,7 +46,7 @@ public class NutritionMaster extends Application {
     public static Physique physique = null;
     public static Occupation occupation = null;
     public static Element element = null;
-
+    public static Illness illness = null;
 
 
     @Override

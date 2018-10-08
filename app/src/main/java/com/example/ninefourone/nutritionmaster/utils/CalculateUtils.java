@@ -3,6 +3,7 @@ package com.example.ninefourone.nutritionmaster.utils;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
 import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
+import com.example.ninefourone.nutritionmaster.bean.Illness;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
 import com.example.ninefourone.nutritionmaster.bean.Physique;
@@ -194,19 +195,32 @@ public class CalculateUtils {
         Element userElement = new Element(user);
         Element occupationElement = new Element(occupation.getElements());
         Element physiqueElement = new Element(physique.getElements());
-        occupationElement.add(physiqueElement, 2);
-        userElement.add(occupationElement, -1);
+        physiqueElement.add(occupationElement, 2);
+        userElement.add(physiqueElement, -1);
         return userElement;
     }
+
     public static Element getElementsByOccupation(MyUser user, Occupation occupation) {
         Element userElement = new Element(user);
         Element occupationElement = new Element(occupation.getElements());
         userElement.add(occupationElement, -1);
         return userElement;
     }
+
     public static Element getElementsByPhysique(MyUser user, Physique physique) {
         Element userElement = new Element(user);
         Element physiqueElement = new Element(physique.getElements());
+        userElement.add(physiqueElement, -1);
+        return userElement;
+    }
+
+    public static Element getElementsAddIllness(Illness illness, MyUser user, Occupation occupation, Physique physique) {
+        Element userElement = new Element(user);
+        Element occupationElement = new Element(occupation.getElements());
+        Element illnessElement = new Element(occupation.getElements());
+        Element physiqueElement = new Element(physique.getElements());
+        physiqueElement.add(occupationElement, 2);
+        physiqueElement.add(illnessElement, 1);
         userElement.add(physiqueElement, -1);
         return userElement;
     }
