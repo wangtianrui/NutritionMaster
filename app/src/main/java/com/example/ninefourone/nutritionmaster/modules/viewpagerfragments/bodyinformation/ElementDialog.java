@@ -103,21 +103,21 @@ public class ElementDialog extends AlertDialog {
             dialog = new AlertDialog.Builder(context).setView(view).create();
             dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             ButterKnife.bind(this, view);
-            calorieText.setText(NutritionMaster.user.getEaten_elements().getCalorie() + "");
-            sugerText.setText(NutritionMaster.user.getEaten_elements().getCarbohydrate() + "");
-            fatText.setText(NutritionMaster.user.getEaten_elements().getFat() + "");
-            proteinText.setText(NutritionMaster.user.getEaten_elements().getProtein() + "");
-            celluloseText.setText(NutritionMaster.user.getEaten_elements().getCellulose() + "");
-            vitaminAText.setText(NutritionMaster.user.getEaten_elements().getVitaminA() + "");
-            vitaminB1Text.setText(NutritionMaster.user.getEaten_elements().getVitaminB1() + "");
-            vitaminB2Text.setText(NutritionMaster.user.getEaten_elements().getVitaminB2() + "");
-            vitaminB6Text.setText(NutritionMaster.user.getEaten_elements().getVitaminB6() + "");
-            vitaminCText.setText(NutritionMaster.user.getEaten_elements().getVitaminC() + "");
-            vitaminEText.setText(NutritionMaster.user.getEaten_elements().getVitaminE() + "");
-            caroteneText.setText(NutritionMaster.user.getEaten_elements().getCarotene() + "");
-            cholesterolText.setText(NutritionMaster.user.getEaten_elements().getCholesterol() + "");
-            caText.setText(NutritionMaster.user.getEaten_elements().getCa() + "");
-            naText.setText(NutritionMaster.user.getEaten_elements().getNa() + "");
+            calorieText.setText((int) (NutritionMaster.user.getEaten_elements().getCalorie()) + "");
+            sugerText.setText((int) (NutritionMaster.user.getEaten_elements().getCarbohydrate()) + "");
+            fatText.setText((int) (NutritionMaster.user.getEaten_elements().getFat()) + "");
+            proteinText.setText((int) NutritionMaster.user.getEaten_elements().getProtein() + "");
+            celluloseText.setText((int) NutritionMaster.user.getEaten_elements().getCellulose() + "");
+            vitaminAText.setText((int) NutritionMaster.user.getEaten_elements().getVitaminA() + "");
+            vitaminB1Text.setText((int) NutritionMaster.user.getEaten_elements().getVitaminB1() + "");
+            vitaminB2Text.setText((int) NutritionMaster.user.getEaten_elements().getVitaminB2() + "");
+            vitaminB6Text.setText((int) NutritionMaster.user.getEaten_elements().getVitaminB6() + "");
+            vitaminCText.setText((int) NutritionMaster.user.getEaten_elements().getVitaminC() + "");
+            vitaminEText.setText((int) NutritionMaster.user.getEaten_elements().getVitaminE() + "");
+            caroteneText.setText((int) NutritionMaster.user.getEaten_elements().getCarotene() + "");
+            cholesterolText.setText((int) NutritionMaster.user.getEaten_elements().getCholesterol() + "");
+            caText.setText((int) NutritionMaster.user.getEaten_elements().getCa() + "");
+            naText.setText((int) NutritionMaster.user.getEaten_elements().getNa() + "");
 
         }
 

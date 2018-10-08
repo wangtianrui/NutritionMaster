@@ -185,6 +185,7 @@ public class BodyInformationFragment extends BaseFragment {
         ArrayList<Entry> weightPointValues = new ArrayList<>();
         for (int i = 1; i < 15; i++) {
             int y = (int) (Math.random() * 20);
+
             weightPointValues.add(new Entry(i, y));
         }
         ChartDrawer.initSingleLineChart(weightLineChart, weightPointValues, "体重");
@@ -195,6 +196,14 @@ public class BodyInformationFragment extends BaseFragment {
             stepPointValues.add(new Entry(i, y));
         }
         ChartDrawer.initSingleLineChart(stepLineChart, stepPointValues, "步数");
+    }
+
+    private int checkY(int y) {
+        if (y < 7) {
+            return checkY((int) (Math.random() * 10));
+        } else {
+            return y;
+        }
     }
 
     @Override
@@ -208,18 +217,23 @@ public class BodyInformationFragment extends BaseFragment {
      */
     public void refreshUI() {
         if (NutritionMaster.user.getBmi() != -1) {
+            weightLineChart.setVisibility(View.VISIBLE);
+            stepLineChart.setVisibility(View.VISIBLE);
             weightText.post(new Runnable() {
                 @Override
                 public void run() {
                     weightText.setText(NutritionMaster.user.getWeight() + "");
                 }
             });
+        }else{
+            stepLineChart.setVisibility(View.INVISIBLE);
+            weightLineChart.setVisibility(View.INVISIBLE);
         }
         if (NutritionMaster.element != null) {
             Logger.d(NutritionMaster.element);
             try {
                 Element elementTemp = NutritionMaster.element.calculateData(NutritionMaster.user);
-                float temp = (float) (elementTemp.getCalorie());
+                float temp = (float) (elementTemp.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie());
                 calorieText.setText((int) temp + "");
                 int progress = (int) (NutritionMaster.user.getEaten_elements().getCalorie() / temp * 100);
                 waveLoadingView.setProgressValue(progress);

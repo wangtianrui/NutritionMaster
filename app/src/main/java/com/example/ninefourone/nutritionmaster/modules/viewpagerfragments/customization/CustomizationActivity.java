@@ -214,10 +214,10 @@ public class CustomizationActivity extends BaseActivity {
             params.put("fat", (calculated.getFat() - NutritionMaster.user.getEaten_elements().getFat()) / 8);
 
 
-            Logger.d((calculated.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie()));
-            Logger.d(calculated.getFat() - NutritionMaster.user.getEaten_elements().getFat());
-            Logger.d((calculated.getCarbohydrate() - NutritionMaster.user.getEaten_elements().getCarbohydrate()));
-            Logger.d(calculated.getProtein() - NutritionMaster.user.getEaten_elements().getProtein());
+//            Logger.d((calculated.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie()));
+//            Logger.d(calculated.getFat() - NutritionMaster.user.getEaten_elements().getFat());
+//            Logger.d((calculated.getCarbohydrate() - NutritionMaster.user.getEaten_elements().getCarbohydrate()));
+//            Logger.d(calculated.getProtein() - NutritionMaster.user.getEaten_elements().getProtein());
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

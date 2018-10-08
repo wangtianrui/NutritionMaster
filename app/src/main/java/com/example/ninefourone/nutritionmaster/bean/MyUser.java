@@ -563,5 +563,33 @@ public class MyUser {
         public void setThiamine(double thiamine) {
             this.thiamine = thiamine;
         }
+
+        public void add(Element element, float factor) {
+            calorie += element.getCalorie() * factor;
+            carbohydrate += (float) element.getCarbohydrate() * factor;
+            fat += (float) element.getFat() * factor;
+            protein += (float) element.getProtein() * factor;
+            cellulose += (float) element.getCellulose() * factor;
+            vitaminA += (float) element.getVitaminA() * factor;
+            vitaminB1 += element.getVitaminB1() * factor;
+            vitaminB2 += (float) element.getVitaminB2() * factor;
+            vitaminB6 += element.getVitaminB6() * factor;
+            vitaminC += (float) element.getVitaminC() * factor;
+            vitaminE += (float) element.getVitaminE() * factor;
+            carotene += (float) element.getCarotene() * factor;
+            cholesterol += (float) element.getCholesterol() * factor;
+            Mg += (float) element.getMg() * factor;
+            Ca += (float) element.getCa() * factor;
+            Fe += (float) element.getFe() * factor;
+            Zn += (float) element.getZn() * factor;
+            Cu += (float) element.getCu() * factor;
+            Mn += (float) element.getMn() * factor;
+            K += (float) element.getK() * factor;
+            P += (float) element.getP() * factor;
+            Na += (float) element.getNa() * factor;
+            Se += (float) element.getSe() * factor;
+            niacin += (float) element.getNiacin() * factor;
+            thiamine += (float) element.getThiamine() * factor;
+        }
     }
 }

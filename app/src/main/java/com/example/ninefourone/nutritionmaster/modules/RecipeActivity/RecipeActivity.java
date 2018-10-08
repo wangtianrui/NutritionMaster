@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.MakeStepAdapter;
 import com.example.ninefourone.nutritionmaster.adapter.MaterialAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
+import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
 import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
@@ -122,6 +124,10 @@ public class RecipeActivity extends BaseActivity {
                     @Override
                     public void onBoomButtonClick(int index) {
                         MessageUtils.MakeToast("已添加到记录");
+                        NutritionMaster.randomSeed = CalculateUtils.getSecond();
+
+                        Element element = new Element(recommendFood.getMenu().getElements());
+                        NutritionMaster.user.getEaten_elements().add(element, 0.7f);
                     }
                 });
         boomMenuButton.addBuilder(builder);
