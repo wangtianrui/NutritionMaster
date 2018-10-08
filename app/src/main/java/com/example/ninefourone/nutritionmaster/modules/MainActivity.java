@@ -237,7 +237,7 @@ public class MainActivity extends BaseActivity {
      * 初始化蛛网图
      */
     private void initSpiderView() {
-        float[] scores = {9.1f, 5.5f, 7.7f, 8.9f, 4.6f};
+        float[] scores = {9.1f, 6.5f, 7.7f, 8.9f, 8.6f};
         String[] flags = {"糖分", "淡水", "蛋白质", "维生素", "矿物质"};
 
         List<RadarEntry> radarEntries = new ArrayList<>();
