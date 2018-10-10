@@ -133,7 +133,7 @@ public class RecommendFragment extends BaseFragment {
     @Override
     protected void loadData() {
         super.loadData();
-        if (NutritionMaster.user.getOccupation_name().equals("")) {
+//        if (NutritionMaster.user.getOccupation_name().equals("")) {
             getWebUtil().getRandomMenus(20, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -189,14 +189,14 @@ public class RecommendFragment extends BaseFragment {
                     });
                 }
             });
-        }
+
     }
 
     /**
      * 加载新数据
      */
     private void addData() {
-        if (NutritionMaster.user.getOccupation_name().equals("")) {
+//        if (NutritionMaster.user.getOccupation_name().equals("")) {
             getWebUtil().getRandomMenus(20, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -253,7 +253,7 @@ public class RecommendFragment extends BaseFragment {
                     });
                 }
             });
-        }
+//        }
     }
 
     /**

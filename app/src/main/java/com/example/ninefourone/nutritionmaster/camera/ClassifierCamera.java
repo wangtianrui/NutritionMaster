@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.MaterialResultActivity;
@@ -37,6 +43,9 @@ import com.youdao.sdk.ydtranslate.TranslateParameters;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -171,7 +180,20 @@ public class ClassifierCamera extends AppCompatActivity {
     private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            bitmap = rotateBitmapByDegree(bitmap, 90);
+            //缩放
+            bitmap = Bitmap.createScaledBitmap(bitmap, 720, 1280, false);
             try {
+                final File pictureDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                final String pictureName = System.currentTimeMillis() + ".jpg";
+                final String picturePath = pictureDir + File.separator + pictureName;
+                File file = new File(picturePath);
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                bos.flush();
+                bos.close();
+
                 String imgStr = Base64.encodeToString(data, Base64.DEFAULT);
                 String imgParam = URLEncoder.encode(imgStr, "UTF-8");
                 final String param = "image=" + imgParam + "&top_num=" + 1;
@@ -199,6 +221,7 @@ public class ClassifierCamera extends AppCompatActivity {
                                 classifyResult.setProbability(jsonObject.getDouble("probability"));
                                 classifyResult.setName(jsonObject.getString("name"));
                                 classifyResult.getMenu();
+                                classifyResult.setImgPath(picturePath);
                                 resultList.add(classifyResult);
                                 refreshUI();
                             } else {
@@ -336,5 +359,27 @@ public class ClassifierCamera extends AppCompatActivity {
 
             }
         });
+    }
+
+    //修改图片保存方向
+    public static Bitmap rotateBitmapByDegree(Bitmap bm, int degree) {
+        Bitmap returnBm = null;
+
+        //Matrix图片动作（旋转平移）
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+
+        try {
+            returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+        } catch (OutOfMemoryError e) {
+
+        }
+        if (returnBm == null) {
+            returnBm = bm;
+        }
+        if (bm != returnBm) {
+            bm.recycle();
+        }
+        return returnBm;
     }
 }

@@ -1,8 +1,10 @@
 package com.example.ninefourone.nutritionmaster.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -10,13 +12,14 @@ import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
-import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationActivity;
-import com.orhanobut.logger.Logger;
+import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
+import com.example.ninefourone.nutritionmaster.modules.RecipeActivity.RecipeActivity;
 
 import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by ScorpioMiku on 2018/9/24.
@@ -33,13 +36,15 @@ public class CustomizationHolder extends RecyclerView.ViewHolder {
     ImageView arch;
     @BindView(R.id.food_energy)
     TextView foodEnergy;
+    @BindView(R.id.click)
+    RelativeLayout click;
 
     public CustomizationHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(FoodMenu foodMenu) {
+    public void bindView(final FoodMenu foodMenu) {
         Glide.with(itemView.getContext()).load(foodMenu.getImage_url()).into(customizationItemImage);
         foodName.setText(foodMenu.getName());
         try {
@@ -58,6 +63,15 @@ public class CustomizationHolder extends RecyclerView.ViewHolder {
             foodEnergy.setText(energy + "千卡");
             foodQuantity.setText((int) quantity + "克");
 
+            final Intent intent = new Intent(itemView.getContext().getApplicationContext(), RecipeActivity.class);
+            RecommendFood recommendFood = new RecommendFood(foodMenu, 1);
+            intent.putExtra("SEND_OBJECT", recommendFood);
+            click.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemView.getContext().getApplicationContext().startActivity(intent);
+                }
+            });
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -74,4 +88,6 @@ public class CustomizationHolder extends RecyclerView.ViewHolder {
             return energy;
         }
     }
+
+
 }

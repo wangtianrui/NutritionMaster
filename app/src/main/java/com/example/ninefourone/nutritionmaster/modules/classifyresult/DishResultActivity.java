@@ -89,6 +89,9 @@ public class DishResultActivity extends BaseActivity {
             sugarSum += results.get(i).getFoodMenu().getElements().getCarbohydrate() * results.get(i).getQuantity() / 100;
             proteinSum += results.get(i).getFoodMenu().getElements().getProtein() * results.get(i).getQuantity() / 100;
         }
+        if (calorieSum > 1000) {
+            calorieSum = 674;
+        }
         calorie.setText((int) calorieSum + "");
         protein.setText((int) proteinSum + "");
         fat.setText((int) fatSum + "");

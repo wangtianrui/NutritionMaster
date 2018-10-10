@@ -235,7 +235,7 @@ public class BodyInformationFragment extends BaseFragment {
                 Element elementTemp = NutritionMaster.element.calculateData(NutritionMaster.user);
                 float temp = (float) (elementTemp.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie());
                 calorieText.setText((int) temp + "");
-                int progress = (int) (NutritionMaster.user.getEaten_elements().getCalorie() / temp * 100);
+                int progress = (int) (NutritionMaster.user.getEaten_elements().getCalorie() / elementTemp.getCalorie()  * 100);
                 waveLoadingView.setProgressValue(progress);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
