@@ -200,6 +200,10 @@
 
   * 功效搜菜 `getMenuClassification`传入分类(功效)参数,比如川菜.搜到所有的川菜名字.然后可以用菜名搜索搜某个菜的详细信息
 
+  * **点赞或评论来影响推荐顺序**
+
+  * **晒图区域**
+
   * 营养量搜菜 : 搜索某个营养量范围内的菜
 
     可选参数:  `[calorie,carbohydrate,fat ,protein,cellulose,vitaminA,vitaminB1,vitaminB2,vitaminB6,vitaminC,vitaminE,carotene,cholesterol,Mg,Ca,Fe,Zn,Cu,Mn,K ,P ,Na,Se,niacin ,thiamine]`
@@ -215,9 +219,9 @@
             WebUtil.getInstance().getMenusByElements(params, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
+    
                 }
-
+    
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String json = response.body().string();
