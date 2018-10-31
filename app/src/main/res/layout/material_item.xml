@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:background="#f9f9f6"
     android:gravity="center_vertical">
 
     <TextView
@@ -31,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
-        android:text="克"
         android:textColor="#131212"
         android:textSize="13sp" />
 

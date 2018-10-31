@@ -8,6 +8,26 @@
     tools:context="com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationActivity">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tool_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="@string/app_name" />
+
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -18,12 +38,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#fff"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#08d966"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -32,7 +52,7 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:text="早餐"
-                    android:textColor="#fff"
+                    android:textColor="#181818"
                     android:textSize="17sp" />
 
 
@@ -51,15 +71,16 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/breakfast_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eae8e8">
+                android:layout_height="80dp"
+                android:layout_marginBottom="10dp"
+                android:background="#f4f2f2"
+                android:paddingTop="5dp">
 
             </android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#08d966"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -68,7 +89,7 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:text="午餐"
-                    android:textColor="#fff"
+                    android:textColor="#1a1919"
                     android:textSize="17sp" />
 
 
@@ -87,15 +108,16 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/lunch_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eae8e8">
+                android:layout_height="230dp"
+                android:layout_marginBottom="10dp"
+                android:background="#f4f2f2"
+                android:paddingTop="5dp">
 
             </android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#08d966"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -104,7 +126,7 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:text="晚餐"
-                    android:textColor="#fff"
+                    android:textColor="#161616"
                     android:textSize="17sp" />
 
 
@@ -123,8 +145,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/dinner_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eae8e8">
+                android:layout_height="230dp"
+                android:layout_marginBottom="10dp"
+                android:background="#f4f2f2"
+                android:paddingTop="5dp">
 
             </android.support.v7.widget.RecyclerView>
 

@@ -14,10 +14,19 @@ import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
+import com.example.ninefourone.nutritionmaster.bean.Occupation;
 import com.example.ninefourone.nutritionmaster.modules.MainActivity;
 import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class AddInformationActivity extends BaseActivity {
     private TextView ageTextView;
@@ -70,6 +79,8 @@ public class AddInformationActivity extends BaseActivity {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 occupationTextView.setText(ConstantUtils.occupationList.get(options1));
+                getOccupation(ConstantUtils.occupationList.get(options1));
+
             }
         }).build();
         occupationPicker.setPicker(ConstantUtils.occupationList);
@@ -158,10 +169,18 @@ public class AddInformationActivity extends BaseActivity {
                     user.setAge(Integer.valueOf(ageTextView.getText().toString().split("岁")[0]));
                     user.setSex(CalculateUtils.sex2int(sexTextView.getText().toString()));
                     user.setOccupation_name(occupationTextView.getText().toString());
-                    float BMI = CalculateUtils.BMI(user.getHeight().floatValue(),user.getWeight().floatValue());
-                    user.setBmi(Integer.valueOf((int)BMI));
+                    float BMI = CalculateUtils.BMI(user.getHeight().floatValue(), user.getWeight().floatValue());
+                    user.setBmi(Integer.valueOf((int) BMI));
                     upUser();
                     MessageUtils.MakeToast("信息填写成功");
+                    if (NutritionMaster.physique == null) {
+                        NutritionMaster.element =
+                                CalculateUtils.getElementsByOccupation(NutritionMaster.user, NutritionMaster.occupation);
+                    } else {
+                        NutritionMaster.element =
+                                CalculateUtils.getElementsByOccupationAndPhysique(NutritionMaster.user,
+                                        NutritionMaster.occupation, NutritionMaster.physique);
+                    }
                     finish();
                 }
 
@@ -178,5 +197,22 @@ public class AddInformationActivity extends BaseActivity {
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    private void getOccupation(String text) {
+        getWebUtil().getOccupation(text, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Occupation occupation = new Gson().fromJson(json, Occupation.class);
+                NutritionMaster.occupation = occupation;
+                Logger.d(NutritionMaster.occupation);
+            }
+        });
     }
 }

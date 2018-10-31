@@ -149,6 +149,7 @@
                     android:src="@drawable/ic_infor_weight" />
             </RelativeLayout>
 
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -326,6 +327,43 @@
                     android:layout_height="0.1dp"
                     android:background="@color/place_holder" />
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/see_whole_elements"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/infor_layout_height"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/all_elements"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_add_recipe" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_toRightOf="@id/all_elements"
+                    android:gravity="center"
+                    android:text="点击查看所有元素信息" />
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/all_elements"
+                    android:layout_marginTop="15dp"
+                    android:alpha="0.7"
+                    android:background="@color/place_holder" />
+            </RelativeLayout>
 
         </LinearLayout>
 

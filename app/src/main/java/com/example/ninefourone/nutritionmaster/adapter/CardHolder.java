@@ -10,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.DailyCard;
 import com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.customization.CustomizationActivity;
+import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -45,15 +47,17 @@ public class CardHolder extends RecyclerView.ViewHolder {
     public void bindView(int picId, DailyCard dailyCard, final Context context) {
         tvName.setText(dailyCard.getTitle());
         tvSign.setText(dailyCard.getDescription());
-//        ivPhoto.setImageDrawable(context.getDrawable(picId));
         Glide.with(context).load(picId).into(ivPhoto);
         i = new Intent(context, CustomizationActivity.class);
         i.putExtra("SEND_CODE", dailyCard.getTitle());
-//        Logger.d(text);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(i);
+                if (NutritionMaster.physique == null || NutritionMaster.occupation == null) {
+                    MessageUtils.MakeToast("填写信息才能使用哦~");
+                } else {
+                    context.startActivity(i);
+                }
             }
         });
     }

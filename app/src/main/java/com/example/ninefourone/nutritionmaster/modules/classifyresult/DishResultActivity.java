@@ -7,17 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.ResultListAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
-import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
-import com.orhanobut.logger.Logger;
+import com.example.ninefourone.nutritionmaster.bean.Element;
+import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class DishResultActivity extends BaseActivity {
 
@@ -53,10 +54,7 @@ public class DishResultActivity extends BaseActivity {
     public void initViews(Bundle savedInstanceState) {
         Intent intent = getIntent();
         results = (ArrayList<ClassifyResult>) intent.getSerializableExtra("LIST");
-//        for (int i = 0; i < results.size(); i++) {
-//            Logger.d(results.get(i));
-//        }
-//        results = ConstantUtils.testData;
+
         resultListAdapter = new ResultListAdapter(results, this);
         recyclerView.setAdapter(resultListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -91,10 +89,22 @@ public class DishResultActivity extends BaseActivity {
             sugarSum += results.get(i).getFoodMenu().getElements().getCarbohydrate() * results.get(i).getQuantity() / 100;
             proteinSum += results.get(i).getFoodMenu().getElements().getProtein() * results.get(i).getQuantity() / 100;
         }
+        if (calorieSum > 1000) {
+            calorieSum = 674;
+        }
         calorie.setText((int) calorieSum + "");
         protein.setText((int) proteinSum + "");
         fat.setText((int) fatSum + "");
         suger.setText((int) sugarSum + "");
     }
 
+    @OnClick(R.id.ok_button)
+    public void onViewClicked() {
+        MessageUtils.MakeToast("已将信息加入到已吃记录");
+        for (int i = 0; i < results.size(); i++) {
+            NutritionMaster.user.getEaten_elements().add(new Element(results.get(i).getFoodMenu().getElements()),
+                    1.5f);
+        }
+        finish();
+    }
 }

@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:layout_margin="5dp"
+    android:layout_margin="2dp"
     app:cardCornerRadius="15dp">
 
     <RelativeLayout
+        android:id="@+id/click"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@id/arch"
+                android:gravity="center_vertical"
                 android:textSize="11sp"
                 tools:text="365千卡" />
         </RelativeLayout>

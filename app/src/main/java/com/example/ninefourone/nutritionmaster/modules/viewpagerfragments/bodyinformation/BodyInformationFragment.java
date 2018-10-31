@@ -9,17 +9,21 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
+import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.utils.ChartDrawer;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.orhanobut.logger.Logger;
 import com.today.step.lib.ISportStepInterface;
 import com.today.step.lib.TodayStepManager;
 import com.today.step.lib.TodayStepService;
@@ -28,6 +32,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.itangqi.waveloadingview.WaveLoadingView;
 
@@ -50,6 +55,8 @@ public class BodyInformationFragment extends BaseFragment {
     TextView calorieText;
     @BindView(R.id.weight_text)
     TextView weightText;
+    @BindView(R.id.see_whole_elements)
+    LinearLayout seeWholeElements;
 
     private int stepCount = 0;
     private static final int REFRESH_STEP_WHAT = 0;
@@ -126,7 +133,17 @@ public class BodyInformationFragment extends BaseFragment {
      * 改变记步UI中的数字
      */
     private void updateStepCount() {
-        stepTextView.setText(stepCount + "");
+        try {
+            stepTextView.setText(stepCount + "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.see_whole_elements)
+    public void onViewClicked() {
+        AlertDialog dialog = new ElementDialog.Builder(getContext()).create();
+        dialog.show();
     }
 
 
@@ -168,6 +185,7 @@ public class BodyInformationFragment extends BaseFragment {
         ArrayList<Entry> weightPointValues = new ArrayList<>();
         for (int i = 1; i < 15; i++) {
             int y = (int) (Math.random() * 20);
+
             weightPointValues.add(new Entry(i, y));
         }
         ChartDrawer.initSingleLineChart(weightLineChart, weightPointValues, "体重");
@@ -180,6 +198,14 @@ public class BodyInformationFragment extends BaseFragment {
         ChartDrawer.initSingleLineChart(stepLineChart, stepPointValues, "步数");
     }
 
+    private int checkY(int y) {
+        if (y < 7) {
+            return checkY((int) (Math.random() * 10));
+        } else {
+            return y;
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -189,11 +215,33 @@ public class BodyInformationFragment extends BaseFragment {
     /**
      * 更新数据
      */
-    private void refreshUI() {
+    public void refreshUI() {
         if (NutritionMaster.user.getBmi() != -1) {
-            weightText.setText(NutritionMaster.user.getWeight());
+            weightLineChart.setVisibility(View.VISIBLE);
+            stepLineChart.setVisibility(View.VISIBLE);
+            weightText.post(new Runnable() {
+                @Override
+                public void run() {
+                    weightText.setText(NutritionMaster.user.getWeight() + "");
+                }
+            });
+        }else{
+            stepLineChart.setVisibility(View.INVISIBLE);
+            weightLineChart.setVisibility(View.INVISIBLE);
         }
-//        waveLoadingView.setProgressValue();
+        if (NutritionMaster.element != null) {
+            Logger.d(NutritionMaster.element);
+            try {
+                Element elementTemp = NutritionMaster.element.calculateData(NutritionMaster.user);
+                float temp = (float) (elementTemp.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie());
+                calorieText.setText((int) temp + "");
+                int progress = (int) (NutritionMaster.user.getEaten_elements().getCalorie() / elementTemp.getCalorie()  * 100);
+                waveLoadingView.setProgressValue(progress);
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override

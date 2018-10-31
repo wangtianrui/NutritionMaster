@@ -4,21 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.MakeStepAdapter;
 import com.example.ninefourone.nutritionmaster.adapter.MaterialAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
-import com.example.ninefourone.nutritionmaster.bean.Material;
-import com.example.ninefourone.nutritionmaster.bean.Menu;
+import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
-import com.example.ninefourone.nutritionmaster.utils.UiUtils;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
+import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
+import com.nightonke.boommenu.BoomMenuButton;
 import com.orhanobut.logger.Logger;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class RecipeActivity extends BaseActivity {
 
@@ -33,8 +41,22 @@ public class RecipeActivity extends BaseActivity {
     RecyclerView materialRecyclerView;
     @BindView(R.id.detail_way_recycler_view)
     RecyclerView detailWayRecyclerView;
+    @BindView(R.id.image)
+    ImageView image;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.back_button)
+    ImageView backButton;
+    @BindView(R.id.protein_text)
+    TextView proteinText;
+    @BindView(R.id.fat_text)
+    TextView fatText;
+    @BindView(R.id.suger_text)
+    TextView sugerText;
+    @BindView(R.id.boom_menu_button)
+    BoomMenuButton boomMenuButton;
     private RecommendFood recommendFood;
-    private Menu menu;
+
 
     private MaterialAdapter materialAdapter;
     private MakeStepAdapter makeStepAdapter;
@@ -53,7 +75,18 @@ public class RecipeActivity extends BaseActivity {
     public void initViews(Bundle savedInstanceState) {
         Intent intent = getIntent();
         recommendFood = (RecommendFood) intent.getSerializableExtra("SEND_OBJECT");
+        Glide.with(RecipeActivity.this).load(recommendFood.getPicture()).into(image);
+        name.setText(recommendFood.getMenu().getName());
+        HashMap map = CalculateUtils.elementsProportion(recommendFood.getMenu().getElements());
+        proteinCircle.setProgress((int) map.get("protein"));
+        fatCircle.setProgress((int) map.get("fat"));
+        carbohydrateCircle.setProgress((int) map.get("suger"));
+        proteinText.setText(new Double(recommendFood.getMenu().getElements().getProtein()).intValue() + "克");
+        fatText.setText(new Double(recommendFood.getMenu().getElements().getFat()).intValue() + "克");
+        sugerText.setText(new Double(recommendFood.getMenu().getElements().getCarbohydrate()).intValue() + "克");
+//        Logger.d(recommendFood.getMenu().getPractice());
         initList();
+        initBMB();
     }
 
     @Override
@@ -67,25 +100,41 @@ public class RecipeActivity extends BaseActivity {
     }
 
     private void initList() {
-        ArrayList<Material> list = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            Material material = new Material("毛豆", 100);
-            list.add(material);
-        }
-        ArrayList<String> mList = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            String step = "第一步";
-            mList.add(step);
-        }
-        menu = new Menu("毛豆炒肉", list, mList);
-
-        makeStepAdapter = new MakeStepAdapter(menu.getMakeSteps(), this);
-        detailWayRecyclerView.setAdapter(makeStepAdapter);
-        detailWayRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        materialAdapter = new MaterialAdapter(menu.getMaterialArrayList(), this);
+        materialAdapter = new MaterialAdapter(recommendFood.getMenu().getCook_quantity(), RecipeActivity.this);
         materialRecyclerView.setAdapter(materialAdapter);
-        materialRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        materialRecyclerView.setLayoutManager(new LinearLayoutManager(RecipeActivity.this));
+        materialRecyclerView.setNestedScrollingEnabled(false);
+
+        makeStepAdapter = new MakeStepAdapter(
+                CalculateUtils.getStepArray(recommendFood.getMenu().getPractice()), RecipeActivity.this);
+        detailWayRecyclerView.setLayoutManager(new LinearLayoutManager(RecipeActivity.this));
+        detailWayRecyclerView.setAdapter(makeStepAdapter);
+        detailWayRecyclerView.setNestedScrollingEnabled(false);
     }
 
+
+    /**
+     * 初始化悬浮按钮
+     */
+    private void initBMB() {
+        HamButton.Builder builder = new HamButton.Builder()
+                .normalImageRes(R.drawable.ic_add_recipe)
+                .normalTextRes(R.string.recipe_add_string)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        MessageUtils.MakeToast("已添加到记录");
+                        NutritionMaster.randomSeed = CalculateUtils.getSecond();
+
+                        Element element = new Element(recommendFood.getMenu().getElements());
+                        NutritionMaster.user.getEaten_elements().add(element, 0.7f);
+                    }
+                });
+        boomMenuButton.addBuilder(builder);
+    }
+
+    @OnClick(R.id.back_button)
+    public void onViewClicked() {
+        finish();
+    }
 }

@@ -7,19 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ninefourone.nutritionmaster.R;
-import com.example.ninefourone.nutritionmaster.bean.Material;
+import com.example.ninefourone.nutritionmaster.bean.FoodMaterial;
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ScorpioMiku on 2018/9/9.
  */
 
 public class MaterialAdapter extends RecyclerView.Adapter<MaterialHolder> {
-    private ArrayList<Material> mList;
+    private List<FoodMenu.CookQuantityBean> mList;
     private Context mContext;
 
-    public MaterialAdapter(ArrayList mList, Context mContext) {
+    public MaterialAdapter(List mList, Context mContext) {
         this.mList = mList;
         this.mContext = mContext;
     }

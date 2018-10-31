@@ -54,4 +54,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return TITLES[position];
     }
+
+    public void rereshUI() {
+        ((BodyInformationFragment) fragments[1]).refreshUI();
+    }
 }

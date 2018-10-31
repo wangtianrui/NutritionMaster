@@ -7,6 +7,7 @@
     <string name="food_meterial_title">食材识别</string>
     <string name="food_title">菜品识别</string>
     <string name="title_activity_login">登录</string>
+    <string name="recipe_add_string">是否添加到已吃记录</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

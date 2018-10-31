@@ -137,7 +137,7 @@ public class ChartDrawer {
         //设置竖线为虚线样式
         // xAxis.enableGridDashedLine(10f, 10f, 0f);
         //设置x轴标签数
-        xAxis.setLabelCount(8,false);
+        xAxis.setLabelCount(8, false);
         xAxis.setTextSize(5);
         //图表第一个和最后一个label数据不超出左边和右边的Y轴
         // xAxis.setAvoidFirstLastClipping(true);
@@ -147,7 +147,7 @@ public class ChartDrawer {
         //准备好每个点对应的x轴数值
         List<String> list = new ArrayList<>();
         for (int i = 0; i < pointValues.size(); i++) {
-            list.add(String.valueOf(i+1).concat("号"));
+            list.add(String.valueOf(i + 1).concat("号"));
         }
         xAxis.setValueFormatter(new IndexAxisValueFormatter(list));
 
@@ -158,7 +158,8 @@ public class ChartDrawer {
         rightAxis.setEnabled(false);
         YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setEnabled(false);
-        leftAxis.setDrawAxisLine(false);
+        leftAxis.setDrawAxisLine(true);
+        rightAxis.setAxisMinimum(0);
 
         //点构成的某条线
         LineDataSet lineDataSet = new LineDataSet(pointValues, "体重");

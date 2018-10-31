@@ -30,6 +30,7 @@ import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.HomePagerAdapter;
 import com.example.ninefourone.nutritionmaster.adapter.IllAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
+import com.example.ninefourone.nutritionmaster.bean.Illness;
 import com.example.ninefourone.nutritionmaster.camera.ClassifierCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity;
@@ -50,6 +51,7 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.siyamed.shapeimageview.CircularImageView;
+import com.google.gson.Gson;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
@@ -58,12 +60,16 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class MainActivity extends BaseActivity {
@@ -130,6 +136,7 @@ public class MainActivity extends BaseActivity {
     private ArrayList<String> userIllness = new ArrayList<>();
     private IllAdapter illAdapter;
 
+    private HomePagerAdapter homePagerAdapter;
 
     @Override
     public int getLayoutId() {
@@ -146,6 +153,7 @@ public class MainActivity extends BaseActivity {
             public void onDrawerStateChange(int oldState, int newState) {
                 if (newState == ElasticDrawer.STATE_CLOSED) {
                     titleLayout.setBackgroundColor(getColor(R.color.colorPrimary));
+                    homePagerAdapter.rereshUI();
                 } else {
                     titleLayout.setBackgroundColor(getColor(R.color.bar_open));
                 }
@@ -167,7 +175,7 @@ public class MainActivity extends BaseActivity {
      * 初始化ViewPager
      */
     private void initViewPager() {
-        HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(),
+        homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(),
                 this);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(homePagerAdapter);
@@ -229,7 +237,7 @@ public class MainActivity extends BaseActivity {
      * 初始化蛛网图
      */
     private void initSpiderView() {
-        float[] scores = {9.1f, 5.5f, 7.7f, 8.9f, 4.6f};
+        float[] scores = {9.1f, 6.5f, 7.7f, 8.9f, 8.6f};
         String[] flags = {"糖分", "淡水", "蛋白质", "维生素", "矿物质"};
 
         List<RadarEntry> radarEntries = new ArrayList<>();
@@ -362,7 +370,7 @@ public class MainActivity extends BaseActivity {
     private void initInforView() {
 
         adderInfor.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        changeInformation.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
+        changeInformation.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         if (NutritionMaster.user.getHeight() != 0) {
             showInformation.setVisibility(View.VISIBLE);
             adderInfor.setVisibility(View.INVISIBLE);
@@ -395,7 +403,7 @@ public class MainActivity extends BaseActivity {
      */
 
     @OnClick({R.id.navigation_layout, R.id.add_information_button, R.id.information_layout,
-            R.id.user_occupation_text, R.id.adder_infor,R.id.change_information})
+            R.id.user_occupation_text, R.id.adder_infor, R.id.change_information})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.navigation_layout:
@@ -514,9 +522,9 @@ public class MainActivity extends BaseActivity {
                 weightBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
             }
 
-            Logger.d("bmi:" + averageBmi / maxBmi * 100.0f + "|" + bmi / maxBmi * 100.0f + "\n" +
-                    "height:" + averageHeight / maxHeight * 100.0f + "|" + height / maxHeight * 100.0f + "\n" +
-                    "weight" + averageWeight / maxWeight * 100.0f + "|" + weight / maxWeight * 100.0f);
+//            Logger.d("bmi:" + averageBmi / maxBmi * 100.0f + "|" + bmi / maxBmi * 100.0f + "\n" +
+//                    "height:" + averageHeight / maxHeight * 100.0f + "|" + height / maxHeight * 100.0f + "\n" +
+//                    "weight" + averageWeight / maxWeight * 100.0f + "|" + weight / maxWeight * 100.0f);
 
 
         }
@@ -537,18 +545,67 @@ public class MainActivity extends BaseActivity {
      */
     @OnClick(R.id.ill_button)
     public void onViewClicked() {
-        illPicker = new OptionsPickerBuilder(MainActivity.this, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                userIllness.add(illness.get(options1));
-                illAdapter.notifyDataSetChanged();
-                illButton.setBackgroundResource(0);
-            }
-        }).build();
-        MessageUtils.MakeToast("dianjile");
-        illPicker.setPicker(illness);
-        illPicker.show();
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (NutritionMaster.occupation==null||NutritionMaster.illness==null){
+//            illButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    MessageUtils.MakeToast("请先填写职业信息和体质信息再使用");
+//                }
+//            });
+//        }else{
+        illButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                illPicker = new OptionsPickerBuilder(MainActivity.this, new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        final String illname = illness.get(options1);
+                        getWebUtil().getIllness(illname, new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
 
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                String json = response.body().string();
+                                Illness illness = new Gson().fromJson(json, Illness.class);
+                                NutritionMaster.illness = illness;
+                                Logger.d(NutritionMaster.illness);
+                                if (NutritionMaster.physique != null && NutritionMaster.occupation != null) {
+                                    Thread thread = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            illRecyclerView.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    userIllness.add(illname);
+                                                    illAdapter.notifyDataSetChanged();
+                                                    illAdapter.notifyDataSetChanged();
+                                                    if (NutritionMaster.occupation != null && NutritionMaster.physique != null) {
+                                                        NutritionMaster.element = CalculateUtils.getElementsAddIllness(NutritionMaster.illness,
+                                                                NutritionMaster.user, NutritionMaster.occupation, NutritionMaster.physique);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                    thread.start();
+                                }
+                            }
+                        });
+                    }
+                }).build();
+                illPicker.setPicker(illness);
+                illPicker.show();
+            }
+        });
+//        }
+    }
 }

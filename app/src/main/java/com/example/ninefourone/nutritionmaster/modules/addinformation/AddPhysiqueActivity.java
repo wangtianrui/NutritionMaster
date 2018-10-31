@@ -14,20 +14,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.bean.Physique;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.github.czy1121.view.TurnCardListView;
 import com.github.siyamed.shapeimageview.CircularImageView;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class AddPhysiqueActivity extends BaseActivity {
 
@@ -381,6 +389,9 @@ public class AddPhysiqueActivity extends BaseActivity {
             }
         }
         physique = physiques[maxIndex];
+        if (physique.equals("淤血质")) {
+            physique = "瘀血质";
+        }
         Logger.d(Arrays.toString(counter) + "\n" + physique);
         Physique phy = new Physique();
         phy.setPhysical_name(physique);
@@ -392,6 +403,31 @@ public class AddPhysiqueActivity extends BaseActivity {
         user.setPhysical_name(physique);
         upUser();
         loadInformation(phy);
+
+        /**
+         * 加载体质信息
+         */
+        getWebUtil().getPhysique(physique, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Physique physique = new Gson().fromJson(json, Physique.class);
+                NutritionMaster.physique = physique;
+                if (NutritionMaster.occupation == null) {
+                    NutritionMaster.element =
+                            CalculateUtils.getElementsByPhysique(NutritionMaster.user, NutritionMaster.physique);
+                } else {
+                    NutritionMaster.element =
+                            CalculateUtils.getElementsByOccupationAndPhysique(NutritionMaster.user,
+                                    NutritionMaster.occupation, NutritionMaster.physique);
+                }
+            }
+        });
 
     }
 

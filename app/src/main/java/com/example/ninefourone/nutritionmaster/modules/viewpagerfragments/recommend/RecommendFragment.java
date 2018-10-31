@@ -9,14 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.adapter.RecommendAdapter;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
+import com.example.ninefourone.nutritionmaster.bean.Trick;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.view.LayoutInflater;
 
@@ -39,7 +44,7 @@ public class RecommendFragment extends BaseFragment {
     private RecommendAdapter adapter;
     private ArrayList<RecommendFood> datas = new ArrayList<>();
     private GridLayoutManager manager;
-    private int[] indexs = new int[]{0, 1, 1, 2};
+    private int[] indexs = new int[]{0, 1, 2};
 
 
     @Override
@@ -49,8 +54,8 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle state) {
-        loadData();
         initRecyclerView();
+        loadData();
     }
 
 
@@ -108,8 +113,7 @@ public class RecommendFragment extends BaseFragment {
                 if (position == 0) {
                     return 2;
                 } else {
-                    if (adapter.getItemViewType(position) == RecommendFood.TYPE_BIG ||
-                            adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
+                    if (adapter.getItemViewType(position) == RecommendFood.TYPE_DETAIL) {
 //                    Logger.d(manager.getSpanCount());
                         return 2;
                     } else {
@@ -129,23 +133,127 @@ public class RecommendFragment extends BaseFragment {
     @Override
     protected void loadData() {
         super.loadData();
-        for (int i = 0; i < 11; i++) {
-            int flag = indexs[i % 4];
-            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
-            datas.add(recommendFood);
-        }
+//        if (NutritionMaster.user.getOccupation_name().equals("")) {
+            getWebUtil().getRandomMenus(20, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                    int count = 0;
+                    for (int i = 0; i < menus.length; i++) {
+                        if (count > 11) {
+                            break;
+                        } else {
+                            int flag = indexs[count % 3];
+                            RecommendFood recommendFood = new RecommendFood(menus[i], flag);
+                            if (!recommendFood.getPicture().equals("0")) {
+                                datas.add(recommendFood);
+                                count++;
+                            }
+                        }
+                    }
+
+                    /**
+                     * 获取小知识
+                     */
+                    getWebUtil().getRandomTricks(5, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String json = response.body().string();
+                            Trick[] tricks = new Gson().fromJson(json, Trick[].class);
+                            int index = 0;
+                            for (int i = 0; i < datas.size(); i++) {
+                                if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {
+                                    datas.get(i).setDescription(tricks[index].getContent());
+                                    datas.get(i).setTitle(tricks[index].getTitle());
+                                    index++;
+                                }
+                            }
+                            recyclerView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
     }
 
     /**
      * 加载新数据
      */
     private void addData() {
-        for (int i = 0; i < 7; i++) {
-            int flag = indexs[i % 4];
-            RecommendFood recommendFood = new RecommendFood(1, "烧肉", "好吃", flag);
-            adapter.getData().add(recommendFood);
-        }
-        adapter.loadMoreComplete();
+//        if (NutritionMaster.user.getOccupation_name().equals("")) {
+            getWebUtil().getRandomMenus(20, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    final int originsize = datas.size();
+                    String json = response.body().string();
+                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                    int count = 0;
+                    for (int i = 0; i < menus.length; i++) {
+                        if (count > 7) {
+                            break;
+                        } else {
+                            int flag = indexs[count % 3];
+                            RecommendFood recommendFood = new RecommendFood(menus[i], flag);
+                            if (!recommendFood.getPicture().equals("0")) {
+                                datas.add(recommendFood);
+                                count++;
+                            }
+                        }
+                    }
+
+                    /**
+                     * 获取小知识
+                     */
+                    getWebUtil().getRandomTricks(5, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String json = response.body().string();
+                            Trick[] tricks = new Gson().fromJson(json, Trick[].class);
+                            int index = 0;
+                            for (int i = originsize; i < datas.size(); i++) {
+                                if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {
+                                    datas.get(i).setDescription(tricks[index].getContent());
+                                    datas.get(i).setTitle(tricks[index].getTitle());
+                                    index++;
+                                }
+                            }
+                            recyclerView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adapter.loadMoreComplete();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+//        }
     }
 
     /**
