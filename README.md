@@ -194,7 +194,61 @@
 
   * 获取用户本周已摄入的营养元素的量: `getUser`得到当前用户的信息,解析后用`MyUser`的`getEaten_elements()`获取到Element对象.里面有各种元素信息
 
+  * **根据多个食材组合来搜菜**
+
+    ```java
+    List<String> materialList = new ArrayList<>();
+    materialList.add("土豆");
+    materialList.add("茄子");
+    WebUtil.getInstance().getMenusByMaterials(materialList, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                    for (FoodMenu menu : menus) {
+                        System.out.println(menu.getName());
+                    }
+                }
+            });
+    ```
+
   * **用户的浏览历史: 添加用户和菜谱的多对多关系**
+
+    ```java
+    //获取历史记录  传入username
+    WebUtil.getInstance().getEatenHistory("test5", new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    History[] histories = new Gson().fromJson(json, History[].class);
+                    System.out.println(Arrays.toString(histories));
+                }
+            });
+    //添加历史记录  传入username 和 Menu的名字
+    WebUtil.getInstance().addEatenHistory("test5", "多味茄子泥", new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    History history = new Gson().fromJson(json, History.class);
+                    System.out.println(history);
+                }
+            });
+    ```
 
   * 菜名搜索: `getMenu`方法,传入菜名(菜名通过其他的各种关联方式获取) (menu.calorie是直接爬到的卡路里值,营养元素里的menu.elements.calorie卡路里是根据每个食材的卡路里计算的,相对来说,menu.calorie的值更准确)
 

@@ -71,7 +71,7 @@ public class WebUtil {
 
     /**
      * 获取count个随机菜谱,在回调中解析为一个Menu数组 根据用户的体质,病理,职业推荐
-     * 
+     *
      * @param count
      * @param callback
      */
@@ -125,12 +125,6 @@ public class WebUtil {
      */
     public void getOccupation(String occupationName, Callback callback) {
         Request request = new Request.Builder().url("http://120.77.182.38/occupation/" + occupationName + "/").build();
-        mClient.newCall(request).enqueue(callback);
-    }
-
-    public static void getAllOccupations(Callback callback) {
-        OkHttpClient mClient = new OkHttpClient();
-        Request request = new Request.Builder().url("http://120.77.182.38/occupation/").build();
         mClient.newCall(request).enqueue(callback);
     }
 
@@ -336,52 +330,29 @@ public class WebUtil {
         mClient.newCall(request).enqueue(callback);
     }
 
-    public static String HttpPost(String requestUrl, String accessToken, String params) throws Exception {
-        System.out.println(params);
-        String generalUrl = "";
-        generalUrl = requestUrl + "?access_token=" + accessToken;
-        System.out.println("发送的连接为:" + generalUrl);
-        URL url = new URL(generalUrl);
-        // 打开和URL之间的连接
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        System.out.println("打开链接，开始发送请求" + new Date().getTime() / 1000);
-        connection.setRequestMethod("POST");
-        // 设置通用的请求属性
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Connection", "Keep-Alive");
-        connection.setUseCaches(false);
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
+    public void addEatenHistory(String username, String menuName, Callback callback) {
+        String url = "http://120.77.182.38/myuser/add_eaten_history/";
+        RequestBody formBody = new FormBody.Builder().add("username", username).add("menu", menuName).build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+        mClient.newCall(request).enqueue(callback);
+    }
 
-        // 得到请求的输出流对象
-        DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-        out.writeBytes(params);
-        out.flush();
-        out.close();
+    public void getEatenHistory(String username, Callback callback) {
+        String url = "http://120.77.182.38/myuser/get_eaten_history?username=" + username;
+        Request request = new Request.Builder().url(url).build();
+        mClient.newCall(request).enqueue(callback);
+    }
 
-        // 建立实际的连接
-        connection.connect();
-        // 获取所有响应头字段
-        Map<String, List<String>> headers = connection.getHeaderFields();
-        // 遍历所有的响应头字段
-        for (String key : headers.keySet()) {
-            System.out.println(key + "--->" + headers.get(key));
+    public void getMenusByMaterials(List<String> materialList, Callback callback) {
+        // POST
+        String url = "http://120.77.182.38/menus/get_menus_by_materials/";
+        FormBody.Builder builder = new FormBody.Builder();
+        for (String material : materialList) {
+            builder.add("material", material);
         }
-        // 定义 BufferedReader输入流来读取URL的响应
-        BufferedReader in = null;
-        if (requestUrl.contains("nlp"))
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "GBK"));
-        else
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-        String result = "";
-        String getLine;
-        while ((getLine = in.readLine()) != null) {
-            result += getLine;
-        }
-        in.close();
-        System.out.println("请求结束" + new Date().getTime() / 1000);
-        System.out.println("result:" + result);
-        return result;
+        RequestBody formBody = builder.build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+        mClient.newCall(request).enqueue(callback);
     }
 
     public static void main(String[] args) {
