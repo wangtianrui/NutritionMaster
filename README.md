@@ -198,9 +198,10 @@
 
     ```java
     List<String> materialList = new ArrayList<>();
-    materialList.add("土豆");
-    materialList.add("茄子");
-    WebUtil.getInstance().getMenusByMaterials(materialList, new Callback() {
+            materialList.add("黄瓜");
+            materialList.add("茄子");
+    //        materialList.add("鸡蛋");
+            WebUtil.getInstance().getMenusByMaterials(materialList, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
     
@@ -208,10 +209,16 @@
     
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    String json = response.body().string();
-                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
-                    for (FoodMenu menu : menus) {
-                        System.out.println(menu.getName());
+                    //必须判断状态码,如果为200说明正常,如果为404,说明这几个食材组合查询不到可以做的菜
+                    if (response.code() == 200) {
+                        String json = response.body().string();
+                        FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                        System.out.println(menus);
+                        for (FoodMenu menu : menus) {
+                            System.out.println(menu.getName());
+                        }
+                    } else {
+                        System.out.println("查不到组合食材可以做的菜");
                     }
                 }
             });
@@ -381,7 +388,7 @@
 
 * ~~*食材模糊识别 ok*~~
 
-* 通过食材组合,搜索菜 ,菜要符合username的信息   赵和锐
+* 通过食材组合,搜索菜 ,菜要符合username的信息   赵和锐 `getMenusByMaterials`
 
 * 卡路里不对
 
@@ -393,10 +400,7 @@
 
 * ~~*搜菜如果搜不到   把name减一下再搜  ok*~~
 
-* getRandomMenus的username参数改为MyUser类  
-
-  * 更好的解决办法是在更新user的信息后,同步更新到服务器
-
+* getRandomMenus的调用里面加上username参数 锐
 
 
   ### 时间安排
