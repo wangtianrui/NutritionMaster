@@ -156,7 +156,7 @@
 
     ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvu5tfi47aj30mv0gg403.jpg)
 
-  * 修改用户信息 `changeUserInfo`,注意username必须设置,其他的是需要改的值.**修改会覆盖之前的内容**.比如用户之前illness是健忘食谱,想增加一个高血压食谱, 就需要把之前的也写上,就是一起传 `健忘食谱,高血压食谱`这两个参数.写到List里面. 具体参考main函数里面的
+  * **修改用户信息** `changeUserInfo`,注意username必须设置,其他的是需要改的值.**修改会覆盖之前的内容**.比如用户之前illness是健忘食谱,想增加一个高血压食谱, 就需要把之前的也写上,就是一起传 `健忘食谱,高血压食谱`这两个参数.写到List里面. 具体参考main函数里面的
 
   * 获取九体信息 `getPhysique`方法
 
@@ -304,3 +304,72 @@
   * `occupation_name`,`physical_name`的值必须和数据库对应
 
   ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvjbfh6vm1j30r70eh3zj.jpg)
+
+
+
+## 国赛阶段
+
+### 代码
+
+* 优化了`getRandomMenus方法`,传入username参数.会根据user的体质,职业,病理推荐菜
+
+  ```java
+  public void getRandomMenus(int count, String username, Callback callback)
+  ```
+
+  这个方法之前的版本没有username参数,**现在弃用原来的版本,原来的方法仍然可以调用,需要把项目的所有getRandomMenus方法调用加上一个username参数**
+
+### 问题
+
+* 连续识别,出现错误的,点一下消去  锐
+
+* bug: 连续拍照后 点了一周定制  锐
+
+* ~~*食材模糊识别 ok*~~
+
+* 通过食材组合,搜索菜 ,菜要符合username的信息   赵和锐
+
+* 卡路里不对
+
+* ~~*早餐晚餐的搜索不随机 shuffle了一下.ok*~~
+
+  * ~~`get_menus_by_elements` django随机一下~~
+
+* 周定制下面的两个按钮  锐
+
+* ~~*搜菜如果搜不到   把name减一下再搜  ok*~~
+
+* getRandomMenus的username参数改为MyUser类  
+
+  * 更好的解决办法是在更新user的信息后,同步更新到服务器
+
+
+
+  ### 时间安排
+
+* 周日上午答辩
+* 周五排练
+
+### PPT安排
+
+* 小组分工介绍
+
+
+* 产品背景 秦
+* 量身定制 林
+* 周定制 林
+* 动态添加 智能定量 赵
+* 拍食材做菜(食菜帮) 赵
+* 菜谱推荐 秦
+
+* 产品亮点 秦
+* 产品难点 王
+* 未来展望 王
+  * 相信在不就得将来,在AI智能定制膳食的帮助下,人们不再为职业病,慢性病所烦恼,享受科学膳食带来的健康生活.
+
+### 需要演示的功能
+
+* 拍照  菜品识别  识别  烤鸭 土豆丝  鱼香肉丝  红烧肉  炒面   (动态调量,修改当天余额)
+* 拍照 食材识别  胡萝卜  白萝卜  姜  长条茄子  菜花   (根据用户的信息,并且是多搜索)
+
+* 周定制(最左边的fragment) 
