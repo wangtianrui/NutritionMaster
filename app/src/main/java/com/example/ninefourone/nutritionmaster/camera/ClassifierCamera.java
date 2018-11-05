@@ -271,7 +271,8 @@ public class ClassifierCamera extends AppCompatActivity {
                 finish();
                 break;
             case R.id.results_text_view:
-
+                resultList.remove(resultList.size() - 1);
+                refreshUI();
                 break;
         }
     }
