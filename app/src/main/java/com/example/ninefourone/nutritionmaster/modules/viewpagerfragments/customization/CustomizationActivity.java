@@ -140,56 +140,110 @@ public class CustomizationActivity extends BaseActivity {
                 String json = response.body().string();
                 FoodMenuLight[] foodMenus = new Gson().fromJson(json, FoodMenuLight[].class);
                 Logger.d(foodMenus.length);
-                Random random = new Random(NutritionMaster.randomSeed + CalculateUtils.title2Int(text));
-                start = random.nextInt(foodMenus.length - 50);
-                for (int i = start; i < start + 50; i++) {
-                    webUtil.getMenu(foodMenus[i].getName(), new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
+                if (foodMenus.length > 50) {
+                    Random random = new Random(NutritionMaster.randomSeed + CalculateUtils.title2Int(text));
+                    start = random.nextInt(foodMenus.length - 50);
+                    for (int i = start; i < start + 50; i++) {
+                        webUtil.getMenu(foodMenus[i].getName(), new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            String json = response.body().string();
-                            FoodMenu foodMenu = new Gson().fromJson(json, FoodMenu.class);
-                            if (foodMenu.getIs_breakfast() == 1) {
-                                if (breakfastList.size() < 1) {
-                                    breakfastList.add(foodMenu);
-                                }
-                            } else {
-                                if (foodMenu.getName().contains("汤") || foodMenu.getName().contains("糕")
-                                        || foodMenu.getImage_url().equals("0") || foodMenu.getName().contains("汁")
-                                        || foodMenu.getName().contains("茶")) {
-
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                String json = response.body().string();
+                                FoodMenu foodMenu = new Gson().fromJson(json, FoodMenu.class);
+                                if (foodMenu.getIs_breakfast() == 1) {
+                                    if (breakfastList.size() < 1) {
+                                        breakfastList.add(foodMenu);
+                                    }
                                 } else {
-                                    if (lunchList.size() == 0) {
-                                        lunchList.add(foodMenu);
-                                    } else if (dinnerList.size() == 0) {
-                                        dinnerList.add(foodMenu);
-                                    } else if (lunchList.size() < 3) {
-                                        lunchList.add(foodMenu);
-                                    } else if (dinnerList.size() < 3) {
-                                        dinnerList.add(foodMenu);
+                                    if (foodMenu.getName().contains("汤") || foodMenu.getName().contains("糕")
+                                            || foodMenu.getImage_url().equals("0") || foodMenu.getName().contains("汁")
+                                            || foodMenu.getName().contains("茶")) {
+
+                                    } else {
+                                        if (lunchList.size() == 0) {
+                                            lunchList.add(foodMenu);
+                                        } else if (dinnerList.size() == 0) {
+                                            dinnerList.add(foodMenu);
+                                        } else if (lunchList.size() < 3) {
+                                            lunchList.add(foodMenu);
+                                        } else if (dinnerList.size() < 3) {
+                                            dinnerList.add(foodMenu);
+                                        }
                                     }
                                 }
+                                Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        lunchRecyclerView.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                breakfastAdapter.notifyDataSetChanged();
+                                                dinnerAdapter.notifyDataSetChanged();
+                                                lunchAdapter.notifyDataSetChanged();
+                                            }
+                                        });
+                                    }
+                                });
+                                thread.start();
                             }
-                            Thread thread = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    lunchRecyclerView.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            breakfastAdapter.notifyDataSetChanged();
-                                            dinnerAdapter.notifyDataSetChanged();
-                                            lunchAdapter.notifyDataSetChanged();
+                        });
+                    }
+                }else{
+                    Random random = new Random(NutritionMaster.randomSeed + CalculateUtils.title2Int(text));
+                    start = random.nextInt(foodMenus.length );
+                    for (int i = start; i < start + 12; i++) {
+                        webUtil.getMenu(foodMenus[i].getName(), new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                String json = response.body().string();
+                                FoodMenu foodMenu = new Gson().fromJson(json, FoodMenu.class);
+                                if (foodMenu.getIs_breakfast() == 1) {
+                                    if (breakfastList.size() < 1) {
+                                        breakfastList.add(foodMenu);
+                                    }
+                                } else {
+                                    if (foodMenu.getName().contains("汤") || foodMenu.getName().contains("糕")
+                                            || foodMenu.getImage_url().equals("0") || foodMenu.getName().contains("汁")
+                                            || foodMenu.getName().contains("茶")) {
+
+                                    } else {
+                                        if (lunchList.size() == 0) {
+                                            lunchList.add(foodMenu);
+                                        } else if (dinnerList.size() == 0) {
+                                            dinnerList.add(foodMenu);
+                                        } else if (lunchList.size() < 3) {
+                                            lunchList.add(foodMenu);
+                                        } else if (dinnerList.size() < 3) {
+                                            dinnerList.add(foodMenu);
                                         }
-                                    });
+                                    }
                                 }
-                            });
-                            thread.start();
-                        }
-                    });
+                                Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        lunchRecyclerView.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                breakfastAdapter.notifyDataSetChanged();
+                                                dinnerAdapter.notifyDataSetChanged();
+                                                lunchAdapter.notifyDataSetChanged();
+                                            }
+                                        });
+                                    }
+                                });
+                                thread.start();
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -210,8 +264,8 @@ public class CustomizationActivity extends BaseActivity {
         Map<String, Double> params = new HashMap<>();
         try {
             Element calculated = NutritionMaster.element.calculateData(NutritionMaster.user);
-            params.put("calorie", (calculated.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie()) / 8);
-            params.put("fat", (calculated.getFat() - NutritionMaster.user.getEaten_elements().getFat()) / 8);
+            params.put("calorie", (calculated.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie()) / 4);
+            params.put("fat", (calculated.getFat() - NutritionMaster.user.getEaten_elements().getFat()) / 4);
 
 
 //            Logger.d((calculated.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie()));
@@ -255,7 +309,7 @@ public class CustomizationActivity extends BaseActivity {
             calorie = (int) (element.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie());
             calorieText.setText(calorie + "");
             protein = (int) (element.getProtein() - NutritionMaster.user.getEaten_elements().getProtein());
-            proteinText.setText(protein+"");
+            proteinText.setText(protein + "");
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

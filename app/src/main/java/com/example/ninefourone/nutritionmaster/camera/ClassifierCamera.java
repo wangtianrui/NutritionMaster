@@ -217,6 +217,7 @@ public class ClassifierCamera extends AppCompatActivity {
                                 JSONArray resultObject = jsonObject.getJSONArray("result");
                                 jsonObject = resultObject.getJSONObject(0);
                                 classifyResult.setCalorie(jsonObject.getInt("calorie"));
+                                Logger.d(jsonObject.getInt("calorie"));
                                 classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
                                 classifyResult.setProbability(jsonObject.getDouble("probability"));
                                 classifyResult.setName(jsonObject.getString("name"));

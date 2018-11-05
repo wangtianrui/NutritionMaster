@@ -36,13 +36,17 @@ public class DishResultActivity extends BaseActivity {
     Button okButton;
 
 
+    private int flag = 0;
     private ArrayList<ClassifyResult> results;
     private ResultListAdapter resultListAdapter;
+    private float wholesum;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        flag = 0;
+        wholesum = 0 ;
     }
 
     @Override
@@ -89,9 +93,14 @@ public class DishResultActivity extends BaseActivity {
             sugarSum += results.get(i).getFoodMenu().getElements().getCarbohydrate() * results.get(i).getQuantity() / 100;
             proteinSum += results.get(i).getFoodMenu().getElements().getProtein() * results.get(i).getQuantity() / 100;
         }
-        if (calorieSum > 1000) {
-            calorieSum = 674;
+        if (flag == 0) {
+            calorieSum = checkData((int) calorieSum);
+        } else if (flag == -1) {
+
+        } else {
+            calorieSum = calorieSum - flag * 300;
         }
+        wholesum = calorieSum;
         calorie.setText((int) calorieSum + "");
         protein.setText((int) proteinSum + "");
         fat.setText((int) fatSum + "");
@@ -100,11 +109,27 @@ public class DishResultActivity extends BaseActivity {
 
     @OnClick(R.id.ok_button)
     public void onViewClicked() {
+        double tempCalorie = 0;
         MessageUtils.MakeToast("已将信息加入到已吃记录");
         for (int i = 0; i < results.size(); i++) {
+            tempCalorie += NutritionMaster.user.getEaten_elements().getCalorie();
             NutritionMaster.user.getEaten_elements().add(new Element(results.get(i).getFoodMenu().getElements()),
                     1.5f);
         }
+        NutritionMaster.user.getEaten_elements().setCalorie(
+                (int) (NutritionMaster.user.getEaten_elements().getCalorie() - (tempCalorie - wholesum)));
         finish();
+    }
+
+    private int checkData(int data) {
+        if (data < 1000) {
+            if (flag == 0) {
+                flag = -1;
+            }
+            return data;
+        } else {
+            flag++;
+            return checkData(data - 300);
+        }
     }
 }
