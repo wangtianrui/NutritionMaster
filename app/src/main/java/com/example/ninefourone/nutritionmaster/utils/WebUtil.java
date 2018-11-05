@@ -150,6 +150,7 @@ public class WebUtil {
         mClient.newCall(request).enqueue(callback);
     }
 
+
     public void getUser(String username, Callback callback) {
         mClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://120.77.182.38/myuser/" + username + "/").build();
