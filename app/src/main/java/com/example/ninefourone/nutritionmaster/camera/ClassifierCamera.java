@@ -224,7 +224,7 @@ public class ClassifierCamera extends AppCompatActivity {
      *
      * @param view
      */
-    @OnClick({R.id.more_take_photo_button_capture, R.id.more_takephoto_ok})
+    @OnClick({R.id.more_take_photo_button_capture, R.id.more_takephoto_ok,R.id.results_text_view})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.more_take_photo_button_capture:
@@ -245,6 +245,9 @@ public class ClassifierCamera extends AppCompatActivity {
                 resultList.clear();
                 refreshUI();
                 finish();
+                break;
+            case R.id.results_text_view:
+
                 break;
         }
     }
