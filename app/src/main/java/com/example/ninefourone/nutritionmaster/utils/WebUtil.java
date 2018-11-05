@@ -124,7 +124,12 @@ public class WebUtil {
      * [ "接触电离辐射人员食谱", "防癌抗癌食谱", "明目食谱", "关节炎食谱", "壮腰健肾食谱" ] }
      */
     public void getOccupation(String occupationName, Callback callback) {
-        Request request = new Request.Builder().url("http://120.77.182.38/occupation/" + occupationName + "/").build();
+        Request request = null;
+        if (occupationName == null) {
+            request = new Request.Builder().url("http://120.77.182.38/occupation/").build();
+        } else {
+            request = new Request.Builder().url("http://120.77.182.38/occupation/" + occupationName + "/").build();
+        }
         mClient.newCall(request).enqueue(callback);
     }
 
