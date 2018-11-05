@@ -433,6 +433,54 @@ public class WebUtil {
                 .build();
         mClient.newCall(request).enqueue(callback);
     }
+//
+//    public static String HttpPost(String requestUrl, String accessToken, String params) throws Exception {
+//        System.out.println(params);
+//        String generalUrl = "";
+//        generalUrl = requestUrl + "?access_token=" + accessToken;
+//        System.out.println("发送的连接为:" + generalUrl);
+//        URL url = new URL(generalUrl);
+//        // 打开和URL之间的连接
+//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//        System.out.println("打开链接，开始发送请求" + new Date().getTime() / 1000);
+//        connection.setRequestMethod("POST");
+//        // 设置通用的请求属性
+//        connection.setRequestProperty("Content-Type", "application/json");
+//        connection.setRequestProperty("Connection", "Keep-Alive");
+//        connection.setUseCaches(false);
+//        connection.setDoOutput(true);
+//        connection.setDoInput(true);
+//
+//        // 得到请求的输出流对象
+//        DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+//        out.writeBytes(params);
+//        out.flush();
+//        out.close();
+//
+//        // 建立实际的连接
+//        connection.connect();
+//        // 获取所有响应头字段
+//        Map<String, List<String>> headers = connection.getHeaderFields();
+//        // 遍历所有的响应头字段
+//        for (String key : headers.keySet()) {
+//            System.out.println(key + "--->" + headers.get(key));
+//        }
+//        // 定义 BufferedReader输入流来读取URL的响应
+//        BufferedReader in = null;
+//        if (requestUrl.contains("nlp"))
+//            in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "GBK"));
+//        else
+//            in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+//        String result = "";
+//        String getLine;
+//        while ((getLine = in.readLine()) != null) {
+//            result += getLine;
+//        }
+//        in.close();
+//        System.out.println("请求结束" + new Date().getTime() / 1000);
+//        System.out.println("result:" + result);
+//        return result;
+//    }
 
     public static String HttpPost(String requestUrl, String accessToken, String params) throws Exception {
         System.out.println(params);
@@ -481,7 +529,6 @@ public class WebUtil {
         System.out.println("result:" + result);
         return result;
     }
-
     public static void main(String[] args) {
         Map<String, Double> params = new HashMap<>();
         params.put("calorie", 100.0);
@@ -502,6 +549,7 @@ public class WebUtil {
                 System.out.println(Arrays.toString(foodMenuLights));
             }
         });
+
 
 /*
         MyUser testUser = new MyUser();
@@ -677,5 +725,162 @@ public class WebUtil {
                 System.out.println(response.body().string());
             }
         });*/
+
+        /*
+         * MyUser testUser = new MyUser(); testUser.setUsername("test6");
+         * testUser.setPassword("66666"); testUser.setAge(8); testUser.setHeight(175);
+         * testUser.setPhysical_name("平和质"); List<String> ills = new ArrayList<>();
+         * ills.add("乌发食谱"); ills.add("失眠食谱"); testUser.setIllness(ills);
+         * 
+         * //创建用户 WebUtil.getInstance().createUser(testUser, new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { String responseJson = response.body().string();
+         * System.out.println(new Gson().fromJson(responseJson, MyUser.class)); } });
+         * 
+         * //修改用户信息 WebUtil.getInstance().changeUserInfo(testUser, new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { System.out.println(new
+         * Gson().fromJson(response.body().string(), MyUser.class)); } });
+         */
+
+        /*
+         * WebUtil.getInstance().eatenMenu("test5", "软熘虾片", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { String responseJson = response.body().string();
+         * System.out.println(responseJson); MyUser testUser = new
+         * Gson().fromJson(responseJson, MyUser.class); System.out.println(testUser); }
+         * });
+         */
+
+        /*
+         * WebUtil.getIllness("青少年食谱", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { System.out.println(new
+         * Gson().fromJson(response.body().string(),Illness.class)); } });
+         */
+
+        /*
+         * WebUtil.getMenu("雪丽对虾", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { FoodMenu menu = new Gson().fromJson(response.body().string(),
+         * FoodMenu.class); System.out.println(menu); } });
+         */
+
+        /*
+         * WebUtil.getRandomMenus(10, new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { FoodMenu[] menus = new
+         * Gson().fromJson(response.body().string(), FoodMenu[].class);
+         * System.out.println(Arrays.toString(menus)); System.out.println(menus.length);
+         * 
+         * } });
+         */
+
+
+        /*
+         * WebUtil.getFoodMaterial("西红柿", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { String json = response.body().string(); FoodMaterial
+         * foodMaterial = new Gson().fromJson(json, FoodMaterial.class);
+         * System.out.println(foodMaterial); } });
+         */
+
+        /*
+         * WebUtil.getMenuClassification("川菜", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { MenuClassification classification = new
+         * Gson().fromJson(response.body().string(), MenuClassification.class);
+         * System.out.println(classification); } });
+         */
+
+        /*
+         * WebUtil.getOccupation("程序员", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { String json = response.body().string(); System.out.println(new
+         * Gson().fromJson(json, Occupation.class));
+         * 
+         * } });
+         */
+
+        /*
+         * WebUtil.getPhysique("气虚质", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { System.out.println(new
+         * Gson().fromJson(response.body().string(), Physique.class)); } });
+         */
+
+        /*
+         * WebUtil.instance.getUser("test5", new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { System.out.println(new
+         * Gson().fromJson(response.body().string(), MyUser.class)); } });
+         */
+
+        /*
+         * WebUtil.getRandomTricks(10, new Callback() {
+         * 
+         * @Override public void onFailure(Call call, IOException e) {
+         * 
+         * }
+         * 
+         * @Override public void onResponse(Call call, Response response) throws
+         * IOException { System.out.println(response.body().string()); } });
+         */
+
     }
 }
