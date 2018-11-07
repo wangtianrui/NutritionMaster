@@ -113,11 +113,12 @@ public class DishResultActivity extends BaseActivity {
         MessageUtils.MakeToast("已将信息加入到已吃记录");
         for (int i = 0; i < results.size(); i++) {
             tempCalorie += NutritionMaster.user.getEaten_elements().getCalorie();
+            results.get(i).getFoodMenu().getElements().setCalorie(0);
             NutritionMaster.user.getEaten_elements().add(new Element(results.get(i).getFoodMenu().getElements()),
                     1.5f);
         }
         NutritionMaster.user.getEaten_elements().setCalorie(
-                (int) (NutritionMaster.user.getEaten_elements().getCalorie() - (tempCalorie - wholesum)));
+                (int) (NutritionMaster.user.getEaten_elements().getCalorie() + wholesum));
         finish();
     }
 
