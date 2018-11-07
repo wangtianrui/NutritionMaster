@@ -24,10 +24,14 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class RecipeActivity extends BaseActivity {
 
@@ -131,8 +135,17 @@ public class RecipeActivity extends BaseActivity {
                         NutritionMaster.user.getEaten_elements().add(element, 0.7f);
 
                         String username = NutritionMaster.user.getUsername();
-//                        WebUtil.getInstance().addEatenHistory(username,);
-                        Logger.d(username + " " + recommendFood.getMenu().getName());
+                        WebUtil.getInstance().addEatenHistory(username, recommendFood.getMenu().getName(), new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+
+                            }
+                        });
 
                     }
                 });
