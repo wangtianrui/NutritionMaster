@@ -25,12 +25,14 @@ import android.widget.TextView;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.MaterialResultActivity;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MaterialClassifier;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.youdao.sdk.app.Language;
 import com.youdao.sdk.app.LanguageUtils;
@@ -46,6 +48,7 @@ import org.json.JSONObject;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +56,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by ScorpioMiku on 2018/9/3.
@@ -257,16 +263,42 @@ public class ClassifierCamera extends AppCompatActivity {
                 cameraCoverLinearlayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.more_takephoto_ok:
-                Intent intent;
+                final Intent intent;
                 if (code == DISH_CODE) {
                     intent = new Intent(ClassifierCamera.this, DishResultActivity.class);
+                    intent.putExtra("LIST", resultList);
+                    startActivity(intent);
 
                 } else {
                     intent = new Intent(ClassifierCamera.this, MaterialResultActivity.class);
 
+
+                    //把拍照结果的食材名字放到新的List：materials里面
+                    List<String> materials = new ArrayList<>();
+                    for (ClassifyResult classifyResult : resultList) {
+                        materials.add(classifyResult.getName());
+                    }
+                    WebUtil.getInstance().getMenusByMaterials(materials, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, final Response response) throws IOException {
+                            String json = response.body().string();
+                            FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                            ArrayList<FoodMenu> menuList = new ArrayList<>();
+                            for (FoodMenu foodMenu : menus) {
+                                menuList.add(foodMenu);
+                            }
+                            intent.putExtra("LIST", menuList);
+                            startActivity(intent);
+                        }
+                    });
+
+
                 }
-                intent.putExtra("LIST", resultList);
-                startActivity(intent);
                 resultList.clear();
                 refreshUI();
                 finish();

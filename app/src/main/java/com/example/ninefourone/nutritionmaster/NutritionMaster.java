@@ -134,7 +134,7 @@ public class NutritionMaster extends Application {
      */
     private void initUser() {
         user = new MyUser();
-        user.setUsername("ScorpioMiku");
+        user.setUsername("test1");
     }
 
     /**

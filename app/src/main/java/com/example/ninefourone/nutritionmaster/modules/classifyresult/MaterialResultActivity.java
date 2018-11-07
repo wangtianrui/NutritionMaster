@@ -12,13 +12,20 @@ import com.example.ninefourone.nutritionmaster.base.BaseActivity;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.bean.Material;
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MaterialResultActivity extends BaseActivity {
 
@@ -37,12 +44,15 @@ public class MaterialResultActivity extends BaseActivity {
     @Override
     public void initViews(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        classifyResults = (ArrayList<ClassifyResult>) intent.getSerializableExtra("LIST");
-        list = classifyResults.get(0).getFoodMaterial().getMenus();
+//        classifyResults = (ArrayList<ClassifyResult>) intent.getSerializableExtra("LIST");
+//        list = classifyResults.get(0).getFoodMaterial().getMenus();
+        list= (ArrayList<FoodMenu>) intent.getSerializableExtra("LIST");
         adapter = new MaterialResultAdapter(list, MaterialResultActivity.this);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(MaterialResultActivity.this));
+
+
     }
 
     @Override
@@ -60,5 +70,8 @@ public class MaterialResultActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+
+
+
     }
 }
