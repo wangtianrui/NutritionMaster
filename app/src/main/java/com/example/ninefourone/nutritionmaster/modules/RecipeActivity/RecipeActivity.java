@@ -17,6 +17,7 @@ import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
 import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
+import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
@@ -128,6 +129,11 @@ public class RecipeActivity extends BaseActivity {
 
                         Element element = new Element(recommendFood.getMenu().getElements());
                         NutritionMaster.user.getEaten_elements().add(element, 0.7f);
+
+                        String username = NutritionMaster.user.getUsername();
+//                        WebUtil.getInstance().addEatenHistory(username,);
+                        Logger.d(username + " " + recommendFood.getMenu().getName());
+
                     }
                 });
         boomMenuButton.addBuilder(builder);
