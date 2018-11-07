@@ -28,9 +28,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.user = NutritionMaster.user;
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
-        initViews(savedInstanceState);
         webUtil = WebUtil.getInstance();
+
+        initViews(savedInstanceState);
         initToolBar();
+
     }
 
     public WebUtil getWebUtil() {

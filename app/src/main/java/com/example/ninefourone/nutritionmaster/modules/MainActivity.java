@@ -34,6 +34,7 @@ import com.example.ninefourone.nutritionmaster.bean.Illness;
 import com.example.ninefourone.nutritionmaster.camera.ClassifierCamera;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddInformationActivity;
 import com.example.ninefourone.nutritionmaster.modules.addinformation.AddPhysiqueActivity;
+import com.example.ninefourone.nutritionmaster.modules.historysearch.HistoryActivity;
 import com.example.ninefourone.nutritionmaster.modules.information.InformationActivity;
 import com.example.ninefourone.nutritionmaster.ui.NoScrollViewPager;
 import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
@@ -189,7 +190,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
-        toolBarNickname.setText(user.getUsername());
+        toolBarNickname.setText("NutritionMaster");
     }
 
     @Override
@@ -219,6 +220,24 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
+    /**
+     * 点击事件
+     */
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.id_action_search:
+                return true;
+            case R.id.id_action_record:
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 //        Logger.d("prepareMenu");
@@ -227,10 +246,6 @@ public class MainActivity extends BaseActivity {
 
 
     //mDrawer.openMenu();
-
-    /**
-     * 点击事件
-     */
 
 
     /**
