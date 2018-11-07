@@ -46,11 +46,11 @@ public class WebUtil {
     }
 
     /**
-     * 获取具体的菜谱信息 { "flavor": "咸鲜味", "calorie": 234, "name": "雪丽对虾",
-     * "technology": "炸", "image_url":
+     * 获取具体的菜谱信息 { "flavor": "咸鲜味", "calorie": 234, "name": "雪丽对虾", "technology":
+     * "炸", "image_url":
      * "http://s1.ig.meishij.net/p/20091012/fed63858e633540c8df73e62692520fb_150x150.jpg",
-     * "cook_quantity": [ { "menu": "雪丽对虾", "quantity": "500", "material": "对虾"
-     * }, { "menu": "雪丽对虾", "quantity": "60", "material": "鸡蛋清" }, }
+     * "cook_quantity": [ { "menu": "雪丽对虾", "quantity": "500", "material": "对虾" }, {
+     * "menu": "雪丽对虾", "quantity": "60", "material": "鸡蛋清" }, }
      */
     public void getMenu(String menuName, Callback callback) {
         Request request = new Request.Builder().url("http://120.77.182.38/menus/" + menuName + "/").build();
@@ -95,9 +95,9 @@ public class WebUtil {
     }
 
     /**
-     * 获取某食材可以做的菜 [ { "menu": "西红柿鸡蛋汤", "quantity": "适量", "material":
-     * "西红柿" }, { "menu": "瘦身版红菜汤", "quantity": "4-5片", "material": "西红柿" },
-     * { "menu": "西红柿炖豆腐", "quantity": "三个", "material": "西红柿" }, ]
+     * 获取某食材可以做的菜 [ { "menu": "西红柿鸡蛋汤", "quantity": "适量", "material": "西红柿" }, {
+     * "menu": "瘦身版红菜汤", "quantity": "4-5片", "material": "西红柿" }, { "menu":
+     * "西红柿炖豆腐", "quantity": "三个", "material": "西红柿" }, ]
      *
      * @param materialName
      * @param callback
@@ -108,10 +108,9 @@ public class WebUtil {
     }
 
     /**
-     * 获取某菜谱分类对应的菜 { "classification": "川菜", "cure_occupation": [],
-     * "menu_effect": [ "三色鲍脯", "三色鸡酪", "三菇冬瓜汤", "三菌烩蛇段", "三鲜乌鱼汤",
-     * "三鲜参片汤", "三鲜猪肝汤", "下饭的素版麻婆豆腐", "丝瓜鱼肚卷", "五更豆酥鱼", "元鱼烧鸡",
-     * "冬苋菜豆腐汤", "冬菜排骨汤",
+     * 获取某菜谱分类对应的菜 { "classification": "川菜", "cure_occupation": [], "menu_effect": [
+     * "三色鲍脯", "三色鸡酪", "三菇冬瓜汤", "三菌烩蛇段", "三鲜乌鱼汤", "三鲜参片汤", "三鲜猪肝汤", "下饭的素版麻婆豆腐",
+     * "丝瓜鱼肚卷", "五更豆酥鱼", "元鱼烧鸡", "冬苋菜豆腐汤", "冬菜排骨汤",
      */
     public void getMenuClassification(String classificationName, Callback callback) {
         Request request = new Request.Builder()
@@ -120,8 +119,8 @@ public class WebUtil {
     }
 
     /**
-     * 获取职业需要的菜谱分类 { "occupation_name": "电力工程师", "menuclassification_set":
-     * [ "接触电离辐射人员食谱", "防癌抗癌食谱", "明目食谱", "关节炎食谱", "壮腰健肾食谱" ] }
+     * 获取职业需要的菜谱分类 { "occupation_name": "电力工程师", "menuclassification_set": [
+     * "接触电离辐射人员食谱", "防癌抗癌食谱", "明目食谱", "关节炎食谱", "壮腰健肾食谱" ] }
      */
     public void getOccupation(String occupationName, Callback callback) {
         Request request = null;
@@ -134,8 +133,8 @@ public class WebUtil {
     }
 
     /**
-     * 获取体质需要的食材 { "physical_name": "气虚质", "cure_material": [ "人参", "人参须",
-     * "去芯莲子", "去芯莲子（3~4人份）", "土茯苓", ... ] }
+     * 获取体质需要的食材 { "physical_name": "气虚质", "cure_material": [ "人参", "人参须", "去芯莲子",
+     * "去芯莲子（3~4人份）", "土茯苓", ... ] }
      */
     public void getPhysique(String physiqueName, Callback callback) {
         Request request = new Request.Builder().url("http://120.77.182.38/physique/" + physiqueName + "/").build();
@@ -146,8 +145,8 @@ public class WebUtil {
      * 获取病相关的菜谱和元素信息 传入含有病的意义的菜谱分类名称,比如青少年食谱
      * <p>
      * { "menu_classification": { "classification": "青少年食谱", "cure_occupation": [
-     * "学生" ], "menu_effect": [ "三鲜鳝汤", "上海糖醋小排骨", ... ] }, "elements": {
-     * "id": 84, "calorie": 1.1, ... } }
+     * "学生" ], "menu_effect": [ "三鲜鳝汤", "上海糖醋小排骨", ... ] }, "elements": { "id": 84,
+     * "calorie": 1.1, ... } }
      */
     public void getIllness(String illnessClassification, Callback callback) {
         Request request = new Request.Builder().url("http://120.77.182.38/illness/" + illnessClassification + "/")
@@ -298,8 +297,7 @@ public class WebUtil {
     }
 
     /**
-     * 用户吃了一个菜,更新用户本周已吃摄入的营养元素的量 传入这顿饭摄入的营养量
-     * 返回当前user的最新信息,用MyUser类解析json
+     * 用户吃了一个菜,更新用户本周已吃摄入的营养元素的量 传入这顿饭摄入的营养量 返回当前user的最新信息,用MyUser类解析json
      */
     public void eatenElements(String username, Map<String, Double> elements, Callback callback) {
         String url = "http://120.77.182.38/myuser/eaten_menu/";
