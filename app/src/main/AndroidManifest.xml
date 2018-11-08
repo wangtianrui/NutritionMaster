@@ -60,7 +60,8 @@
         <!-- android:label="@string/title_activity_login" /> -->
         <activity android:name=".modules.addinformation.AddInformationActivity" />
         <activity android:name=".modules.classifyresult.DishResultActivity" />
-        <activity android:name=".modules.classifyresult.MaterialResultActivity"></activity>
+        <activity android:name=".modules.classifyresult.MaterialResultActivity" />
+        <activity android:name=".modules.historysearch.HistoryActivity"></activity>
     </application>
 
 </manifest>

@@ -16,35 +16,32 @@ public class RecommendFood implements MultiItemEntity, Serializable {
     public static final int TYPE_MIDDLE = 1;
     public static final int TYPE_DETAIL = 2;
 
-    private int picture;
+    private String picture;
     private String title;
     private String description;
     private int type;
-    private Menu menu;
+    private FoodMenu menu;
 
-    public Menu getMenu() {
+    public FoodMenu getMenu() {
         return menu;
     }
 
-    public void setMenu(Menu menu) {
+    public void setMenu(FoodMenu menu) {
         this.menu = menu;
     }
 
-    public RecommendFood(int picture, String title, String description, int type) {
-        this.picture = picture;
-        this.title = title;
-        this.description = description;
+    public RecommendFood(FoodMenu foodMenu, int type) {
+        menu = foodMenu;
+        picture = foodMenu.getImage_url();
+        title = foodMenu.getName();
         this.type = type;
-        if (type > 2) {
-            Logger.e("混合recycler type不对");
-        }
     }
 
-    public int getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(int picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -67,5 +64,11 @@ public class RecommendFood implements MultiItemEntity, Serializable {
     @Override
     public int getItemType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return menu.toString();
+
     }
 }

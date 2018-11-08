@@ -5,7 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
-import com.example.ninefourone.nutritionmaster.bean.Material;
+import com.example.ninefourone.nutritionmaster.bean.FoodMaterial;
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,11 +25,12 @@ public class MaterialHolder extends RecyclerView.ViewHolder {
 
     public MaterialHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(Material material) {
-        weightNumber.setText(material.getWeight() + "");
-        name.setText(material.getMaterialName());
+    public void bindView(FoodMenu.CookQuantityBean cookQuantityBean) {
+        name.setText(cookQuantityBean.getMaterial());
+        String weight = cookQuantityBean.getQuantity();
+        weightNumber.setText(weight);
     }
 }

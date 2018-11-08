@@ -5,30 +5,6 @@
 
 仓库地址: https://github.com/wangtianrui/NutritionMaster
 
-### 需求
-
-* 针对特殊人群,提供饮食,药膳等方案
-  * 查查各种病理对食物的禁忌和需求
-* 秦楚吉(1667787307) 17:41:35
-  1设置整体活动水平 低：大部分坐姿，中等：大部分站立，高：大部分步行，非常高：身体需要
-  2为每一个推荐菜品提供菜谱
-  3根据目标卡路里-食物卡路里+运动卡路里=剩余卡路里进行每日的卡路里限制
-  4区分了各类食物中蛋白质糖以及脂肪
-  5以日期作为日志进行记录
-  6分别针对增肌、减脂、塑形进行运动训练
-  7好友社区
-  8商城（健身之类）
-  * **写的什么jb玩意啊?**
-
-| 详细需求分析       | 备注   | 开发进度 |
-| ------------ | ---- | ---- |
-|              |      |      |
-| 为每一个推荐菜品提供菜谱 |      |      |
-|              |      |      |
-|              |      |      |
-
-
-
 ### 数据分析
 
 * 人体健康信息
@@ -141,7 +117,7 @@
 * user表: 添加综合对物质的需求 √
 
 * 菜单表: 
-  * **添加一列早/午晚餐,早为1,else为0.  根据 饼 粥 羹 面 奶  判断**  
+  * 添加一列早/午晚餐,早为1,else为0.  根据 饼 粥 羹 面 奶  判断  
   * 补充一下缺失的url,卡路里 √
   * 添加几列各种物质的需求 √
     * 有一部分数据是爬下的csv里面直接读取,一部分缺失的用food_material的组合来计算
@@ -164,18 +140,106 @@
 
   * 用户职业BMI分类 3多动,2中等,1少动  先 `getUser`获取到用户的职业名字.然后`getOccupation`获取到该职业的BMI分类
 
-  * 动态改变用户已吃的营养元素的量: 在用户表添加element参数,每周清空一次,每吃一个菜就记录一下  
+  * 动态改变用户已吃的营养元素的量: 在用户表添加element参数,每周自动清空一次
 
-    * 获取用户本周已摄入的营养元素的量: `getUser`得到当前用户的信息,解析后用`MyUser`的`getEaten_elements()`获取到Element对象.里面有各种元素信息
-    * 每吃一个菜就post一下
+    * Map的可选参数:  `[calorie,carbohydrate,fat ,protein,cellulose,vitaminA,vitaminB1,vitaminB2,vitaminB6,vitaminC,vitaminE,carotene,cholesterol,Mg,Ca,Fe,Zn,Cu,Mn,K ,P ,Na,Se,niacin ,thiamine]`
 
-    ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvsze639cyj30k507vaa9.jpg)
+    ```java
+    public static void main(String[] args) {
+        	//只传入变动的参数就行.
+        	//比如 这顿饭摄入了100卡路里,10脂肪.就这样写.
+            Map<String, Double> params = new HashMap<>();
+            params.put("calorie", 100.0);
+            params.put("fat", 10.0);
+    		
+        	//第一个参数是username,第二个参数是摄入的营养元素值.可以看函数的源码,有注释
+            WebUtil.getInstance().eatenElements("test5", params, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    System.out.println(new Gson().fromJson(response.body().string(), MyUser.class));
+    
+                }
+            });
+    }
+    ```
 
-  * **用户的浏览历史: 添加用户和菜谱的多对多关系**
+  * 获取用户本周已摄入的营养元素的量: `getUser`得到当前用户的信息,解析后用`MyUser`的`getEaten_elements()`获取到Element对象.里面有各种元素信息
+
+  * 根据多个食材组合来搜菜
+
+    ```java
+    List<String> materialList = new ArrayList<>();
+            materialList.add("黄瓜");
+            materialList.add("茄子");
+    //        materialList.add("鸡蛋");
+            WebUtil.getInstance().getMenusByMaterials(materialList, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    //必须判断状态码,如果为200说明正常,如果为404,说明这几个食材组合查询不到可以做的菜
+                    if (response.code() == 200) {
+                        String json = response.body().string();
+                        FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                        System.out.println(menus);
+                        for (FoodMenu menu : menus) {
+                            System.out.println(menu.getName());
+                        }
+                    } else {
+                        System.out.println("查不到组合食材可以做的菜");
+                    }
+                }
+            });
+    ```
+
+  * 用户的浏览历史: 添加用户和菜谱的多对多关系
+
+    ```java
+    //获取历史记录  传入username
+    WebUtil.getInstance().getEatenHistory("test5", new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    History[] histories = new Gson().fromJson(json, History[].class);
+                    System.out.println(Arrays.toString(histories));
+                }
+            });
+    //添加历史记录  传入username 和 Menu的名字
+    WebUtil.getInstance().addEatenHistory("test5", "多味茄子泥", new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+    
+                }
+    
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String json = response.body().string();
+                    History history = new Gson().fromJson(json, History.class);
+                    System.out.println(history);
+                }
+            });
+    ```
 
   * 菜名搜索: `getMenu`方法,传入菜名(菜名通过其他的各种关联方式获取) (menu.calorie是直接爬到的卡路里值,营养元素里的menu.elements.calorie卡路里是根据每个食材的卡路里计算的,相对来说,menu.calorie的值更准确)
 
   * 功效搜菜 `getMenuClassification`传入分类(功效)参数,比如川菜.搜到所有的川菜名字.然后可以用菜名搜索搜某个菜的详细信息
+
+  * **点赞或评论来影响推荐顺序**
+
+  * **晒图区域**
 
   * 营养量搜菜 : 搜索某个营养量范围内的菜
 
@@ -192,9 +256,9 @@
             WebUtil.getInstance().getMenusByElements(params, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
+    
                 }
-
+    
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String json = response.body().string();
@@ -277,3 +341,65 @@
   * `occupation_name`,`physical_name`的值必须和数据库对应
 
   ![](http://ww1.sinaimg.cn/large/0077h8xtly1fvjbfh6vm1j30r70eh3zj.jpg)
+
+
+
+## 国赛阶段
+
+### 代码
+
+* 优化了`getRandomMenus方法`,传入username参数.会根据user的体质,职业,病理推荐菜
+
+  ```java
+  public void getRandomMenus(int count, String username, Callback callback)
+  ```
+
+  这个方法之前的版本没有username参数,**现在弃用原来的版本,原来的方法仍然可以调用,需要把项目的所有getRandomMenus方法调用加上一个username参数**
+
+### 问题
+
+* ~~连续识别,出现错误的,点一下消去  锐!~~
+* ~~bug: 连续拍照后 点了一周定制  锐~~
+* ~~*食材模糊识别 ok*~~
+* ~~通过食材组合,搜索菜 ,菜要符合username的信息   赵和锐 `getMenusByMaterials`~~
+* 卡路里不对
+* ~~*早餐晚餐的搜索不随机 shuffle了一下.ok*~~
+
+  * ~~`get_menus_by_elements` django随机一下~~
+* 周定制下面的两个按钮  锐
+* ~~*搜菜如果搜不到   把name减一下再搜  ok*~~
+* getRandomMenus的调用里面加上username参数 锐
+* 吃饭的时候没拍照,吃饭完了才想添加,但是菜图片没有了.需要输入添加 (王)
+* 口味信息采集
+* 历史记录
+* 社交功能: 点赞,晒图,评论
+
+
+  ### 时间安排
+
+* 周日上午答辩
+* 周五排练
+
+### PPT安排
+
+* 小组分工介绍
+
+
+* 产品背景 秦
+* 量身定制 林
+* 周定制 林
+* 动态添加 智能定量 赵
+* 拍食材做菜(食菜帮) 赵
+* 菜谱推荐 秦
+
+* 产品亮点 秦
+* 产品难点 王
+* 未来展望 王
+  * 相信在不就得将来,在AI智能定制膳食的帮助下,人们不再为职业病,慢性病所烦恼,享受科学膳食带来的健康生活.
+
+### 需要演示的功能
+
+* 拍照  菜品识别  识别  烤鸭 土豆丝  鱼香肉丝  红烧肉  炒面   (动态调量,修改当天余额)
+* 拍照 食材识别  胡萝卜  白萝卜  姜  长条茄子  菜花   (根据用户的信息,并且是多搜索)
+
+* 周定制(最左边的fragment) 

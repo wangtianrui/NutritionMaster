@@ -37,6 +37,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
+        webUtil = WebUtil.getInstance();
         parentView = inflater.inflate(getLayoutResId(), container, false);
         activity = getSupportActivity();
         return parentView;
@@ -47,7 +48,6 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         initView(savedInstanceState);
-        webUtil = WebUtil.getInstance();
         this.user = NutritionMaster.user;
     }
 

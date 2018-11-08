@@ -30,7 +30,7 @@ public class MyUser {
      */
 
     private Integer id;
-    private EatenElementsBean eaten_elements;
+    private EatenElementsBean eaten_elements = new EatenElementsBean();
     private String physical_name;
     private String password;
     private Object last_login;
@@ -42,12 +42,12 @@ public class MyUser {
     private Boolean is_staff;
     private Boolean is_active;
     private String date_joined;
-    private Integer sex;
+    private Integer sex = 1;
     private Integer age;
     private Integer height;
     private Integer weight;
     private Integer bmi = new Integer(-1);
-    private String occupation_name;
+    private String occupation_name = "";
     private List<?> groups;
     private List<?> user_permissions;
     private List<?> illness;
@@ -84,6 +84,12 @@ public class MyUser {
                 ", illness=" + illness +
                 '}';
     }
+
+
+    public void changeElement(EatenElementsBean eaten_elements) {
+
+    }
+
 
     public Integer getId() {
         return id;
@@ -292,7 +298,7 @@ public class MyUser {
          */
 
         private double id;
-        private double calorie;
+        private double calorie = 1;
         private double carbohydrate;
         private double fat;
         private double protein;
@@ -556,6 +562,34 @@ public class MyUser {
 
         public void setThiamine(double thiamine) {
             this.thiamine = thiamine;
+        }
+
+        public void add(Element element, float factor) {
+            calorie += element.getCalorie() * factor;
+            carbohydrate += (float) element.getCarbohydrate() * factor;
+            fat += (float) element.getFat() * factor;
+            protein += (float) element.getProtein() * factor;
+            cellulose += (float) element.getCellulose() * factor;
+            vitaminA += (float) element.getVitaminA() * factor;
+            vitaminB1 += element.getVitaminB1() * factor;
+            vitaminB2 += (float) element.getVitaminB2() * factor;
+            vitaminB6 += element.getVitaminB6() * factor;
+            vitaminC += (float) element.getVitaminC() * factor;
+            vitaminE += (float) element.getVitaminE() * factor;
+            carotene += (float) element.getCarotene() * factor;
+            cholesterol += (float) element.getCholesterol() * factor;
+            Mg += (float) element.getMg() * factor;
+            Ca += (float) element.getCa() * factor;
+            Fe += (float) element.getFe() * factor;
+            Zn += (float) element.getZn() * factor;
+            Cu += (float) element.getCu() * factor;
+            Mn += (float) element.getMn() * factor;
+            K += (float) element.getK() * factor;
+            P += (float) element.getP() * factor;
+            Na += (float) element.getNa() * factor;
+            Se += (float) element.getSe() * factor;
+            niacin += (float) element.getNiacin() * factor;
+            thiamine += (float) element.getThiamine() * factor;
         }
     }
 }

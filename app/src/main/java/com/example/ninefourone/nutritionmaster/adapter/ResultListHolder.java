@@ -68,6 +68,6 @@ public class ResultListHolder extends RecyclerView.ViewHolder {
 
 
         name.setText(classifyResult.getName());
-        Glide.with(context).load("http://s2.boohee.cn/house/food_big/big_photo20155149534910631.jpg").into(image);
+        Glide.with(context).load(classifyResult.getImgPath()).into(image);
     }
 }

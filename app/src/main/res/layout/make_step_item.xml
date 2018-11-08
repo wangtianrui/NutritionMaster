@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#f9f9f6"
+    android:gravity="center_vertical"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/make_step_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+
+        android:gravity="center_vertical"
         android:textColor="#212121"
         tools:text="@string/app_name" />
 

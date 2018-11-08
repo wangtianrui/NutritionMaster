@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.Window;
@@ -18,13 +23,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ninefourone.nutritionmaster.R;
+import com.example.ninefourone.nutritionmaster.base.BaseFragment;
 import com.example.ninefourone.nutritionmaster.bean.ClassifyResult;
+import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.DishResultActivity;
 import com.example.ninefourone.nutritionmaster.modules.classifyresult.MaterialResultActivity;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.MaterialClassifier;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.youdao.sdk.app.Language;
 import com.youdao.sdk.app.LanguageUtils;
@@ -37,6 +45,10 @@ import com.youdao.sdk.ydtranslate.TranslateParameters;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +56,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by ScorpioMiku on 2018/9/3.
@@ -171,7 +186,20 @@ public class ClassifierCamera extends AppCompatActivity {
     private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            bitmap = rotateBitmapByDegree(bitmap, 90);
+            //缩放
+            bitmap = Bitmap.createScaledBitmap(bitmap, 720, 1280, false);
             try {
+                final File pictureDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                final String pictureName = System.currentTimeMillis() + ".jpg";
+                final String picturePath = pictureDir + File.separator + pictureName;
+                File file = new File(picturePath);
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                bos.flush();
+                bos.close();
+
                 String imgStr = Base64.encodeToString(data, Base64.DEFAULT);
                 String imgParam = URLEncoder.encode(imgStr, "UTF-8");
                 final String param = "image=" + imgParam + "&top_num=" + 1;
@@ -186,6 +214,7 @@ public class ClassifierCamera extends AppCompatActivity {
                                 result = jsonObject.getJSONArray("objects")
                                         .getJSONObject(0).getString("value");
                                 translate(result);
+                                refreshUI();
                             } else if (code == DISH_CODE) {
                                 result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
                                         ConstantUtils.BD_ACCESS_TOKEN, param);
@@ -194,10 +223,12 @@ public class ClassifierCamera extends AppCompatActivity {
                                 JSONArray resultObject = jsonObject.getJSONArray("result");
                                 jsonObject = resultObject.getJSONObject(0);
                                 classifyResult.setCalorie(jsonObject.getInt("calorie"));
+                                Logger.d(jsonObject.getInt("calorie"));
                                 classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
                                 classifyResult.setProbability(jsonObject.getDouble("probability"));
                                 classifyResult.setName(jsonObject.getString("name"));
                                 classifyResult.getMenu();
+                                classifyResult.setImgPath(picturePath);
                                 resultList.add(classifyResult);
                                 refreshUI();
                             } else {
@@ -224,7 +255,11 @@ public class ClassifierCamera extends AppCompatActivity {
      *
      * @param view
      */
+<<<<<<< HEAD
     @OnClick({R.id.more_take_photo_button_capture, R.id.more_takephoto_ok,R.id.results_text_view})
+=======
+    @OnClick({R.id.more_take_photo_button_capture, R.id.more_takephoto_ok, R.id.results_text_view})
+>>>>>>> develop
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.more_take_photo_button_capture:
@@ -232,22 +267,53 @@ public class ClassifierCamera extends AppCompatActivity {
                 cameraCoverLinearlayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.more_takephoto_ok:
-                Intent intent;
+                final Intent intent;
                 if (code == DISH_CODE) {
                     intent = new Intent(ClassifierCamera.this, DishResultActivity.class);
+                    intent.putExtra("LIST", resultList);
+                    startActivity(intent);
 
                 } else {
                     intent = new Intent(ClassifierCamera.this, MaterialResultActivity.class);
 
+
+                    //把拍照结果的食材名字放到新的List：materials里面
+                    List<String> materials = new ArrayList<>();
+                    for (ClassifyResult classifyResult : resultList) {
+                        materials.add(classifyResult.getName());
+                    }
+                    WebUtil.getInstance().getMenusByMaterials(materials, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, final Response response) throws IOException {
+                            String json = response.body().string();
+                            FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                            ArrayList<FoodMenu> menuList = new ArrayList<>();
+                            for (FoodMenu foodMenu : menus) {
+                                menuList.add(foodMenu);
+                            }
+                            intent.putExtra("LIST", menuList);
+                            startActivity(intent);
+                        }
+                    });
+
+
                 }
-                intent.putExtra("LIST", resultList);
-                startActivity(intent);
                 resultList.clear();
                 refreshUI();
                 finish();
                 break;
             case R.id.results_text_view:
+<<<<<<< HEAD
 
+=======
+                resultList.remove(resultList.size() - 1);
+                refreshUI();
+>>>>>>> develop
                 break;
         }
     }
@@ -326,7 +392,7 @@ public class ClassifierCamera extends AppCompatActivity {
             public void onResult(Translate translate, String s, String s1) {
                 String result = "";
                 result = translate.getTranslations().get(0);
-//                Logger.d(result);
+                Logger.d(result);
                 ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.MATERIAL);
                 classifyResult.setName(result);
                 resultList.add(classifyResult);
@@ -338,5 +404,27 @@ public class ClassifierCamera extends AppCompatActivity {
 
             }
         });
+    }
+
+    //修改图片保存方向
+    public static Bitmap rotateBitmapByDegree(Bitmap bm, int degree) {
+        Bitmap returnBm = null;
+
+        //Matrix图片动作（旋转平移）
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+
+        try {
+            returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+        } catch (OutOfMemoryError e) {
+
+        }
+        if (returnBm == null) {
+            returnBm = bm;
+        }
+        if (bm != returnBm) {
+            bm.recycle();
+        }
+        return returnBm;
     }
 }

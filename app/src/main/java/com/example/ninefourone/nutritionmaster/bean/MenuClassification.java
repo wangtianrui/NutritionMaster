@@ -1,8 +1,9 @@
 package com.example.ninefourone.nutritionmaster.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MenuClassification {
+public class MenuClassification implements Serializable{
 
     /**
      * classification : 川菜

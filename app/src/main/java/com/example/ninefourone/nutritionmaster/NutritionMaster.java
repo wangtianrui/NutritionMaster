@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.example.ninefourone.nutritionmaster.bean.Element;
 import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
+import com.example.ninefourone.nutritionmaster.bean.Illness;
 import com.example.ninefourone.nutritionmaster.bean.MyUser;
 
 import com.example.ninefourone.nutritionmaster.bean.Occupation;
+import com.example.ninefourone.nutritionmaster.bean.Physique;
+import com.example.ninefourone.nutritionmaster.utils.CalculateUtils;
 import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
@@ -39,7 +43,16 @@ public class NutritionMaster extends Application {
     public static NutritionMaster mInstance;
     private int appCount = 0;
 
-    public static MyUser user;
+    public static MyUser user = null;
+    public static Physique physique = null;
+    public static Occupation occupation = null;
+    public static Element element = null;
+    public static Illness illness = null;
+
+    public static Element calculatedElement = null;
+
+    public static int randomSeed = CalculateUtils.getWeek();
+
 
     @Override
     public void onCreate() {
@@ -121,7 +134,7 @@ public class NutritionMaster extends Application {
      */
     private void initUser() {
         user = new MyUser();
-        user.setUsername("ScorpioMiku");
+        user.setUsername("test1");
     }
 
     /**
@@ -176,9 +189,9 @@ public class NutritionMaster extends Application {
             // 获取所有响应头字段
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
-            for (String key : map.keySet()) {
-                System.err.println(key + "--->" + map.get(key));
-            }
+//            for (String key : map.keySet()) {
+//                System.err.println(key + "--->" + map.get(key));
+//            }
             // 定义 BufferedReader输入流来读取URL的响应
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String result = "";
@@ -203,6 +216,7 @@ public class NutritionMaster extends Application {
      */
     private void initYouDao() {
         YouDaoApplication.init(this, ConstantUtils.YOUDAO_APPKEY);
+
     }
 
 
