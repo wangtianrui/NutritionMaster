@@ -209,11 +209,20 @@ public class ClassifierCamera extends AppCompatActivity {
                         String result = null;
                         try {
                             if (code == MATERAIL_CODE) {
-                                MaterialClassifier materialClassifier = new MaterialClassifier();
-                                JSONObject jsonObject = materialClassifier.plantDetect(data);
-                                result = jsonObject.getJSONArray("objects")
-                                        .getJSONObject(0).getString("value");
-                                translate(result);
+//                                MaterialClassifier materialClassifier = new MaterialClassifier();
+//                                JSONObject jsonObject = materialClassifier.plantDetect(data);
+//                                result = jsonObject.getJSONArray("objects")
+//                                        .getJSONObject(0).getString("value");
+//                                translate(result);
+                                result = WebUtil.HttpPost(ConstantUtils.BD_MATERIAL_URL,
+                                        ConstantUtils.BD_ACCESS_TOKEN, param);
+                                Logger.d(result);
+                                JSONObject jsonObject = new JSONObject(result);
+                                JSONArray resultObject = jsonObject.getJSONArray("result");
+                                jsonObject = resultObject.getJSONObject(0);
+                                ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.MATERIAL);
+                                classifyResult.setName(jsonObject.getString("name"));
+                                resultList.add(classifyResult);
                                 refreshUI();
                             } else if (code == DISH_CODE) {
                                 result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
@@ -255,11 +264,8 @@ public class ClassifierCamera extends AppCompatActivity {
      *
      * @param view
      */
-<<<<<<< HEAD
-    @OnClick({R.id.more_take_photo_button_capture, R.id.more_takephoto_ok,R.id.results_text_view})
-=======
+
     @OnClick({R.id.more_take_photo_button_capture, R.id.more_takephoto_ok, R.id.results_text_view})
->>>>>>> develop
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.more_take_photo_button_capture:
@@ -308,12 +314,8 @@ public class ClassifierCamera extends AppCompatActivity {
                 finish();
                 break;
             case R.id.results_text_view:
-<<<<<<< HEAD
-
-=======
                 resultList.remove(resultList.size() - 1);
                 refreshUI();
->>>>>>> develop
                 break;
         }
     }

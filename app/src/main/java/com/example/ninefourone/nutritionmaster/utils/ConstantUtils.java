@@ -278,6 +278,7 @@ public class ConstantUtils {
     public static String BD_ACCESS_TOKEN = "";
 
     public static String BD_DISH_URL = "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish";
+    public static String BD_MATERIAL_URL = "https://aip.baidubce.com/rest/2.0/image-classify/v1/classify/ingredient";
 
 //    public static ArrayList<ClassifyResult> testData = new ArrayList<>();
 //

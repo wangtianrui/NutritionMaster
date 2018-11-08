@@ -480,7 +480,7 @@ public class WebUtil {
             }
         });
 
-<<<<<<< HEAD
+
 
 /*
         MyUser testUser = new MyUser();
@@ -657,8 +657,7 @@ public class WebUtil {
             }
         });*/
 
-=======
->>>>>>> develop
+
         /*
          * MyUser testUser = new MyUser(); testUser.setUsername("test6");
          * testUser.setPassword("66666"); testUser.setAge(8); testUser.setHeight(175);
@@ -739,10 +738,7 @@ public class WebUtil {
          * } });
          */
 
-<<<<<<< HEAD
 
-=======
->>>>>>> develop
         /*
          * WebUtil.getFoodMaterial("西红柿", new Callback() {
          * 
@@ -817,9 +813,6 @@ public class WebUtil {
          * @Override public void onResponse(Call call, Response response) throws
          * IOException { System.out.println(response.body().string()); } });
          */
-<<<<<<< HEAD
 
-=======
->>>>>>> develop
     }
 }

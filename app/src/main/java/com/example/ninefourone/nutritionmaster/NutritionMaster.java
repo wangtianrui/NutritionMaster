@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -155,6 +157,7 @@ public class NutritionMaster extends Application {
                 for (int i = 0; i < occupations.length; i++) {
                     ConstantUtils.occupationList.add(occupations[i].getOccupation_name());
                 }
+                Collections.shuffle(ConstantUtils.occupationList);
             }
         });
 
