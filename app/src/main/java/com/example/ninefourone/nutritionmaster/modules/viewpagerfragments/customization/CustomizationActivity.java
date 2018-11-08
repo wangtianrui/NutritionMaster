@@ -128,6 +128,9 @@ public class CustomizationActivity extends BaseActivity {
     @Override
     public void loadData() {
         super.loadData();
+        breakfastList.clear();
+        dinnerList.clear();
+        lunchList.clear();
         final WebUtil webUtil = WebUtil.getInstance();
         webUtil.getMenusByElements(getElementLimit(), new Callback() {
             @Override
@@ -192,9 +195,9 @@ public class CustomizationActivity extends BaseActivity {
                             }
                         });
                     }
-                }else{
+                } else {
                     Random random = new Random(NutritionMaster.randomSeed + CalculateUtils.title2Int(text));
-                    start = random.nextInt(foodMenus.length );
+                    start = random.nextInt(foodMenus.length);
                     for (int i = start; i < start + 12; i++) {
                         webUtil.getMenu(foodMenus[i].getName(), new Callback() {
                             @Override
@@ -254,6 +257,8 @@ public class CustomizationActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.change_button:
+                NutritionMaster.randomSeed = CalculateUtils.getSecond();
+                loadData();
                 break;
             case R.id.copy_button:
                 break;
@@ -315,6 +320,15 @@ public class CustomizationActivity extends BaseActivity {
         }
 
 
+    }
+
+    /**
+     * 添加到饮食记录
+     */
+    private void addRecord() {
+        for (int i = 0; i < breakfastList.size(); i++) {
+
+        }
     }
 
 

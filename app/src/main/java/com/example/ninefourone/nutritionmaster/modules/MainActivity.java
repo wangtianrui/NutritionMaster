@@ -139,6 +139,8 @@ public class MainActivity extends BaseActivity {
 
     private HomePagerAdapter homePagerAdapter;
 
+    public static float[] scores = {3.1f, 2.5f, 1.7f, 5.9f, 4.6f};
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -165,7 +167,7 @@ public class MainActivity extends BaseActivity {
 //                Logger.i("openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
-        initSpiderView();
+
         initViewPager();
         initSearchView();
         initBMB();
@@ -252,7 +254,7 @@ public class MainActivity extends BaseActivity {
      * 初始化蛛网图
      */
     private void initSpiderView() {
-        float[] scores = {9.1f, 6.5f, 7.7f, 8.9f, 8.6f};
+
         String[] flags = {"糖分", "淡水", "蛋白质", "维生素", "矿物质"};
 
         List<RadarEntry> radarEntries = new ArrayList<>();
@@ -313,6 +315,15 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    public void refreshSpider() {
+        for (int i = 0; i < scores.length; i++) {
+            scores[i] += (1 - i / 2);
+            if (scores[i] >= 10) {
+                scores[i] = 9.9f;
+            }
+        }
+    }
+
     /**
      * 初始化SearchView
      */
@@ -320,7 +331,7 @@ public class MainActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                MessageUtils.MakeToast(query);
+
                 return false;
             }
 
@@ -574,6 +585,7 @@ public class MainActivity extends BaseActivity {
 //                }
 //            });
 //        }else{
+        initSpiderView();
         illButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -623,4 +635,6 @@ public class MainActivity extends BaseActivity {
         });
 //        }
     }
+
+
 }
