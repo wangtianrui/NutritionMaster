@@ -130,6 +130,20 @@ public class MainActivity extends BaseActivity {
     LinearLayout illButton;
     @BindView(R.id.change_information)
     TextView changeInformation;
+    @BindView(R.id.add_flavour_button)
+    ImageView addFlavourButton;
+    @BindView(R.id.bmi_self)
+    TextView bmiSelf;
+    @BindView(R.id.bmi_standard)
+    TextView bmiStandard;
+    @BindView(R.id.height_self)
+    TextView heightSelf;
+    @BindView(R.id.height_standard)
+    TextView heightStandard;
+    @BindView(R.id.weight_self)
+    TextView weightSelf;
+    @BindView(R.id.weight_standard)
+    TextView weightStandard;
 
 
     private OptionsPickerView illPicker;
@@ -511,21 +525,24 @@ public class MainActivity extends BaseActivity {
                 bmiBar.setSecondaryProgress(bmiAverage);
                 bmiBar.setProgress(bmiSelf);
             } else {
+                changeColor("bmi");
                 bmiBar.setMax(100);
                 bmiBar.setSecondaryProgress(bmiSelf);
                 bmiBar.setProgress(bmiAverage);
                 bmiBar.setProgressColor(getColor(R.color.color_bar_deeper));
                 bmiBar.setSecondaryProgressColor(getColor(R.color.color_bar_self));
             }
-
+//            NutritionMaster.user.setBmi(bmiSelf);
 
             float heightAverage = averageHeight / maxHeight * 100.0f;
             float heightSelf = height / maxHeight * 100.0f;
             if (heightAverage > heightSelf) {
+
                 heightBar.setMax(100);
                 heightBar.setSecondaryProgress(heightAverage);
                 heightBar.setProgress(heightSelf);
             } else {
+                changeColor("height");
                 heightBar.setMax(100);
                 heightBar.setSecondaryProgress(heightSelf);
                 heightBar.setProgress(heightAverage);
@@ -537,10 +554,12 @@ public class MainActivity extends BaseActivity {
             float weightAverage = averageWeight / maxWeight * 100.0f;
             float weightSelf = weight / maxWeight * 100.0f;
             if (weightAverage > weightSelf) {
+
                 weightBar.setMax(100);
                 weightBar.setSecondaryProgress(weightAverage);
                 weightBar.setProgress(weightSelf);
             } else {
+                changeColor("weight");
                 weightBar.setMax(100);
                 weightBar.setSecondaryProgress(weightSelf);
                 weightBar.setProgress(weightAverage);
@@ -553,6 +572,23 @@ public class MainActivity extends BaseActivity {
 //                    "weight" + averageWeight / maxWeight * 100.0f + "|" + weight / maxWeight * 100.0f);
 
 
+        }
+    }
+
+    /**
+     * 切换bar的颜色
+     */
+    @SuppressLint("ResourceAsColor")
+    private void changeColor(String flag) {
+        if (flag.equals("bmi")) {
+            bmiSelf.setBackgroundColor(R.color.color_bar_deeper);
+            bmiStandard.setBackgroundColor(R.color.color_bar_self);
+        } else if (flag.equals("height")) {
+            heightBar.setBackgroundColor(R.color.color_bar_deeper);
+            heightStandard.setBackgroundColor(R.color.color_bar_self);
+        } else if (flag.equals("weight")) {
+            weightSelf.setBackgroundColor(R.color.color_bar_deeper);
+            weightStandard.setBackgroundColor(R.color.color_bar_self);
         }
     }
 
@@ -633,7 +669,13 @@ public class MainActivity extends BaseActivity {
                 illPicker.show();
             }
         });
-//        }
+
+        addFlavourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 

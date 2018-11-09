@@ -134,61 +134,61 @@ public class RecommendFragment extends BaseFragment {
     protected void loadData() {
         super.loadData();
 //        if (NutritionMaster.user.getOccupation_name().equals("")) {
-            getWebUtil().getRandomMenus(20, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
+        getWebUtil().getRandomMenus(20, NutritionMaster.user.getUsername(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
-                }
+            }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String json = response.body().string();
-                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
-                    int count = 0;
-                    for (int i = 0; i < menus.length; i++) {
-                        if (count > 11) {
-                            break;
-                        } else {
-                            int flag = indexs[count % 3];
-                            RecommendFood recommendFood = new RecommendFood(menus[i], flag);
-                            if (!recommendFood.getPicture().equals("0")) {
-                                datas.add(recommendFood);
-                                count++;
-                            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                int count = 0;
+                for (int i = 0; i < menus.length; i++) {
+                    if (count > 11) {
+                        break;
+                    } else {
+                        int flag = indexs[count % 3];
+                        RecommendFood recommendFood = new RecommendFood(menus[i], flag);
+                        if (!recommendFood.getPicture().equals("0")) {
+                            datas.add(recommendFood);
+                            count++;
                         }
                     }
-
-                    /**
-                     * 获取小知识
-                     */
-                    getWebUtil().getRandomTricks(5, new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            String json = response.body().string();
-                            Trick[] tricks = new Gson().fromJson(json, Trick[].class);
-                            int index = 0;
-                            for (int i = 0; i < datas.size(); i++) {
-                                if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {
-                                    datas.get(i).setDescription(tricks[index].getContent());
-                                    datas.get(i).setTitle(tricks[index].getTitle());
-                                    index++;
-                                }
-                            }
-                            recyclerView.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    adapter.notifyDataSetChanged();
-                                }
-                            });
-                        }
-                    });
                 }
-            });
+
+                /**
+                 * 获取小知识
+                 */
+                getWebUtil().getRandomTricks(5, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String json = response.body().string();
+                        Trick[] tricks = new Gson().fromJson(json, Trick[].class);
+                        int index = 0;
+                        for (int i = 0; i < datas.size(); i++) {
+                            if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {
+                                datas.get(i).setDescription(tricks[index].getContent());
+                                datas.get(i).setTitle(tricks[index].getTitle());
+                                index++;
+                            }
+                        }
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
     }
 
@@ -197,62 +197,62 @@ public class RecommendFragment extends BaseFragment {
      */
     private void addData() {
 //        if (NutritionMaster.user.getOccupation_name().equals("")) {
-            getWebUtil().getRandomMenus(20, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
+        getWebUtil().getRandomMenus(20, NutritionMaster.user.getUsername(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
-                }
+            }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    final int originsize = datas.size();
-                    String json = response.body().string();
-                    FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
-                    int count = 0;
-                    for (int i = 0; i < menus.length; i++) {
-                        if (count > 7) {
-                            break;
-                        } else {
-                            int flag = indexs[count % 3];
-                            RecommendFood recommendFood = new RecommendFood(menus[i], flag);
-                            if (!recommendFood.getPicture().equals("0")) {
-                                datas.add(recommendFood);
-                                count++;
-                            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final int originsize = datas.size();
+                String json = response.body().string();
+                FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                int count = 0;
+                for (int i = 0; i < menus.length; i++) {
+                    if (count > 7) {
+                        break;
+                    } else {
+                        int flag = indexs[count % 3];
+                        RecommendFood recommendFood = new RecommendFood(menus[i], flag);
+                        if (!recommendFood.getPicture().equals("0")) {
+                            datas.add(recommendFood);
+                            count++;
                         }
                     }
-
-                    /**
-                     * 获取小知识
-                     */
-                    getWebUtil().getRandomTricks(5, new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            String json = response.body().string();
-                            Trick[] tricks = new Gson().fromJson(json, Trick[].class);
-                            int index = 0;
-                            for (int i = originsize; i < datas.size(); i++) {
-                                if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {
-                                    datas.get(i).setDescription(tricks[index].getContent());
-                                    datas.get(i).setTitle(tricks[index].getTitle());
-                                    index++;
-                                }
-                            }
-                            recyclerView.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    adapter.loadMoreComplete();
-                                }
-                            });
-                        }
-                    });
                 }
-            });
+
+                /**
+                 * 获取小知识
+                 */
+                getWebUtil().getRandomTricks(5, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String json = response.body().string();
+                        Trick[] tricks = new Gson().fromJson(json, Trick[].class);
+                        int index = 0;
+                        for (int i = originsize; i < datas.size(); i++) {
+                            if (datas.get(i).getItemType() == RecommendFood.TYPE_DETAIL) {
+                                datas.get(i).setDescription(tricks[index].getContent());
+                                datas.get(i).setTitle(tricks[index].getTitle());
+                                index++;
+                            }
+                        }
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.loadMoreComplete();
+                            }
+                        });
+                    }
+                });
+            }
+        });
 //        }
     }
 

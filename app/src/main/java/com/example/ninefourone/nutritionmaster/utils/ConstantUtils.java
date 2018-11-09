@@ -86,7 +86,7 @@ public class ConstantUtils {
     }
 
     /**
-     * 全国平均体重  index 0 对应 3岁
+     * 全国平均身高  index 0 对应 3岁
      */
     public static ArrayList<Float> averageBoyHeight = new ArrayList<>();
 

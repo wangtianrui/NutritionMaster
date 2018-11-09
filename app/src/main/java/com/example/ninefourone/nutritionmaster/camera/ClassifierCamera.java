@@ -8,9 +8,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -33,6 +35,7 @@ import com.example.ninefourone.nutritionmaster.utils.MaterialClassifier;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
+import com.nanchen.compresshelper.CompressHelper;
 import com.orhanobut.logger.Logger;
 import com.youdao.sdk.app.Language;
 import com.youdao.sdk.app.LanguageUtils;
@@ -46,6 +49,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -184,6 +188,7 @@ public class ClassifierCamera extends AppCompatActivity {
      * 拍照回调
      */
     private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
+        @RequiresApi(api = Build.VERSION_CODES.FROYO)
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -199,8 +204,11 @@ public class ClassifierCamera extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                 bos.flush();
                 bos.close();
-
-                String imgStr = Base64.encodeToString(data, Base64.DEFAULT);
+                bitmap = CompressHelper.getDefault(getApplicationContext()).compressToBitmap(file);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                byte[] dat = baos.toByteArray();
+                String imgStr = Base64.encodeToString(dat, Base64.DEFAULT);
                 String imgParam = URLEncoder.encode(imgStr, "UTF-8");
                 final String param = "image=" + imgParam + "&top_num=" + 1;
                 Thread thread = new Thread(new Runnable() {
