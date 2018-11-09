@@ -230,7 +230,7 @@ public class BodyInformationFragment extends BaseFragment {
             weightLineChart.setVisibility(View.INVISIBLE);
         }
         if (NutritionMaster.element != null) {
-            Logger.d(NutritionMaster.element);
+//            Logger.d(NutritionMaster.element);
             try {
                 Element elementTemp = NutritionMaster.element.calculateData(NutritionMaster.user);
                 float temp = (float) (elementTemp.getCalorie() - NutritionMaster.user.getEaten_elements().getCalorie());

@@ -169,7 +169,8 @@ public class CalculateUtils {
             calories[i] = classifyResultArrayList.get(i).getCalorie();
         }
         for (int i = 0; i < classifyResultArrayList.size(); i++) {
-            classifyResultArrayList.get(i).setQuantity(calories[i] / calorieSum * baseQuantity * factor);
+            classifyResultArrayList.get(i).setQuantity(calories[i] / calorieSum * baseQuantity * factor
+                    + NutritionMaster.flavourCount * 5);
         }
         return classifyResultArrayList;
     }

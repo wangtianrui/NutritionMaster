@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.TextView;
 
+import com.example.ninefourone.nutritionmaster.NutritionMaster;
 import com.example.ninefourone.nutritionmaster.R;
 import com.example.ninefourone.nutritionmaster.bean.Illness;
+import com.example.ninefourone.nutritionmaster.utils.ConstantUtils;
+import com.orhanobut.logger.Logger;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +33,7 @@ public class IllnessHolder extends RecyclerView.ViewHolder {
         this.adapter = adapter;
     }
 
-    public void bindView(String illness, final int position) {
+    public void bindView(final String illness, final int position) {
         text.setText(illness);
         text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +50,10 @@ public class IllnessHolder extends RecyclerView.ViewHolder {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         adapter.deleteItem(position);
+                        if (ConstantUtils.getFlavour().contains(illness)) {
+                            NutritionMaster.flavourCount -= (ConstantUtils.getFlavour().indexOf(illness) + 1);
+//                            Logger.d(NutritionMaster.flavourCount);
+                        }
                     }
                 });
 

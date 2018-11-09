@@ -63,6 +63,8 @@ import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -147,7 +149,9 @@ public class MainActivity extends BaseActivity {
 
 
     private OptionsPickerView illPicker;
+    private OptionsPickerView flavourPicker;
     private ArrayList<String> illness = ConstantUtils.getIllness();
+    private ArrayList<String> flavours = ConstantUtils.getFlavour();
     private ArrayList<String> userIllness = new ArrayList<>();
     private IllAdapter illAdapter;
 
@@ -648,8 +652,9 @@ public class MainActivity extends BaseActivity {
                                             illRecyclerView.post(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    userIllness.add(illname);
-                                                    illAdapter.notifyDataSetChanged();
+                                                    if (!userIllness.contains(illname)) {
+                                                        userIllness.add(illname);
+                                                    }
                                                     illAdapter.notifyDataSetChanged();
                                                     if (NutritionMaster.occupation != null && NutritionMaster.physique != null) {
                                                         NutritionMaster.element = CalculateUtils.getElementsAddIllness(NutritionMaster.illness,
@@ -673,7 +678,21 @@ public class MainActivity extends BaseActivity {
         addFlavourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                flavourPicker = new OptionsPickerBuilder(MainActivity.this, new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                        final String flavourString = flavours.get(options1);
+                        if (!userIllness.contains(flavourString)) {
+                            userIllness.add(flavourString);
+                        }
+                        NutritionMaster.flavourCount += (options1 + 1);
+//                        Logger.d(NutritionMaster.flavourCount);
+                        illAdapter.notifyDataSetChanged();
+                    }
+                }).build();
+                flavourPicker.setPicker(flavours);
+                flavourPicker.setTitleText("请选择你喜欢的口味");
+                flavourPicker.show();
             }
         });
     }

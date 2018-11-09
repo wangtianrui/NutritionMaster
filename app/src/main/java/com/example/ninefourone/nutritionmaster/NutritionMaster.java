@@ -50,6 +50,7 @@ public class NutritionMaster extends Application {
     public static Occupation occupation = null;
     public static Element element = null;
     public static Illness illness = null;
+    public static int flavourCount = 0;
 
     public static Element calculatedElement = null;
 

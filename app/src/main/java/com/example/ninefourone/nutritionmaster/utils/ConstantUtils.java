@@ -343,5 +343,15 @@ public class ConstantUtils {
         return arrayList;
     }
 
+    public static ArrayList<String> getFlavour() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("苦");
+        arrayList.add("甜");
+        arrayList.add("咸");
+        arrayList.add("辣");
+        arrayList.add("酸");
+        return arrayList;
+    }
+
     public static String YOUDAO_APPKEY = "3ea8061348a6bdd6";
 }
