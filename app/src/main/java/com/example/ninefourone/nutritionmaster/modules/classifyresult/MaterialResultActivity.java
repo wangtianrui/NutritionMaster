@@ -34,6 +34,7 @@ public class MaterialResultActivity extends BaseActivity {
     RecyclerView recyclerView;
     ArrayList<ClassifyResult> classifyResults;
     ArrayList<FoodMenu> list;
+    private ArrayList<String> nameList;
     private MaterialResultAdapter adapter;
 
     @Override
@@ -46,13 +47,33 @@ public class MaterialResultActivity extends BaseActivity {
         Intent intent = getIntent();
 //        classifyResults = (ArrayList<ClassifyResult>) intent.getSerializableExtra("LIST");
 //        list = classifyResults.get(0).getFoodMaterial().getMenus();
-        list= (ArrayList<FoodMenu>) intent.getSerializableExtra("LIST");
+        nameList = (ArrayList<String>) intent.getSerializableExtra("LIST");
         adapter = new MaterialResultAdapter(list, MaterialResultActivity.this);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(MaterialResultActivity.this));
 
+        WebUtil.getInstance().getMenusByMaterials(nameList, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                String json = response.body().string();
+                FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+                for (FoodMenu foodMenu : menus) {
+                    list.add(foodMenu);
+                }
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -70,7 +91,6 @@ public class MaterialResultActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
-
 
 
     }

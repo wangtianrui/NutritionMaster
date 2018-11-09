@@ -113,6 +113,5 @@ dependencies {
     implementation files('libs/YoudaoTranslateOffline.jar')
     implementation files('libs/YoudaoTranslateOnline.jar')
 
-    //图片压缩
-    implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
+
 }

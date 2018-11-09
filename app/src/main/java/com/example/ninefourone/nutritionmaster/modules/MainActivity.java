@@ -686,7 +686,6 @@ public class MainActivity extends BaseActivity {
                             userIllness.add(flavourString);
                         }
                         NutritionMaster.flavourCount += (options1 + 1);
-//                        Logger.d(NutritionMaster.flavourCount);
                         illAdapter.notifyDataSetChanged();
                     }
                 }).build();

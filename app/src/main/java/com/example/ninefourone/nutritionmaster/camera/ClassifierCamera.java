@@ -35,7 +35,6 @@ import com.example.ninefourone.nutritionmaster.utils.MaterialClassifier;
 import com.example.ninefourone.nutritionmaster.utils.MessageUtils;
 import com.example.ninefourone.nutritionmaster.utils.WebUtil;
 import com.google.gson.Gson;
-import com.nanchen.compresshelper.CompressHelper;
 import com.orhanobut.logger.Logger;
 import com.youdao.sdk.app.Language;
 import com.youdao.sdk.app.LanguageUtils;
@@ -204,11 +203,11 @@ public class ClassifierCamera extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                 bos.flush();
                 bos.close();
-                bitmap = CompressHelper.getDefault(getApplicationContext()).compressToBitmap(file);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                byte[] dat = baos.toByteArray();
-                String imgStr = Base64.encodeToString(dat, Base64.DEFAULT);
+//                bitmap = CompressHelper.getDefault(getApplicationContext()).compressToBitmap(file);
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//                byte[] dat = baos.toByteArray();
+                String imgStr = Base64.encodeToString(data, Base64.DEFAULT);
                 String imgParam = URLEncoder.encode(imgStr, "UTF-8");
                 final String param = "image=" + imgParam + "&top_num=" + 1;
                 Thread thread = new Thread(new Runnable() {
@@ -292,28 +291,30 @@ public class ClassifierCamera extends AppCompatActivity {
 
 
                     //把拍照结果的食材名字放到新的List：materials里面
-                    List<String> materials = new ArrayList<>();
+                    ArrayList<String> materials = new ArrayList<>();
                     for (ClassifyResult classifyResult : resultList) {
                         materials.add(classifyResult.getName());
                     }
-                    WebUtil.getInstance().getMenusByMaterials(materials, new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(Call call, final Response response) throws IOException {
-                            String json = response.body().string();
-                            FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
-                            ArrayList<FoodMenu> menuList = new ArrayList<>();
-                            for (FoodMenu foodMenu : menus) {
-                                menuList.add(foodMenu);
-                            }
-                            intent.putExtra("LIST", menuList);
-                            startActivity(intent);
-                        }
-                    });
+//                    WebUtil.getInstance().getMenusByMaterials(materials, new Callback() {
+//                        @Override
+//                        public void onFailure(Call call, IOException e) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onResponse(Call call, final Response response) throws IOException {
+//                            String json = response.body().string();
+//                            FoodMenu[] menus = new Gson().fromJson(json, FoodMenu[].class);
+//                            ArrayList<FoodMenu> menuList = new ArrayList<>();
+//                            for (FoodMenu foodMenu : menus) {
+//                                menuList.add(foodMenu);
+//                            }
+//                            intent.putExtra("LIST", menuList);
+//                            startActivity(intent);
+//                        }
+//                    });
+                    intent.putExtra("LIST", materials);
+                    startActivity(intent);
 
 
                 }

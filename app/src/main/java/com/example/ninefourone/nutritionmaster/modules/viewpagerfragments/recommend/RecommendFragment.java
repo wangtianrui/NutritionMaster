@@ -1,8 +1,8 @@
 package com.example.ninefourone.nutritionmaster.modules.viewpagerfragments.recommend;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +17,9 @@ import com.example.ninefourone.nutritionmaster.bean.FoodMenu;
 import com.example.ninefourone.nutritionmaster.bean.RecommendFood;
 import com.example.ninefourone.nutritionmaster.bean.Trick;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import android.view.LayoutInflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +36,8 @@ public class RecommendFragment extends BaseFragment {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     Unbinder unbinder;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private RecommendAdapter adapter;
     private ArrayList<RecommendFood> datas = new ArrayList<>();
@@ -123,6 +121,13 @@ public class RecommendFragment extends BaseFragment {
             }
         });
         recyclerView.setLayoutManager(manager);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                changeInfor();
+            }
+        });
     }
 
     /**
@@ -183,6 +188,9 @@ public class RecommendFragment extends BaseFragment {
                             @Override
                             public void run() {
                                 adapter.notifyDataSetChanged();
+                                if (swipeRefreshLayout.isRefreshing()){
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
                         });
                     }
@@ -263,5 +271,13 @@ public class RecommendFragment extends BaseFragment {
      */
     private boolean isDataOverCount() {
         return false;
+    }
+
+    /**
+     * 修改信息后修改推荐
+     */
+    public void changeInfor() {
+        datas.clear();
+        loadData();
     }
 }
