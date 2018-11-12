@@ -203,10 +203,7 @@ public class ClassifierCamera extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                 bos.flush();
                 bos.close();
-//                bitmap = CompressHelper.getDefault(getApplicationContext()).compressToBitmap(file);
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-//                byte[] dat = baos.toByteArray();
+
                 String imgStr = Base64.encodeToString(data, Base64.DEFAULT);
                 String imgParam = URLEncoder.encode(imgStr, "UTF-8");
                 final String param = "image=" + imgParam + "&top_num=" + 1;

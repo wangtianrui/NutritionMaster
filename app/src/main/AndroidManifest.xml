@@ -33,7 +33,6 @@
 
         android:name=".NutritionMaster"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic"
