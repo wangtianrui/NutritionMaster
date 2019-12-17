@@ -3,6 +3,8 @@
 
 一款基于数据分析的智能饮食推荐APP  
 
+演示视频：https://v.qq.com/x/page/y0738g124q2.html?spm=a2h0k.11417342.soresults.dtitle
+
 仓库地址: https://github.com/wangtianrui/NutritionMaster
 
 ### 数据分析
