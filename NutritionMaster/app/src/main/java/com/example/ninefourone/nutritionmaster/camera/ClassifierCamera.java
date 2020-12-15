@@ -212,38 +212,31 @@ public class ClassifierCamera extends AppCompatActivity {
                     public void run() {
                         String result = null;
                         try {
-                            if (code == MATERAIL_CODE) {
-//                                MaterialClassifier materialClassifier = new MaterialClassifier();
-//                                JSONObject jsonObject = materialClassifier.plantDetect(data);
-//                                result = jsonObject.getJSONArray("objects")
-//                                        .getJSONObject(0).getString("value");
-//                                translate(result);
-                                result = WebUtil.HttpPost(ConstantUtils.BD_MATERIAL_URL,
-                                        ConstantUtils.BD_ACCESS_TOKEN, param);
-                                Logger.d(result);
-                                JSONObject jsonObject = new JSONObject(result);
-                                JSONArray resultObject = jsonObject.getJSONArray("result");
-                                jsonObject = resultObject.getJSONObject(0);
-                                ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.MATERIAL);
-                                classifyResult.setName(jsonObject.getString("name"));
-                                resultList.add(classifyResult);
-                                refreshUI();
-                            } else if (code == DISH_CODE) {
-                                result = WebUtil.HttpPost(ConstantUtils.BD_DISH_URL,
-                                        ConstantUtils.BD_ACCESS_TOKEN, param);
-                                JSONObject jsonObject = new JSONObject(result);
-                                ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.DISH);
-                                JSONArray resultObject = jsonObject.getJSONArray("result");
-                                jsonObject = resultObject.getJSONObject(0);
-                                classifyResult.setCalorie(jsonObject.getInt("calorie"));
-                                Logger.d(jsonObject.getInt("calorie"));
-                                classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
-                                classifyResult.setProbability(jsonObject.getDouble("probability"));
-                                classifyResult.setName(jsonObject.getString("name"));
-                                classifyResult.getMenu();
-                                classifyResult.setImgPath(picturePath);
-                                resultList.add(classifyResult);
-                                refreshUI();
+//                             if (code == MATERAIL_CODE) {
+// //                                MaterialClassifier materialClassifier = new MaterialClassifier();
+// //                                JSONObject jsonObject = materialClassifier.plantDetect(data);
+// //                          
+//                                 Logger.d(result);
+//                                 JSONObject jsonObject = new JSONObject(result);
+//                                 JSONArray resultObject = jsonObject.getJSONArray("result");
+//                                 jsonObject = resultObject.getJSONObject(0);
+//                                 ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.MATERIAL);
+//                                 classifyResult.setName(jsonObject.getString("name"));
+//                                 resultList.add(classifyResult);
+//                                 refreshUI();
+//                             } else if (code == DISH_CODE) {
+//                                 ClassifyResult classifyResult = new ClassifyResult(ClassifyResult.DISH);
+//                                 JSONArray resultObject = jsonObject.getJSONArray("result");
+//                                 jsonObject = resultObject.getJSONObject(0);
+//                                 classifyResult.setCalorie(jsonObject.getInt("calorie"));
+//                                 Logger.d(jsonObject.getInt("calorie"));
+//                                 classifyResult.setHas_calorie(jsonObject.getBoolean("has_calorie"));
+//                                 classifyResult.setProbability(jsonObject.getDouble("probability"));
+//                                 classifyResult.setName(jsonObject.getString("name"));
+//                                 classifyResult.getMenu();
+//                                 classifyResult.setImgPath(picturePath);
+//                                 resultList.add(classifyResult);
+//                                 refreshUI();
                             } else {
                                 Logger.e("拍照code为-1");
                             }
